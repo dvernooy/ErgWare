@@ -1,0 +1,1024 @@
+   1               		.file	"chqueues.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	chIQObjectInit
+  18               	chIQObjectInit:
+  19               	.LFB90:
+  20               	.LM1:
+  21               	.LVL0:
+  22 0000 0F93      		push r16
+  23               	.LVL1:
+  24 0002 1F93      		push r17
+  25               	/* prologue: function */
+  26               	/* frame size = 0 */
+  27 0004 FC01      		movw r30,r24
+  28               	.LBB54:
+  29               	.LBB55:
+  30               	.LBB56:
+  31               	.LBB57:
+  32               	.LM2:
+  33 0006 8283      		std Z+2,r24
+  34 0008 F383      		std Z+3,r31
+  35               	.LVL2:
+  36 000a 8083      		st Z,r24
+  37 000c F183      		std Z+1,r31
+  38               	.LBE57:
+  39               	.LBE56:
+  40               	.LBE55:
+  41               	.LBE54:
+  42               	.LM3:
+  43 000e 1582      		std Z+5,__zero_reg__
+  44 0010 1482      		std Z+4,__zero_reg__
+  45               	.LM4:
+  46 0012 7387      		std Z+11,r23
+  47 0014 6287      		std Z+10,r22
+  48 0016 7587      		std Z+13,r23
+  49 0018 6487      		std Z+12,r22
+  50 001a 7783      		std Z+7,r23
+  51 001c 6683      		std Z+6,r22
+  52               	.LM5:
+  53 001e 640F      		add r22,r20
+  54 0020 751F      		adc r23,r21
+  55               	.LVL3:
+  56 0022 7187      		std Z+9,r23
+  57 0024 6087      		std Z+8,r22
+  58               	.LM6:
+  59 0026 3787      		std Z+15,r19
+  60 0028 2687      		std Z+14,r18
+  61               	.LM7:
+  62 002a 118B      		std Z+17,r17
+  63 002c 008B      		std Z+16,r16
+  64               	.LVL4:
+  65               	/* epilogue start */
+  66               	.LM8:
+  67 002e 1F91      		pop r17
+  68 0030 0F91      		pop r16
+  69               	.LVL5:
+  70 0032 0895      		ret
+  71               	.LFE90:
+  73               	.global	chOQObjectInit
+  75               	chOQObjectInit:
+  76               	.LFB95:
+  77               	.LM9:
+  78               	.LVL6:
+  79 0034 0F93      		push r16
+  80               	.LVL7:
+  81 0036 1F93      		push r17
+  82               	/* prologue: function */
+  83               	/* frame size = 0 */
+  84 0038 FC01      		movw r30,r24
+  85               	.LBB58:
+  86               	.LBB59:
+  87               	.LBB60:
+  88               	.LBB61:
+  89               	.LM10:
+  90 003a 8283      		std Z+2,r24
+  91 003c F383      		std Z+3,r31
+  92               	.LVL8:
+  93 003e 8083      		st Z,r24
+  94 0040 F183      		std Z+1,r31
+  95               	.LBE61:
+  96               	.LBE60:
+  97               	.LBE59:
+  98               	.LBE58:
+  99               	.LM11:
+ 100 0042 5583      		std Z+5,r21
+ 101 0044 4483      		std Z+4,r20
+ 102               	.LM12:
+ 103 0046 7387      		std Z+11,r23
+ 104 0048 6287      		std Z+10,r22
+ 105 004a 7587      		std Z+13,r23
+ 106 004c 6487      		std Z+12,r22
+ 107 004e 7783      		std Z+7,r23
+ 108 0050 6683      		std Z+6,r22
+ 109               	.LM13:
+ 110 0052 640F      		add r22,r20
+ 111 0054 751F      		adc r23,r21
+ 112               	.LVL9:
+ 113 0056 7187      		std Z+9,r23
+ 114 0058 6087      		std Z+8,r22
+ 115               	.LM14:
+ 116 005a 3787      		std Z+15,r19
+ 117 005c 2687      		std Z+14,r18
+ 118               	.LM15:
+ 119 005e 118B      		std Z+17,r17
+ 120 0060 008B      		std Z+16,r16
+ 121               	.LVL10:
+ 122               	/* epilogue start */
+ 123               	.LM16:
+ 124 0062 1F91      		pop r17
+ 125 0064 0F91      		pop r16
+ 126               	.LVL11:
+ 127 0066 0895      		ret
+ 128               	.LFE95:
+ 130               	.global	chOQWriteTimeout
+ 132               	chOQWriteTimeout:
+ 133               	.LFB99:
+ 134               	.LM17:
+ 135               	.LVL12:
+ 136 0068 6F92      		push r6
+ 137 006a 7F92      		push r7
+ 138 006c 8F92      		push r8
+ 139 006e 9F92      		push r9
+ 140 0070 AF92      		push r10
+ 141 0072 BF92      		push r11
+ 142 0074 CF92      		push r12
+ 143 0076 DF92      		push r13
+ 144 0078 EF92      		push r14
+ 145 007a FF92      		push r15
+ 146 007c 0F93      		push r16
+ 147 007e 1F93      		push r17
+ 148 0080 CF93      		push r28
+ 149 0082 DF93      		push r29
+ 150               	/* prologue: function */
+ 151               	/* frame size = 0 */
+ 152 0084 EC01      		movw r28,r24
+ 153 0086 7B01      		movw r14,r22
+ 154 0088 8A01      		movw r16,r20
+ 155 008a 4901      		movw r8,r18
+ 156               	.LM18:
+ 157 008c AE84      		ldd r10,Y+14
+ 158 008e BF84      		ldd r11,Y+15
+ 159               	.LVL13:
+ 160               	.LBB62:
+ 161               	.LBB63:
+ 162               	.LM19:
+ 163               	/* #APP */
+ 164               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 165 0090 F894      		cli
+ 166               	 ;  0 "" 2
+ 167               	/* #NOAPP */
+ 168               	.LBE63:
+ 169               	.LBE62:
+ 170               	.LM20:
+ 171 0092 3C01      		movw r6,r24
+ 172               	.LVL14:
+ 173 0094 CC24      		clr r12
+ 174 0096 DD24      		clr r13
+ 175               	.LVL15:
+ 176               	.L14:
+ 177               	.LBB64:
+ 178               	.LBB65:
+ 179               	.LM21:
+ 180 0098 8C81      		ldd r24,Y+4
+ 181 009a 9D81      		ldd r25,Y+5
+ 182               	.LBE65:
+ 183               	.LBE64:
+ 184               	.LM22:
+ 185 009c 0097      		sbiw r24,0
+ 186 009e 01F0      		breq .L8
+ 187               	.L16:
+ 188               	.LM23:
+ 189 00a0 0197      		sbiw r24,1
+ 190 00a2 9D83      		std Y+5,r25
+ 191 00a4 8C83      		std Y+4,r24
+ 192               	.LM24:
+ 193 00a6 F701      		movw r30,r14
+ 194 00a8 8081      		ld r24,Z
+ 195 00aa EA85      		ldd r30,Y+10
+ 196 00ac FB85      		ldd r31,Y+11
+ 197 00ae 8193      		st Z+,r24
+ 198 00b0 FB87      		std Y+11,r31
+ 199 00b2 EA87      		std Y+10,r30
+ 200               	.LM25:
+ 201 00b4 8885      		ldd r24,Y+8
+ 202 00b6 9985      		ldd r25,Y+9
+ 203 00b8 E817      		cp r30,r24
+ 204 00ba F907      		cpc r31,r25
+ 205 00bc 00F0      		brlo .L9
+ 206               	.LM26:
+ 207 00be 8E81      		ldd r24,Y+6
+ 208 00c0 9F81      		ldd r25,Y+7
+ 209 00c2 9B87      		std Y+11,r25
+ 210 00c4 8A87      		std Y+10,r24
+ 211               	.L9:
+ 212               	.LM27:
+ 213 00c6 A114      		cp r10,__zero_reg__
+ 214 00c8 B104      		cpc r11,__zero_reg__
+ 215 00ca 01F0      		breq .L10
+ 216               	.LM28:
+ 217 00cc CE01      		movw r24,r28
+ 218 00ce F501      		movw r30,r10
+ 219 00d0 0995      		icall
+ 220               	.LVL16:
+ 221               	.L10:
+ 222               	.LBB67:
+ 223               	.LBB68:
+ 224               	.LM29:
+ 225               	/* #APP */
+ 226               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 227 00d2 7894      		sei
+ 228               	 ;  0 "" 2
+ 229               	/* #NOAPP */
+ 230               	.LBE68:
+ 231               	.LBE67:
+ 232               	.LM30:
+ 233 00d4 0894      		sec
+ 234 00d6 C11C      		adc r12,__zero_reg__
+ 235 00d8 D11C      		adc r13,__zero_reg__
+ 236               	.LM31:
+ 237 00da 0150      		subi r16,lo8(-(-1))
+ 238 00dc 1040      		sbci r17,hi8(-(-1))
+ 239 00de 01F0      		breq .L7
+ 240               	.LM32:
+ 241 00e0 0894      		sec
+ 242 00e2 E11C      		adc r14,__zero_reg__
+ 243 00e4 F11C      		adc r15,__zero_reg__
+ 244               	.LBB69:
+ 245               	.LBB70:
+ 246               	.LM33:
+ 247               	/* #APP */
+ 248               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 249 00e6 F894      		cli
+ 250               	 ;  0 "" 2
+ 251               	/* #NOAPP */
+ 252               	.LBE70:
+ 253               	.LBE69:
+ 254               	.LBB71:
+ 255               	.LBB66:
+ 256               	.LM34:
+ 257 00e8 8C81      		ldd r24,Y+4
+ 258 00ea 9D81      		ldd r25,Y+5
+ 259               	.LBE66:
+ 260               	.LBE71:
+ 261               	.LM35:
+ 262 00ec 0097      		sbiw r24,0
+ 263 00ee 01F4      		brne .L16
+ 264               	.LVL17:
+ 265               	.L8:
+ 266               	.LM36:
+ 267 00f0 C301      		movw r24,r6
+ 268 00f2 B401      		movw r22,r8
+ 269 00f4 0E94 0000 		call chThdEnqueueTimeoutS
+ 270 00f8 892B      		or r24,r25
+ 271 00fa 01F0      		breq .L14
+ 272               	.LBB72:
+ 273               	.LBB73:
+ 274               	.LM37:
+ 275               	/* #APP */
+ 276               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 277 00fc 7894      		sei
+ 278               	 ;  0 "" 2
+ 279               	.LVL18:
+ 280               	/* #NOAPP */
+ 281               	.L7:
+ 282               	.LBE73:
+ 283               	.LBE72:
+ 284               	.LM38:
+ 285 00fe C601      		movw r24,r12
+ 286               	.LVL19:
+ 287               	/* epilogue start */
+ 288 0100 DF91      		pop r29
+ 289 0102 CF91      		pop r28
+ 290               	.LVL20:
+ 291 0104 1F91      		pop r17
+ 292 0106 0F91      		pop r16
+ 293               	.LVL21:
+ 294 0108 FF90      		pop r15
+ 295 010a EF90      		pop r14
+ 296               	.LVL22:
+ 297 010c DF90      		pop r13
+ 298 010e CF90      		pop r12
+ 299 0110 BF90      		pop r11
+ 300 0112 AF90      		pop r10
+ 301               	.LVL23:
+ 302 0114 9F90      		pop r9
+ 303 0116 8F90      		pop r8
+ 304               	.LVL24:
+ 305 0118 7F90      		pop r7
+ 306 011a 6F90      		pop r6
+ 307 011c 0895      		ret
+ 308               	.LFE99:
+ 310               	.global	chOQPutTimeout
+ 312               	chOQPutTimeout:
+ 313               	.LFB97:
+ 314               	.LM39:
+ 315               	.LVL25:
+ 316 011e DF92      		push r13
+ 317 0120 EF92      		push r14
+ 318 0122 FF92      		push r15
+ 319 0124 0F93      		push r16
+ 320 0126 1F93      		push r17
+ 321 0128 CF93      		push r28
+ 322 012a DF93      		push r29
+ 323               	/* prologue: function */
+ 324               	/* frame size = 0 */
+ 325 012c EC01      		movw r28,r24
+ 326 012e D62E      		mov r13,r22
+ 327 0130 8A01      		movw r16,r20
+ 328               	.LBB74:
+ 329               	.LBB75:
+ 330               	.LM40:
+ 331               	/* #APP */
+ 332               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 333 0132 F894      		cli
+ 334               	 ;  0 "" 2
+ 335               	/* #NOAPP */
+ 336               	.LBE75:
+ 337               	.LBE74:
+ 338               	.LBB76:
+ 339               	.LM41:
+ 340 0134 7C01      		movw r14,r24
+ 341               	.LVL26:
+ 342               	.L18:
+ 343               	.LBE76:
+ 344               	.LBB79:
+ 345               	.LBB80:
+ 346               	.LM42:
+ 347 0136 8C81      		ldd r24,Y+4
+ 348 0138 9D81      		ldd r25,Y+5
+ 349               	.LVL27:
+ 350               	.LBE80:
+ 351               	.LBE79:
+ 352               	.LM43:
+ 353 013a 0097      		sbiw r24,0
+ 354 013c 01F4      		brne .L25
+ 355               	.LBB81:
+ 356               	.LM44:
+ 357 013e C701      		movw r24,r14
+ 358 0140 B801      		movw r22,r16
+ 359 0142 0E94 0000 		call chThdEnqueueTimeoutS
+ 360               	.LVL28:
+ 361 0146 9C01      		movw r18,r24
+ 362               	.LVL29:
+ 363 0148 97FF      		sbrs r25,7
+ 364 014a 00C0      		rjmp .L18
+ 365               	.LVL30:
+ 366               	.LBB77:
+ 367               	.LBB78:
+ 368               	.LM45:
+ 369               	/* #APP */
+ 370               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 371 014c 7894      		sei
+ 372               	 ;  0 "" 2
+ 373               	.LVL31:
+ 374               	/* #NOAPP */
+ 375               	.L19:
+ 376               	.LBE78:
+ 377               	.LBE77:
+ 378               	.LBE81:
+ 379               	.LM46:
+ 380 014e C901      		movw r24,r18
+ 381               	.LVL32:
+ 382               	/* epilogue start */
+ 383 0150 DF91      		pop r29
+ 384 0152 CF91      		pop r28
+ 385               	.LVL33:
+ 386 0154 1F91      		pop r17
+ 387 0156 0F91      		pop r16
+ 388               	.LVL34:
+ 389 0158 FF90      		pop r15
+ 390 015a EF90      		pop r14
+ 391 015c DF90      		pop r13
+ 392               	.LVL35:
+ 393 015e 0895      		ret
+ 394               	.LVL36:
+ 395               	.L25:
+ 396               	.LM47:
+ 397 0160 0197      		sbiw r24,1
+ 398 0162 9D83      		std Y+5,r25
+ 399 0164 8C83      		std Y+4,r24
+ 400               	.LM48:
+ 401 0166 EA85      		ldd r30,Y+10
+ 402 0168 FB85      		ldd r31,Y+11
+ 403 016a D192      		st Z+,r13
+ 404 016c FB87      		std Y+11,r31
+ 405 016e EA87      		std Y+10,r30
+ 406               	.LM49:
+ 407 0170 8885      		ldd r24,Y+8
+ 408 0172 9985      		ldd r25,Y+9
+ 409 0174 E817      		cp r30,r24
+ 410 0176 F907      		cpc r31,r25
+ 411 0178 00F0      		brlo .L21
+ 412               	.LM50:
+ 413 017a 8E81      		ldd r24,Y+6
+ 414 017c 9F81      		ldd r25,Y+7
+ 415 017e 9B87      		std Y+11,r25
+ 416 0180 8A87      		std Y+10,r24
+ 417               	.L21:
+ 418               	.LM51:
+ 419 0182 EE85      		ldd r30,Y+14
+ 420 0184 FF85      		ldd r31,Y+15
+ 421 0186 3097      		sbiw r30,0
+ 422 0188 01F0      		breq .L22
+ 423               	.LM52:
+ 424 018a CE01      		movw r24,r28
+ 425 018c 0995      		icall
+ 426               	.LVL37:
+ 427               	.L22:
+ 428               	.LBB82:
+ 429               	.LBB83:
+ 430               	.LM53:
+ 431               	/* #APP */
+ 432               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 433 018e 7894      		sei
+ 434               	 ;  0 "" 2
+ 435               	/* #NOAPP */
+ 436 0190 20E0      		ldi r18,lo8(0)
+ 437 0192 30E0      		ldi r19,hi8(0)
+ 438 0194 00C0      		rjmp .L19
+ 439               	.LBE83:
+ 440               	.LBE82:
+ 441               	.LFE97:
+ 443               	.global	chIQReadTimeout
+ 445               	chIQReadTimeout:
+ 446               	.LFB94:
+ 447               	.LM54:
+ 448               	.LVL38:
+ 449 0196 6F92      		push r6
+ 450 0198 7F92      		push r7
+ 451 019a 8F92      		push r8
+ 452 019c 9F92      		push r9
+ 453 019e AF92      		push r10
+ 454 01a0 BF92      		push r11
+ 455 01a2 CF92      		push r12
+ 456 01a4 DF92      		push r13
+ 457 01a6 EF92      		push r14
+ 458 01a8 FF92      		push r15
+ 459 01aa 0F93      		push r16
+ 460 01ac 1F93      		push r17
+ 461 01ae CF93      		push r28
+ 462 01b0 DF93      		push r29
+ 463               	/* prologue: function */
+ 464               	/* frame size = 0 */
+ 465 01b2 EC01      		movw r28,r24
+ 466 01b4 5B01      		movw r10,r22
+ 467 01b6 3A01      		movw r6,r20
+ 468 01b8 8901      		movw r16,r18
+ 469               	.LM55:
+ 470 01ba 8E84      		ldd r8,Y+14
+ 471 01bc 9F84      		ldd r9,Y+15
+ 472               	.LVL39:
+ 473               	.LBB84:
+ 474               	.LBB85:
+ 475               	.LM56:
+ 476               	/* #APP */
+ 477               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 478 01be F894      		cli
+ 479               	 ;  0 "" 2
+ 480               	/* #NOAPP */
+ 481               	.LBE85:
+ 482               	.LBE84:
+ 483               	.LM57:
+ 484 01c0 6C01      		movw r12,r24
+ 485               	.LVL40:
+ 486 01c2 EE24      		clr r14
+ 487 01c4 FF24      		clr r15
+ 488               	.LVL41:
+ 489               	.L31:
+ 490               	.LM58:
+ 491 01c6 8114      		cp r8,__zero_reg__
+ 492 01c8 9104      		cpc r9,__zero_reg__
+ 493 01ca 01F0      		breq .L33
+ 494               	.LM59:
+ 495 01cc CE01      		movw r24,r28
+ 496 01ce F401      		movw r30,r8
+ 497 01d0 0995      		icall
+ 498               	.LVL42:
+ 499               	.L33:
+ 500               	.LBB86:
+ 501               	.LBB87:
+ 502               	.LM60:
+ 503 01d2 8C81      		ldd r24,Y+4
+ 504 01d4 9D81      		ldd r25,Y+5
+ 505               	.LBE87:
+ 506               	.LBE86:
+ 507               	.LM61:
+ 508 01d6 0097      		sbiw r24,0
+ 509 01d8 01F4      		brne .L35
+ 510               	.LM62:
+ 511 01da C601      		movw r24,r12
+ 512 01dc B801      		movw r22,r16
+ 513 01de 0E94 0000 		call chThdEnqueueTimeoutS
+ 514 01e2 892B      		or r24,r25
+ 515 01e4 01F0      		breq .L33
+ 516               	.LBB88:
+ 517               	.LBB89:
+ 518               	.LM63:
+ 519               	/* #APP */
+ 520               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 521 01e6 7894      		sei
+ 522               	 ;  0 "" 2
+ 523               	.LVL43:
+ 524               	/* #NOAPP */
+ 525               	.L28:
+ 526               	.LBE89:
+ 527               	.LBE88:
+ 528               	.LM64:
+ 529 01e8 C701      		movw r24,r14
+ 530               	.LVL44:
+ 531               	/* epilogue start */
+ 532 01ea DF91      		pop r29
+ 533 01ec CF91      		pop r28
+ 534               	.LVL45:
+ 535 01ee 1F91      		pop r17
+ 536 01f0 0F91      		pop r16
+ 537               	.LVL46:
+ 538 01f2 FF90      		pop r15
+ 539 01f4 EF90      		pop r14
+ 540 01f6 DF90      		pop r13
+ 541 01f8 CF90      		pop r12
+ 542 01fa BF90      		pop r11
+ 543 01fc AF90      		pop r10
+ 544               	.LVL47:
+ 545 01fe 9F90      		pop r9
+ 546 0200 8F90      		pop r8
+ 547               	.LVL48:
+ 548 0202 7F90      		pop r7
+ 549 0204 6F90      		pop r6
+ 550               	.LVL49:
+ 551 0206 0895      		ret
+ 552               	.LVL50:
+ 553               	.L35:
+ 554               	.LM65:
+ 555 0208 0197      		sbiw r24,1
+ 556 020a 9D83      		std Y+5,r25
+ 557 020c 8C83      		std Y+4,r24
+ 558               	.LM66:
+ 559 020e EC85      		ldd r30,Y+12
+ 560 0210 FD85      		ldd r31,Y+13
+ 561 0212 8191      		ld r24,Z+
+ 562 0214 D501      		movw r26,r10
+ 563 0216 8C93      		st X,r24
+ 564 0218 FD87      		std Y+13,r31
+ 565 021a EC87      		std Y+12,r30
+ 566               	.LM67:
+ 567 021c 8885      		ldd r24,Y+8
+ 568 021e 9985      		ldd r25,Y+9
+ 569 0220 E817      		cp r30,r24
+ 570 0222 F907      		cpc r31,r25
+ 571 0224 00F4      		brsh .L36
+ 572               	.L30:
+ 573               	.LBB90:
+ 574               	.LBB91:
+ 575               	.LM68:
+ 576               	/* #APP */
+ 577               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 578 0226 7894      		sei
+ 579               	 ;  0 "" 2
+ 580               	/* #NOAPP */
+ 581               	.LBE91:
+ 582               	.LBE90:
+ 583               	.LM69:
+ 584 0228 0894      		sec
+ 585 022a E11C      		adc r14,__zero_reg__
+ 586 022c F11C      		adc r15,__zero_reg__
+ 587               	.LM70:
+ 588 022e 6E14      		cp r6,r14
+ 589 0230 7F04      		cpc r7,r15
+ 590 0232 01F0      		breq .L28
+ 591               	.LM71:
+ 592 0234 0894      		sec
+ 593 0236 A11C      		adc r10,__zero_reg__
+ 594 0238 B11C      		adc r11,__zero_reg__
+ 595               	.LBB92:
+ 596               	.LBB93:
+ 597               	.LM72:
+ 598               	/* #APP */
+ 599               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 600 023a F894      		cli
+ 601               	 ;  0 "" 2
+ 602               	/* #NOAPP */
+ 603 023c 00C0      		rjmp .L31
+ 604               	.LVL51:
+ 605               	.L36:
+ 606               	.LBE93:
+ 607               	.LBE92:
+ 608               	.LM73:
+ 609 023e 8E81      		ldd r24,Y+6
+ 610 0240 9F81      		ldd r25,Y+7
+ 611 0242 9D87      		std Y+13,r25
+ 612 0244 8C87      		std Y+12,r24
+ 613 0246 00C0      		rjmp .L30
+ 614               	.LFE94:
+ 616               	.global	chIQGetTimeout
+ 618               	chIQGetTimeout:
+ 619               	.LFB93:
+ 620               	.LM74:
+ 621               	.LVL52:
+ 622 0248 EF92      		push r14
+ 623 024a FF92      		push r15
+ 624 024c 0F93      		push r16
+ 625 024e 1F93      		push r17
+ 626 0250 CF93      		push r28
+ 627 0252 DF93      		push r29
+ 628               	/* prologue: function */
+ 629               	/* frame size = 0 */
+ 630 0254 EC01      		movw r28,r24
+ 631 0256 8B01      		movw r16,r22
+ 632               	.LBB94:
+ 633               	.LBB95:
+ 634               	.LM75:
+ 635               	/* #APP */
+ 636               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 637 0258 F894      		cli
+ 638               	 ;  0 "" 2
+ 639               	/* #NOAPP */
+ 640               	.LBE95:
+ 641               	.LBE94:
+ 642               	.LM76:
+ 643 025a EE85      		ldd r30,Y+14
+ 644 025c FF85      		ldd r31,Y+15
+ 645 025e 3097      		sbiw r30,0
+ 646 0260 01F0      		breq .L38
+ 647               	.LVL53:
+ 648               	.LM77:
+ 649 0262 0995      		icall
+ 650               	.LVL54:
+ 651               	.L38:
+ 652               	.LBB96:
+ 653               	.LM78:
+ 654 0264 7E01      		movw r14,r28
+ 655               	.LVL55:
+ 656               	.L39:
+ 657               	.LBE96:
+ 658               	.LBB99:
+ 659               	.LBB100:
+ 660               	.LM79:
+ 661 0266 8C81      		ldd r24,Y+4
+ 662 0268 9D81      		ldd r25,Y+5
+ 663               	.LVL56:
+ 664               	.LBE100:
+ 665               	.LBE99:
+ 666               	.LM80:
+ 667 026a 0097      		sbiw r24,0
+ 668 026c 01F4      		brne .L45
+ 669               	.LBB101:
+ 670               	.LM81:
+ 671 026e C701      		movw r24,r14
+ 672 0270 B801      		movw r22,r16
+ 673 0272 0E94 0000 		call chThdEnqueueTimeoutS
+ 674               	.LVL57:
+ 675 0276 9C01      		movw r18,r24
+ 676               	.LVL58:
+ 677 0278 97FF      		sbrs r25,7
+ 678 027a 00C0      		rjmp .L39
+ 679               	.LVL59:
+ 680               	.LBB97:
+ 681               	.LBB98:
+ 682               	.LM82:
+ 683               	/* #APP */
+ 684               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 685 027c 7894      		sei
+ 686               	 ;  0 "" 2
+ 687               	/* #NOAPP */
+ 688               	.LBE98:
+ 689               	.LBE97:
+ 690               	.LBE101:
+ 691               	.LM83:
+ 692 027e C901      		movw r24,r18
+ 693               	.LVL60:
+ 694               	/* epilogue start */
+ 695 0280 DF91      		pop r29
+ 696 0282 CF91      		pop r28
+ 697               	.LVL61:
+ 698 0284 1F91      		pop r17
+ 699 0286 0F91      		pop r16
+ 700               	.LVL62:
+ 701 0288 FF90      		pop r15
+ 702 028a EF90      		pop r14
+ 703 028c 0895      		ret
+ 704               	.LVL63:
+ 705               	.L45:
+ 706               	.LM84:
+ 707 028e 0197      		sbiw r24,1
+ 708 0290 9D83      		std Y+5,r25
+ 709 0292 8C83      		std Y+4,r24
+ 710               	.LM85:
+ 711 0294 EC85      		ldd r30,Y+12
+ 712 0296 FD85      		ldd r31,Y+13
+ 713 0298 2191      		ld r18,Z+
+ 714               	.LVL64:
+ 715 029a FD87      		std Y+13,r31
+ 716 029c EC87      		std Y+12,r30
+ 717               	.LM86:
+ 718 029e 8885      		ldd r24,Y+8
+ 719 02a0 9985      		ldd r25,Y+9
+ 720 02a2 E817      		cp r30,r24
+ 721 02a4 F907      		cpc r31,r25
+ 722 02a6 00F0      		brlo .L42
+ 723               	.LM87:
+ 724 02a8 8E81      		ldd r24,Y+6
+ 725 02aa 9F81      		ldd r25,Y+7
+ 726 02ac 9D87      		std Y+13,r25
+ 727 02ae 8C87      		std Y+12,r24
+ 728               	.L42:
+ 729               	.LBB102:
+ 730               	.LBB103:
+ 731               	.LM88:
+ 732               	/* #APP */
+ 733               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 734 02b0 7894      		sei
+ 735               	 ;  0 "" 2
+ 736               	/* #NOAPP */
+ 737               	.LBE103:
+ 738               	.LBE102:
+ 739               	.LM89:
+ 740 02b2 30E0      		ldi r19,lo8(0)
+ 741               	.LVL65:
+ 742               	.LM90:
+ 743 02b4 C901      		movw r24,r18
+ 744               	.LVL66:
+ 745 02b6 DF91      		pop r29
+ 746 02b8 CF91      		pop r28
+ 747               	.LVL67:
+ 748 02ba 1F91      		pop r17
+ 749 02bc 0F91      		pop r16
+ 750               	.LVL68:
+ 751 02be FF90      		pop r15
+ 752 02c0 EF90      		pop r14
+ 753 02c2 0895      		ret
+ 754               	.LFE93:
+ 756               	.global	chOQGetI
+ 758               	chOQGetI:
+ 759               	.LFB98:
+ 760               	.LM91:
+ 761               	.LVL69:
+ 762 02c4 1F93      		push r17
+ 763               	/* prologue: function */
+ 764               	/* frame size = 0 */
+ 765 02c6 DC01      		movw r26,r24
+ 766               	.LBB104:
+ 767               	.LBB105:
+ 768               	.LM92:
+ 769 02c8 1A96      		adiw r26,10
+ 770 02ca 8D91      		ld r24,X+
+ 771 02cc 9C91      		ld r25,X
+ 772 02ce 1B97      		sbiw r26,10+1
+ 773               	.LVL70:
+ 774 02d0 1C96      		adiw r26,12
+ 775 02d2 ED91      		ld r30,X+
+ 776 02d4 FC91      		ld r31,X
+ 777 02d6 1D97      		sbiw r26,12+1
+ 778 02d8 8E17      		cp r24,r30
+ 779 02da 9F07      		cpc r25,r31
+ 780 02dc 01F0      		breq .L54
+ 781               	.LBE105:
+ 782               	.LBE104:
+ 783               	.LM93:
+ 784 02de 1496      		adiw r26,4
+ 785 02e0 8D91      		ld r24,X+
+ 786 02e2 9C91      		ld r25,X
+ 787 02e4 1597      		sbiw r26,4+1
+ 788               	.L49:
+ 789               	.LM94:
+ 790 02e6 0196      		adiw r24,1
+ 791 02e8 1596      		adiw r26,4+1
+ 792 02ea 9C93      		st X,r25
+ 793 02ec 8E93      		st -X,r24
+ 794 02ee 1497      		sbiw r26,4
+ 795               	.LM95:
+ 796 02f0 1191      		ld r17,Z+
+ 797               	.LVL71:
+ 798 02f2 1D96      		adiw r26,12+1
+ 799 02f4 FC93      		st X,r31
+ 800 02f6 EE93      		st -X,r30
+ 801 02f8 1C97      		sbiw r26,12
+ 802               	.LM96:
+ 803 02fa 1896      		adiw r26,8
+ 804 02fc 8D91      		ld r24,X+
+ 805 02fe 9C91      		ld r25,X
+ 806 0300 1997      		sbiw r26,8+1
+ 807 0302 E817      		cp r30,r24
+ 808 0304 F907      		cpc r31,r25
+ 809 0306 00F4      		brsh .L51
+ 810               	.L52:
+ 811               	.LM97:
+ 812 0308 CD01      		movw r24,r26
+ 813 030a 60E0      		ldi r22,lo8(0)
+ 814 030c 70E0      		ldi r23,hi8(0)
+ 815 030e 0E94 0000 		call chThdDequeueNextI
+ 816               	.LVL72:
+ 817               	.LM98:
+ 818 0312 212F      		mov r18,r17
+ 819 0314 30E0      		ldi r19,lo8(0)
+ 820               	.LVL73:
+ 821               	.L50:
+ 822               	.LM99:
+ 823 0316 C901      		movw r24,r18
+ 824               	/* epilogue start */
+ 825 0318 1F91      		pop r17
+ 826               	.LVL74:
+ 827 031a 0895      		ret
+ 828               	.LVL75:
+ 829               	.L51:
+ 830               	.LM100:
+ 831 031c 1696      		adiw r26,6
+ 832 031e 8D91      		ld r24,X+
+ 833 0320 9C91      		ld r25,X
+ 834 0322 1797      		sbiw r26,6+1
+ 835 0324 1D96      		adiw r26,12+1
+ 836 0326 9C93      		st X,r25
+ 837 0328 8E93      		st -X,r24
+ 838 032a 1C97      		sbiw r26,12
+ 839 032c 00C0      		rjmp .L52
+ 840               	.LVL76:
+ 841               	.L54:
+ 842               	.LBB107:
+ 843               	.LBB106:
+ 844               	.LM101:
+ 845 032e 1496      		adiw r26,4
+ 846 0330 8D91      		ld r24,X+
+ 847 0332 9C91      		ld r25,X
+ 848 0334 1597      		sbiw r26,4+1
+ 849 0336 892B      		or r24,r25
+ 850 0338 01F4      		brne .L48
+ 851 033a 80E0      		ldi r24,lo8(0)
+ 852 033c 90E0      		ldi r25,hi8(0)
+ 853 033e 00C0      		rjmp .L49
+ 854               	.L48:
+ 855 0340 2DEF      		ldi r18,lo8(-3)
+ 856 0342 3FEF      		ldi r19,hi8(-3)
+ 857 0344 00C0      		rjmp .L50
+ 858               	.LBE106:
+ 859               	.LBE107:
+ 860               	.LFE98:
+ 862               	.global	chIQPutI
+ 864               	chIQPutI:
+ 865               	.LFB92:
+ 866               	.LM102:
+ 867               	.LVL77:
+ 868               	/* prologue: function */
+ 869               	/* frame size = 0 */
+ 870 0346 DC01      		movw r26,r24
+ 871               	.LBB108:
+ 872               	.LBB109:
+ 873               	.LM103:
+ 874 0348 1A96      		adiw r26,10
+ 875 034a ED91      		ld r30,X+
+ 876 034c FC91      		ld r31,X
+ 877 034e 1B97      		sbiw r26,10+1
+ 878 0350 1C96      		adiw r26,12
+ 879 0352 8D91      		ld r24,X+
+ 880 0354 9C91      		ld r25,X
+ 881 0356 1D97      		sbiw r26,12+1
+ 882               	.LVL78:
+ 883 0358 E817      		cp r30,r24
+ 884 035a F907      		cpc r31,r25
+ 885 035c 01F0      		breq .L63
+ 886               	.LBE109:
+ 887               	.LBE108:
+ 888               	.LM104:
+ 889 035e 1496      		adiw r26,4
+ 890 0360 8D91      		ld r24,X+
+ 891 0362 9C91      		ld r25,X
+ 892 0364 1597      		sbiw r26,4+1
+ 893               	.L58:
+ 894               	.LM105:
+ 895 0366 0196      		adiw r24,1
+ 896 0368 1596      		adiw r26,4+1
+ 897 036a 9C93      		st X,r25
+ 898 036c 8E93      		st -X,r24
+ 899 036e 1497      		sbiw r26,4
+ 900               	.LM106:
+ 901 0370 6193      		st Z+,r22
+ 902 0372 1B96      		adiw r26,10+1
+ 903 0374 FC93      		st X,r31
+ 904 0376 EE93      		st -X,r30
+ 905 0378 1A97      		sbiw r26,10
+ 906               	.LM107:
+ 907 037a 1896      		adiw r26,8
+ 908 037c 8D91      		ld r24,X+
+ 909 037e 9C91      		ld r25,X
+ 910 0380 1997      		sbiw r26,8+1
+ 911 0382 E817      		cp r30,r24
+ 912 0384 F907      		cpc r31,r25
+ 913 0386 00F4      		brsh .L60
+ 914               	.L61:
+ 915               	.LM108:
+ 916 0388 CD01      		movw r24,r26
+ 917 038a 60E0      		ldi r22,lo8(0)
+ 918 038c 70E0      		ldi r23,hi8(0)
+ 919               	.LVL79:
+ 920 038e 0E94 0000 		call chThdDequeueNextI
+ 921               	.LVL80:
+ 922 0392 20E0      		ldi r18,lo8(0)
+ 923 0394 30E0      		ldi r19,hi8(0)
+ 924               	.LVL81:
+ 925               	.L59:
+ 926               	.LM109:
+ 927 0396 C901      		movw r24,r18
+ 928               	/* epilogue start */
+ 929 0398 0895      		ret
+ 930               	.L60:
+ 931               	.LM110:
+ 932 039a 1696      		adiw r26,6
+ 933 039c 8D91      		ld r24,X+
+ 934 039e 9C91      		ld r25,X
+ 935 03a0 1797      		sbiw r26,6+1
+ 936 03a2 1B96      		adiw r26,10+1
+ 937 03a4 9C93      		st X,r25
+ 938 03a6 8E93      		st -X,r24
+ 939 03a8 1A97      		sbiw r26,10
+ 940 03aa 00C0      		rjmp .L61
+ 941               	.L63:
+ 942               	.LBB111:
+ 943               	.LBB110:
+ 944               	.LM111:
+ 945 03ac 1496      		adiw r26,4
+ 946 03ae 8D91      		ld r24,X+
+ 947 03b0 9C91      		ld r25,X
+ 948 03b2 1597      		sbiw r26,4+1
+ 949 03b4 892B      		or r24,r25
+ 950 03b6 01F4      		brne .L57
+ 951 03b8 80E0      		ldi r24,lo8(0)
+ 952 03ba 90E0      		ldi r25,hi8(0)
+ 953 03bc 00C0      		rjmp .L58
+ 954               	.L57:
+ 955 03be 2CEF      		ldi r18,lo8(-4)
+ 956 03c0 3FEF      		ldi r19,hi8(-4)
+ 957 03c2 00C0      		rjmp .L59
+ 958               	.LBE110:
+ 959               	.LBE111:
+ 960               	.LFE92:
+ 962               	.global	chOQResetI
+ 964               	chOQResetI:
+ 965               	.LFB96:
+ 966               	.LM112:
+ 967               	.LVL82:
+ 968               	/* prologue: function */
+ 969               	/* frame size = 0 */
+ 970 03c4 FC01      		movw r30,r24
+ 971               	.LM113:
+ 972 03c6 2681      		ldd r18,Z+6
+ 973 03c8 3781      		ldd r19,Z+7
+ 974 03ca 3387      		std Z+11,r19
+ 975 03cc 2287      		std Z+10,r18
+ 976 03ce 3587      		std Z+13,r19
+ 977 03d0 2487      		std Z+12,r18
+ 978               	.LM114:
+ 979 03d2 8085      		ldd r24,Z+8
+ 980 03d4 9185      		ldd r25,Z+9
+ 981               	.LVL83:
+ 982 03d6 821B      		sub r24,r18
+ 983 03d8 930B      		sbc r25,r19
+ 984 03da 9583      		std Z+5,r25
+ 985 03dc 8483      		std Z+4,r24
+ 986               	.LM115:
+ 987 03de CF01      		movw r24,r30
+ 988 03e0 6EEF      		ldi r22,lo8(-2)
+ 989 03e2 7FEF      		ldi r23,hi8(-2)
+ 990 03e4 0E94 0000 		call chThdDequeueAllI
+ 991               	.LVL84:
+ 992               	/* epilogue start */
+ 993               	.LM116:
+ 994 03e8 0895      		ret
+ 995               	.LFE96:
+ 997               	.global	chIQResetI
+ 999               	chIQResetI:
+ 1000               	.LFB91:
+ 1001               	.LM117:
+ 1002               	.LVL85:
+ 1003               	/* prologue: function */
+ 1004               	/* frame size = 0 */
+ 1005 03ea FC01      		movw r30,r24
+ 1006               	.LM118:
+ 1007 03ec 8681      		ldd r24,Z+6
+ 1008 03ee 9781      		ldd r25,Z+7
+ 1009               	.LVL86:
+ 1010 03f0 9387      		std Z+11,r25
+ 1011 03f2 8287      		std Z+10,r24
+ 1012 03f4 9587      		std Z+13,r25
+ 1013 03f6 8487      		std Z+12,r24
+ 1014               	.LM119:
+ 1015 03f8 1582      		std Z+5,__zero_reg__
+ 1016 03fa 1482      		std Z+4,__zero_reg__
+ 1017               	.LM120:
+ 1018 03fc CF01      		movw r24,r30
+ 1019 03fe 6EEF      		ldi r22,lo8(-2)
+ 1020 0400 7FEF      		ldi r23,hi8(-2)
+ 1021 0402 0E94 0000 		call chThdDequeueAllI
+ 1022               	.LVL87:
+ 1023               	/* epilogue start */
+ 1024               	.LM121:
+ 1025 0406 0895      		ret
+ 1026               	.LFE91:
+ 1124               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 chqueues.c
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccNorXw1.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccNorXw1.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccNorXw1.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccNorXw1.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccNorXw1.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccNorXw1.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccNorXw1.s:18     .text:00000000 chIQObjectInit
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccNorXw1.s:75     .text:00000034 chOQObjectInit
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccNorXw1.s:132    .text:00000068 chOQWriteTimeout
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccNorXw1.s:312    .text:0000011e chOQPutTimeout
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccNorXw1.s:445    .text:00000196 chIQReadTimeout
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccNorXw1.s:618    .text:00000248 chIQGetTimeout
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccNorXw1.s:758    .text:000002c4 chOQGetI
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccNorXw1.s:864    .text:00000346 chIQPutI
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccNorXw1.s:964    .text:000003c4 chOQResetI
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccNorXw1.s:999    .text:000003ea chIQResetI
+
+UNDEFINED SYMBOLS
+chThdEnqueueTimeoutS
+chThdDequeueNextI
+chThdDequeueAllI

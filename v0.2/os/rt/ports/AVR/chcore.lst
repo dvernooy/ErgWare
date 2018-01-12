@@ -1,0 +1,276 @@
+   1               		.file	"chcore.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.weak	port_switch
+  18               	port_switch:
+  19               	.LFB90:
+  20               	.LM1:
+  21               	.LVL0:
+  22               	/* prologue: naked */
+  23               	/* frame size = 0 */
+  24               	.LM2:
+  25               	/* #APP */
+  26               	 ;  48 "../../../os/rt/ports/AVR/chcore.c" 1
+  27 0000 2F92      		push    r2
+  28               	 ;  0 "" 2
+  29               	.LM3:
+  30               	 ;  49 "../../../os/rt/ports/AVR/chcore.c" 1
+  31 0002 3F92      		push    r3
+  32               	 ;  0 "" 2
+  33               	.LM4:
+  34               	 ;  50 "../../../os/rt/ports/AVR/chcore.c" 1
+  35 0004 4F92      		push    r4
+  36               	 ;  0 "" 2
+  37               	.LM5:
+  38               	 ;  51 "../../../os/rt/ports/AVR/chcore.c" 1
+  39 0006 5F92      		push    r5
+  40               	 ;  0 "" 2
+  41               	.LM6:
+  42               	 ;  52 "../../../os/rt/ports/AVR/chcore.c" 1
+  43 0008 6F92      		push    r6
+  44               	 ;  0 "" 2
+  45               	.LM7:
+  46               	 ;  53 "../../../os/rt/ports/AVR/chcore.c" 1
+  47 000a 7F92      		push    r7
+  48               	 ;  0 "" 2
+  49               	.LM8:
+  50               	 ;  54 "../../../os/rt/ports/AVR/chcore.c" 1
+  51 000c 8F92      		push    r8
+  52               	 ;  0 "" 2
+  53               	.LM9:
+  54               	 ;  55 "../../../os/rt/ports/AVR/chcore.c" 1
+  55 000e 9F92      		push    r9
+  56               	 ;  0 "" 2
+  57               	.LM10:
+  58               	 ;  56 "../../../os/rt/ports/AVR/chcore.c" 1
+  59 0010 AF92      		push    r10
+  60               	 ;  0 "" 2
+  61               	.LM11:
+  62               	 ;  57 "../../../os/rt/ports/AVR/chcore.c" 1
+  63 0012 BF92      		push    r11
+  64               	 ;  0 "" 2
+  65               	.LM12:
+  66               	 ;  58 "../../../os/rt/ports/AVR/chcore.c" 1
+  67 0014 CF92      		push    r12
+  68               	 ;  0 "" 2
+  69               	.LM13:
+  70               	 ;  59 "../../../os/rt/ports/AVR/chcore.c" 1
+  71 0016 DF92      		push    r13
+  72               	 ;  0 "" 2
+  73               	.LM14:
+  74               	 ;  60 "../../../os/rt/ports/AVR/chcore.c" 1
+  75 0018 EF92      		push    r14
+  76               	 ;  0 "" 2
+  77               	.LM15:
+  78               	 ;  61 "../../../os/rt/ports/AVR/chcore.c" 1
+  79 001a FF92      		push    r15
+  80               	 ;  0 "" 2
+  81               	.LM16:
+  82               	 ;  62 "../../../os/rt/ports/AVR/chcore.c" 1
+  83 001c 0F93      		push    r16
+  84               	 ;  0 "" 2
+  85               	.LM17:
+  86               	 ;  63 "../../../os/rt/ports/AVR/chcore.c" 1
+  87 001e 1F93      		push    r17
+  88               	 ;  0 "" 2
+  89               	.LM18:
+  90               	 ;  64 "../../../os/rt/ports/AVR/chcore.c" 1
+  91 0020 CF93      		push    r28
+  92               	 ;  0 "" 2
+  93               	.LM19:
+  94               	 ;  65 "../../../os/rt/ports/AVR/chcore.c" 1
+  95 0022 DF93      		push    r29
+  96               	 ;  0 "" 2
+  97               	.LM20:
+  98               	 ;  67 "../../../os/rt/ports/AVR/chcore.c" 1
+  99 0024 FB01      		movw    r30, r22
+ 100               	 ;  0 "" 2
+ 101               	.LM21:
+ 102               	 ;  68 "../../../os/rt/ports/AVR/chcore.c" 1
+ 103 0026 0DB6      		in      r0, 0x3d
+ 104               	 ;  0 "" 2
+ 105               	.LM22:
+ 106               	 ;  69 "../../../os/rt/ports/AVR/chcore.c" 1
+ 107 0028 0582      		std     Z+5, r0
+ 108               	 ;  0 "" 2
+ 109               	.LM23:
+ 110               	 ;  70 "../../../os/rt/ports/AVR/chcore.c" 1
+ 111 002a 0EB6      		in      r0, 0x3e
+ 112               	 ;  0 "" 2
+ 113               	.LM24:
+ 114               	 ;  71 "../../../os/rt/ports/AVR/chcore.c" 1
+ 115 002c 0682      		std     Z+6, r0
+ 116               	 ;  0 "" 2
+ 117               	.LM25:
+ 118               	 ;  73 "../../../os/rt/ports/AVR/chcore.c" 1
+ 119 002e FC01      		movw    r30, r24
+ 120               	 ;  0 "" 2
+ 121               	.LM26:
+ 122               	 ;  74 "../../../os/rt/ports/AVR/chcore.c" 1
+ 123 0030 0580      		ldd     r0, Z+5
+ 124               	 ;  0 "" 2
+ 125               	.LM27:
+ 126               	 ;  75 "../../../os/rt/ports/AVR/chcore.c" 1
+ 127 0032 0DBE      		out     0x3d, r0
+ 128               	 ;  0 "" 2
+ 129               	.LM28:
+ 130               	 ;  76 "../../../os/rt/ports/AVR/chcore.c" 1
+ 131 0034 0680      		ldd     r0, Z+6
+ 132               	 ;  0 "" 2
+ 133               	.LM29:
+ 134               	 ;  77 "../../../os/rt/ports/AVR/chcore.c" 1
+ 135 0036 0EBE      		out     0x3e, r0
+ 136               	 ;  0 "" 2
+ 137               	.LM30:
+ 138               	 ;  79 "../../../os/rt/ports/AVR/chcore.c" 1
+ 139 0038 DF91      		pop     r29
+ 140               	 ;  0 "" 2
+ 141               	.LM31:
+ 142               	 ;  80 "../../../os/rt/ports/AVR/chcore.c" 1
+ 143 003a CF91      		pop     r28
+ 144               	 ;  0 "" 2
+ 145               	.LM32:
+ 146               	 ;  81 "../../../os/rt/ports/AVR/chcore.c" 1
+ 147 003c 1F91      		pop     r17
+ 148               	 ;  0 "" 2
+ 149               	.LM33:
+ 150               	 ;  82 "../../../os/rt/ports/AVR/chcore.c" 1
+ 151 003e 0F91      		pop     r16
+ 152               	 ;  0 "" 2
+ 153               	.LM34:
+ 154               	 ;  83 "../../../os/rt/ports/AVR/chcore.c" 1
+ 155 0040 FF90      		pop     r15
+ 156               	 ;  0 "" 2
+ 157               	.LM35:
+ 158               	 ;  84 "../../../os/rt/ports/AVR/chcore.c" 1
+ 159 0042 EF90      		pop     r14
+ 160               	 ;  0 "" 2
+ 161               	.LM36:
+ 162               	 ;  85 "../../../os/rt/ports/AVR/chcore.c" 1
+ 163 0044 DF90      		pop     r13
+ 164               	 ;  0 "" 2
+ 165               	.LM37:
+ 166               	 ;  86 "../../../os/rt/ports/AVR/chcore.c" 1
+ 167 0046 CF90      		pop     r12
+ 168               	 ;  0 "" 2
+ 169               	.LM38:
+ 170               	 ;  87 "../../../os/rt/ports/AVR/chcore.c" 1
+ 171 0048 BF90      		pop     r11
+ 172               	 ;  0 "" 2
+ 173               	.LM39:
+ 174               	 ;  88 "../../../os/rt/ports/AVR/chcore.c" 1
+ 175 004a AF90      		pop     r10
+ 176               	 ;  0 "" 2
+ 177               	.LM40:
+ 178               	 ;  89 "../../../os/rt/ports/AVR/chcore.c" 1
+ 179 004c 9F90      		pop     r9
+ 180               	 ;  0 "" 2
+ 181               	.LM41:
+ 182               	 ;  90 "../../../os/rt/ports/AVR/chcore.c" 1
+ 183 004e 8F90      		pop     r8
+ 184               	 ;  0 "" 2
+ 185               	.LM42:
+ 186               	 ;  91 "../../../os/rt/ports/AVR/chcore.c" 1
+ 187 0050 7F90      		pop     r7
+ 188               	 ;  0 "" 2
+ 189               	.LM43:
+ 190               	 ;  92 "../../../os/rt/ports/AVR/chcore.c" 1
+ 191 0052 6F90      		pop     r6
+ 192               	 ;  0 "" 2
+ 193               	.LM44:
+ 194               	 ;  93 "../../../os/rt/ports/AVR/chcore.c" 1
+ 195 0054 5F90      		pop     r5
+ 196               	 ;  0 "" 2
+ 197               	.LM45:
+ 198               	 ;  94 "../../../os/rt/ports/AVR/chcore.c" 1
+ 199 0056 4F90      		pop     r4
+ 200               	 ;  0 "" 2
+ 201               	.LM46:
+ 202               	 ;  95 "../../../os/rt/ports/AVR/chcore.c" 1
+ 203 0058 3F90      		pop     r3
+ 204               	 ;  0 "" 2
+ 205               	.LM47:
+ 206               	 ;  96 "../../../os/rt/ports/AVR/chcore.c" 1
+ 207 005a 2F90      		pop     r2
+ 208               	 ;  0 "" 2
+ 209               	.LM48:
+ 210               	 ;  97 "../../../os/rt/ports/AVR/chcore.c" 1
+ 211 005c 0895      		ret
+ 212               	 ;  0 "" 2
+ 213               	/* epilogue start */
+ 214               	.LM49:
+ 215               	/* #NOAPP */
+ 216               	.LFE90:
+ 218               		.weak	port_halt
+ 220               	port_halt:
+ 221               	.LFB91:
+ 222               	.LM50:
+ 223               	/* prologue: function */
+ 224               	/* frame size = 0 */
+ 225               	.LM51:
+ 226               	/* #APP */
+ 227               	 ;  114 "../../../os/rt/ports/AVR/chcore.c" 1
+ 228 005e F894      		cli
+ 229               	 ;  0 "" 2
+ 230               	/* #NOAPP */
+ 231               	.L4:
+ 232 0060 00C0      		rjmp .L4
+ 233               	.LFE91:
+ 235               	.global	_port_thread_start
+ 237               	_port_thread_start:
+ 238               	.LFB92:
+ 239               	.LM52:
+ 240               	/* prologue: function */
+ 241               	/* frame size = 0 */
+ 242               	.LBB4:
+ 243               	.LBB5:
+ 244               	.LM53:
+ 245               	/* #APP */
+ 246               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 247 0062 7894      		sei
+ 248               	 ;  0 "" 2
+ 249               	/* #NOAPP */
+ 250               	.LBE5:
+ 251               	.LBE4:
+ 252               	.LM54:
+ 253               	/* #APP */
+ 254               	 ;  127 "../../../os/rt/ports/AVR/chcore.c" 1
+ 255 0064 C201      		movw    r24, r4
+ 256               	 ;  0 "" 2
+ 257               	.LM55:
+ 258               	 ;  128 "../../../os/rt/ports/AVR/chcore.c" 1
+ 259 0066 F101      		movw    r30, r2
+ 260               	 ;  0 "" 2
+ 261               	.LM56:
+ 262               	 ;  129 "../../../os/rt/ports/AVR/chcore.c" 1
+ 263 0068 0995      		icall
+ 264               	 ;  0 "" 2
+ 265               	.LM57:
+ 266               	 ;  130 "../../../os/rt/ports/AVR/chcore.c" 1
+ 267 006a 0E94 0000 		call    chThdExit
+ 268               	 ;  0 "" 2
+ 269               	/* epilogue start */
+ 270               	.LM58:
+ 271               	/* #NOAPP */
+ 272 006e 0895      		ret
+ 273               	.LFE92:
+ 315               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 chcore.c
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccr3Phta.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccr3Phta.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccr3Phta.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccr3Phta.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccr3Phta.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccr3Phta.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccr3Phta.s:18     .text:00000000 port_switch
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccr3Phta.s:220    .text:0000005e port_halt
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccr3Phta.s:237    .text:00000062 _port_thread_start
+
+UNDEFINED SYMBOLS
+chThdExit

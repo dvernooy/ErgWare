@@ -1,0 +1,294 @@
+   1               		.file	"chsys.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.data
+  17               	.LC0:
+  18 0000 6964 6C65 		.string	"idle"
+  18      00
+  19               		.text
+  21               	_idle_thread:
+  22               	.LFB90:
+  23               	.LM1:
+  24               	.LVL0:
+  25               	/* prologue: function */
+  26               	/* frame size = 0 */
+  27               	.LM2:
+  28 0000 E091 0000 		lds r30,ch+11
+  29 0004 F091 0000 		lds r31,(ch+11)+1
+  30 0008 80E0      		ldi r24,lo8(.LC0)
+  31 000a 90E0      		ldi r25,hi8(.LC0)
+  32               	.LVL1:
+  33 000c 9487      		std Z+12,r25
+  34 000e 8387      		std Z+11,r24
+  35               	.L2:
+  36 0010 00C0      		rjmp .L2
+  37               	.LFE90:
+  39               	.global	chSysHalt
+  41               	chSysHalt:
+  42               	.LFB92:
+  43               	.LM3:
+  44               	.LVL2:
+  45               	/* prologue: function */
+  46               	/* frame size = 0 */
+  47               	.LM4:
+  48               	/* #APP */
+  49               	 ;  166 "../../../os/rt/src/chsys.c" 1
+  50 0012 F894      		cli
+  51               	 ;  0 "" 2
+  52               	/* #NOAPP */
+  53               	.L6:
+  54 0014 00C0      		rjmp .L6
+  55               	.LFE92:
+  57               	.global	chSysTimerHandlerI
+  59               	chSysTimerHandlerI:
+  60               	.LFB93:
+  61               	.LM5:
+  62 0016 CF93      		push r28
+  63 0018 DF93      		push r29
+  64               	/* prologue: function */
+  65               	/* frame size = 0 */
+  66               	.LM6:
+  67 001a E091 0000 		lds r30,ch+11
+  68 001e F091 0000 		lds r31,(ch+11)+1
+  69 0022 8785      		ldd r24,Z+15
+  70 0024 8823      		tst r24
+  71 0026 01F0      		breq .L9
+  72               	.LM7:
+  73 0028 8150      		subi r24,lo8(-(-1))
+  74 002a 8787      		std Z+15,r24
+  75               	.L9:
+  76               	.LBB32:
+  77               	.LBB33:
+  78               	.LM8:
+  79 002c 8091 0000 		lds r24,ch+19
+  80 0030 9091 0000 		lds r25,(ch+19)+1
+  81 0034 0196      		adiw r24,1
+  82 0036 9093 0000 		sts (ch+19)+1,r25
+  83 003a 8093 0000 		sts ch+19,r24
+  84               	.LM9:
+  85 003e A091 0000 		lds r26,ch+13
+  86 0042 B091 0000 		lds r27,(ch+13)+1
+  87               	.LVL3:
+  88 0046 80E0      		ldi r24,hi8(ch+13)
+  89 0048 A030      		cpi r26,lo8(ch+13)
+  90 004a B807      		cpc r27,r24
+  91 004c 01F0      		breq .L12
+  92               	.LBB34:
+  93               	.LM10:
+  94 004e 1496      		adiw r26,4
+  95 0050 8D91      		ld r24,X+
+  96 0052 9C91      		ld r25,X
+  97 0054 1597      		sbiw r26,4+1
+  98 0056 0197      		sbiw r24,1
+  99 0058 1596      		adiw r26,4+1
+ 100 005a 9C93      		st X,r25
+ 101 005c 8E93      		st -X,r24
+ 102 005e 1497      		sbiw r26,4
+ 103               	.LM11:
+ 104 0060 892B      		or r24,r25
+ 105 0062 01F4      		brne .L12
+ 106 0064 C0E0      		ldi r28,lo8(ch+13)
+ 107 0066 D0E0      		ldi r29,hi8(ch+13)
+ 108               	.L11:
+ 109               	.LBB35:
+ 110               	.LM12:
+ 111 0068 1696      		adiw r26,6
+ 112 006a 2D91      		ld r18,X+
+ 113 006c 3C91      		ld r19,X
+ 114 006e 1797      		sbiw r26,6+1
+ 115               	.LVL4:
+ 116               	.LM13:
+ 117 0070 1796      		adiw r26,6+1
+ 118 0072 1C92      		st X,__zero_reg__
+ 119 0074 1E92      		st -X,__zero_reg__
+ 120 0076 1697      		sbiw r26,6
+ 121               	.LM14:
+ 122 0078 ED91      		ld r30,X+
+ 123 007a FC91      		ld r31,X
+ 124 007c 1197      		sbiw r26,1
+ 125 007e D383      		std Z+3,r29
+ 126 0080 C283      		std Z+2,r28
+ 127               	.LM15:
+ 128 0082 F093 0000 		sts (ch+13)+1,r31
+ 129 0086 E093 0000 		sts ch+13,r30
+ 130               	.LM16:
+ 131 008a 1896      		adiw r26,8
+ 132 008c 8D91      		ld r24,X+
+ 133 008e 9C91      		ld r25,X
+ 134 0090 1997      		sbiw r26,8+1
+ 135 0092 F901      		movw r30,r18
+ 136 0094 0995      		icall
+ 137               	.LVL5:
+ 138               	.LBE35:
+ 139               	.LM17:
+ 140 0096 A091 0000 		lds r26,ch+13
+ 141 009a B091 0000 		lds r27,(ch+13)+1
+ 142               	.LVL6:
+ 143 009e 1496      		adiw r26,4
+ 144 00a0 8D91      		ld r24,X+
+ 145 00a2 9C91      		ld r25,X
+ 146 00a4 1597      		sbiw r26,4+1
+ 147 00a6 892B      		or r24,r25
+ 148 00a8 01F0      		breq .L11
+ 149               	.L12:
+ 150               	/* epilogue start */
+ 151               	.LBE34:
+ 152               	.LBE33:
+ 153               	.LBE32:
+ 154               	.LM18:
+ 155 00aa DF91      		pop r29
+ 156 00ac CF91      		pop r28
+ 157 00ae 0895      		ret
+ 158               	.LFE93:
+ 160               	.global	chSysGetStatusAndLockX
+ 162               	chSysGetStatusAndLockX:
+ 163               	.LFB94:
+ 164               	.LM19:
+ 165               	/* prologue: function */
+ 166               	/* frame size = 0 */
+ 167               	.LBB36:
+ 168               	.LBB37:
+ 169               	.LM20:
+ 170 00b0 8FB7      		in r24,__SREG__
+ 171               	.LVL7:
+ 172               	.LBE37:
+ 173               	.LBE36:
+ 174               	.LM21:
+ 175 00b2 87FF      		sbrs r24,7
+ 176               	.LVL8:
+ 177               	.LM22:
+ 178 00b4 0895      		ret
+ 179               	.LVL9:
+ 180               	.L17:
+ 181               	.LBB38:
+ 182               	.LBB39:
+ 183               	.LM23:
+ 184               	/* #APP */
+ 185               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 186 00b6 F894      		cli
+ 187               	 ;  0 "" 2
+ 188               	.LVL10:
+ 189               	/* #NOAPP */
+ 190               	.LBE39:
+ 191               	.LBE38:
+ 192               	.LM24:
+ 193 00b8 0895      		ret
+ 194               	.LFE94:
+ 196               	.global	chSysRestoreStatusX
+ 198               	chSysRestoreStatusX:
+ 199               	.LFB95:
+ 200               	.LM25:
+ 201               	.LVL11:
+ 202               	/* prologue: function */
+ 203               	/* frame size = 0 */
+ 204               	.LM26:
+ 205 00ba 87FF      		sbrs r24,7
+ 206 00bc 0895      		ret
+ 207               	.L21:
+ 208               	.LM27:
+ 209 00be 0E94 0000 		call chSchRescheduleS
+ 210               	.LVL12:
+ 211               	.LBB40:
+ 212               	.LBB41:
+ 213               	.LM28:
+ 214               	/* #APP */
+ 215               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 216 00c2 7894      		sei
+ 217               	 ;  0 "" 2
+ 218               	/* #NOAPP */
+ 219 00c4 0895      		ret
+ 220               	.LBE41:
+ 221               	.LBE40:
+ 222               	.LFE95:
+ 224               	.global	chSysInit
+ 226               	chSysInit:
+ 227               	.LFB91:
+ 228               	.LM29:
+ 229 00c6 0F93      		push r16
+ 230 00c8 1F93      		push r17
+ 231               	/* prologue: function */
+ 232               	/* frame size = 0 */
+ 233               	.LM30:
+ 234 00ca 0E94 0000 		call _scheduler_init
+ 235               	.LM31:
+ 236 00ce 0E94 0000 		call _vt_init
+ 237               	.LM32:
+ 238 00d2 80E0      		ldi r24,lo8(mainthread.2242)
+ 239 00d4 90E0      		ldi r25,hi8(mainthread.2242)
+ 240 00d6 60E4      		ldi r22,lo8(64)
+ 241 00d8 0E94 0000 		call _thread_init
+ 242 00dc FC01      		movw r30,r24
+ 243 00de 9093 0000 		sts (ch+11)+1,r25
+ 244 00e2 8093 0000 		sts ch+11,r24
+ 245               	.LM33:
+ 246 00e6 81E0      		ldi r24,lo8(1)
+ 247 00e8 8587      		std Z+13,r24
+ 248               	.LBB42:
+ 249               	.LBB43:
+ 250               	.LM34:
+ 251               	/* #APP */
+ 252               	 ;  290 "../../../os/rt/include/chsys.h" 1
+ 253 00ea 7894      		sei
+ 254               	 ;  0 "" 2
+ 255               	/* #NOAPP */
+ 256               	.LBE43:
+ 257               	.LBE42:
+ 258               	.LM35:
+ 259 00ec E091 0000 		lds r30,ch+11
+ 260 00f0 F091 0000 		lds r31,(ch+11)+1
+ 261 00f4 80E0      		ldi r24,lo8(ch_debug)
+ 262 00f6 90E0      		ldi r25,hi8(ch_debug)
+ 263 00f8 9487      		std Z+12,r25
+ 264 00fa 8387      		std Z+11,r24
+ 265               	.LM36:
+ 266 00fc 80E0      		ldi r24,lo8(_idle_thread_wa)
+ 267 00fe 90E0      		ldi r25,hi8(_idle_thread_wa)
+ 268 0100 69E8      		ldi r22,lo8(137)
+ 269 0102 70E0      		ldi r23,hi8(137)
+ 270 0104 41E0      		ldi r20,lo8(1)
+ 271 0106 20E0      		ldi r18,lo8(gs(_idle_thread))
+ 272 0108 30E0      		ldi r19,hi8(gs(_idle_thread))
+ 273 010a 00E0      		ldi r16,lo8(0)
+ 274 010c 10E0      		ldi r17,hi8(0)
+ 275 010e 0E94 0000 		call chThdCreateStatic
+ 276               	/* epilogue start */
+ 277               	.LM37:
+ 278 0112 1F91      		pop r17
+ 279 0114 0F91      		pop r16
+ 280 0116 0895      		ret
+ 281               	.LFE91:
+ 283               		.lcomm mainthread.2242,30
+ 284               		.lcomm _idle_thread_wa,137
+ 349               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 chsys.c
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccqAFKen.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccqAFKen.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccqAFKen.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccqAFKen.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccqAFKen.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccqAFKen.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccqAFKen.s:21     .text:00000000 _idle_thread
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccqAFKen.s:41     .text:00000012 chSysHalt
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccqAFKen.s:59     .text:00000016 chSysTimerHandlerI
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccqAFKen.s:162    .text:000000b0 chSysGetStatusAndLockX
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccqAFKen.s:198    .text:000000ba chSysRestoreStatusX
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccqAFKen.s:226    .text:000000c6 chSysInit
+                             .bss:00000000 mainthread.2242
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccqAFKen.s:283    .bss:0000001e _idle_thread_wa
+
+UNDEFINED SYMBOLS
+ch
+chSchRescheduleS
+_scheduler_init
+_vt_init
+_thread_init
+ch_debug
+chThdCreateStatic
+__do_copy_data
+__do_clear_bss

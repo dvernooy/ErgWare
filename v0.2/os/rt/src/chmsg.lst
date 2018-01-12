@@ -1,0 +1,238 @@
+   1               		.file	"chmsg.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	chMsgRelease
+  18               	chMsgRelease:
+  19               	.LFB92:
+  20               	.LM1:
+  21               	.LVL0:
+  22               	/* prologue: function */
+  23               	/* frame size = 0 */
+  24               	.LBB22:
+  25               	.LBB23:
+  26               	.LM2:
+  27               	/* #APP */
+  28               	 ;  300 "../../../os/rt/include/chsys.h" 1
+  29 0000 F894      		cli
+  30               	 ;  0 "" 2
+  31               	/* #NOAPP */
+  32               	.LBE23:
+  33               	.LBE22:
+  34               	.LBB24:
+  35               	.LBB25:
+  36               	.LM3:
+  37 0002 0E94 0000 		call chSchWakeupS
+  38               	.LVL1:
+  39               	.LBE25:
+  40               	.LBE24:
+  41               	.LBB26:
+  42               	.LBB27:
+  43               	.LM4:
+  44               	/* #APP */
+  45               	 ;  322 "../../../os/rt/include/chsys.h" 1
+  46 0006 7894      		sei
+  47               	 ;  0 "" 2
+  48               	/* epilogue start */
+  49               	/* #NOAPP */
+  50               	.LBE27:
+  51               	.LBE26:
+  52               	.LM5:
+  53 0008 0895      		ret
+  54               	.LFE92:
+  56               	.global	chMsgWait
+  58               	chMsgWait:
+  59               	.LFB91:
+  60               	.LM6:
+  61 000a CF93      		push r28
+  62 000c DF93      		push r29
+  63               	/* prologue: function */
+  64               	/* frame size = 0 */
+  65               	.LBB28:
+  66               	.LBB29:
+  67               	.LM7:
+  68               	/* #APP */
+  69               	 ;  300 "../../../os/rt/include/chsys.h" 1
+  70 000e F894      		cli
+  71               	 ;  0 "" 2
+  72               	/* #NOAPP */
+  73               	.LBE29:
+  74               	.LBE28:
+  75               	.LM8:
+  76 0010 C091 0000 		lds r28,ch+11
+  77 0014 D091 0000 		lds r29,(ch+11)+1
+  78               	.LBB30:
+  79               	.LBB31:
+  80               	.LM9:
+  81 0018 AC89      		ldd r26,Y+20
+  82 001a BD89      		ldd r27,Y+21
+  83               	.LBE31:
+  84               	.LBE30:
+  85               	.LM10:
+  86 001c CE01      		movw r24,r28
+  87 001e 4496      		adiw r24,20
+  88 0020 A817      		cp r26,r24
+  89 0022 B907      		cpc r27,r25
+  90 0024 01F0      		breq .L7
+  91               	.L4:
+  92               	.LBB32:
+  93               	.LBB33:
+  94               	.LM11:
+  95 0026 ED91      		ld r30,X+
+  96 0028 FC91      		ld r31,X
+  97 002a 1197      		sbiw r26,1
+  98 002c FD8B      		std Y+21,r31
+  99 002e EC8B      		std Y+20,r30
+ 100 0030 9383      		std Z+3,r25
+ 101 0032 8283      		std Z+2,r24
+ 102               	.LBE33:
+ 103               	.LBE32:
+ 104               	.LM12:
+ 105 0034 8DE0      		ldi r24,lo8(13)
+ 106 0036 1D96      		adiw r26,13
+ 107 0038 8C93      		st X,r24
+ 108 003a 1D97      		sbiw r26,13
+ 109               	.LBB34:
+ 110               	.LBB35:
+ 111               	.LM13:
+ 112               	/* #APP */
+ 113               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 114 003c 7894      		sei
+ 115               	 ;  0 "" 2
+ 116               	/* #NOAPP */
+ 117               	.LBE35:
+ 118               	.LBE34:
+ 119               	.LM14:
+ 120 003e CD01      		movw r24,r26
+ 121               	/* epilogue start */
+ 122 0040 DF91      		pop r29
+ 123 0042 CF91      		pop r28
+ 124 0044 0895      		ret
+ 125               	.L7:
+ 126               	.LM15:
+ 127 0046 8EE0      		ldi r24,lo8(14)
+ 128 0048 0E94 0000 		call chSchGoSleepS
+ 129 004c C091 0000 		lds r28,ch+11
+ 130 0050 D091 0000 		lds r29,(ch+11)+1
+ 131 0054 AC89      		ldd r26,Y+20
+ 132 0056 BD89      		ldd r27,Y+21
+ 133 0058 CE01      		movw r24,r28
+ 134 005a 4496      		adiw r24,20
+ 135 005c 00C0      		rjmp .L4
+ 136               	.LFE91:
+ 138               	.global	chMsgSend
+ 140               	chMsgSend:
+ 141               	.LFB90:
+ 142               	.LM16:
+ 143               	.LVL2:
+ 144 005e CF93      		push r28
+ 145 0060 DF93      		push r29
+ 146               	/* prologue: function */
+ 147               	/* frame size = 0 */
+ 148 0062 DC01      		movw r26,r24
+ 149               	.LM17:
+ 150 0064 C091 0000 		lds r28,ch+11
+ 151 0068 D091 0000 		lds r29,(ch+11)+1
+ 152               	.LVL3:
+ 153               	.LBB36:
+ 154               	.LBB37:
+ 155               	.LM18:
+ 156               	/* #APP */
+ 157               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 158 006c F894      		cli
+ 159               	 ;  0 "" 2
+ 160               	/* #NOAPP */
+ 161               	.LBE37:
+ 162               	.LBE36:
+ 163               	.LM19:
+ 164 006e 798F      		std Y+25,r23
+ 165 0070 688F      		std Y+24,r22
+ 166               	.LM20:
+ 167 0072 4496      		adiw r24,20
+ 168               	.LVL4:
+ 169 0074 998B      		std Y+17,r25
+ 170 0076 888B      		std Y+16,r24
+ 171               	.LBB38:
+ 172               	.LBB39:
+ 173               	.LM21:
+ 174 0078 9983      		std Y+1,r25
+ 175 007a 8883      		st Y,r24
+ 176               	.LM22:
+ 177 007c 5696      		adiw r26,22
+ 178 007e ED91      		ld r30,X+
+ 179 0080 FC91      		ld r31,X
+ 180 0082 5797      		sbiw r26,22+1
+ 181 0084 FB83      		std Y+3,r31
+ 182 0086 EA83      		std Y+2,r30
+ 183               	.LM23:
+ 184 0088 5796      		adiw r26,22+1
+ 185 008a DC93      		st X,r29
+ 186 008c CE93      		st -X,r28
+ 187 008e 5697      		sbiw r26,22
+ 188 0090 D183      		std Z+1,r29
+ 189 0092 C083      		st Z,r28
+ 190               	.LBE39:
+ 191               	.LBE38:
+ 192               	.LM24:
+ 193 0094 1D96      		adiw r26,13
+ 194 0096 8C91      		ld r24,X
+ 195 0098 1D97      		sbiw r26,13
+ 196 009a 8E30      		cpi r24,lo8(14)
+ 197 009c 01F0      		breq .L11
+ 198               	.L9:
+ 199               	.LM25:
+ 200 009e 8CE0      		ldi r24,lo8(12)
+ 201 00a0 0E94 0000 		call chSchGoSleepS
+ 202               	.LVL5:
+ 203               	.LM26:
+ 204 00a4 8889      		ldd r24,Y+16
+ 205               	.LVL6:
+ 206 00a6 9989      		ldd r25,Y+17
+ 207               	.LVL7:
+ 208               	.LBB40:
+ 209               	.LBB41:
+ 210               	.LM27:
+ 211               	/* #APP */
+ 212               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 213 00a8 7894      		sei
+ 214               	 ;  0 "" 2
+ 215               	.LVL8:
+ 216               	/* epilogue start */
+ 217               	/* #NOAPP */
+ 218               	.LBE41:
+ 219               	.LBE40:
+ 220               	.LM28:
+ 221 00aa DF91      		pop r29
+ 222 00ac CF91      		pop r28
+ 223               	.LVL9:
+ 224 00ae 0895      		ret
+ 225               	.LVL10:
+ 226               	.L11:
+ 227               	.LM29:
+ 228 00b0 CD01      		movw r24,r26
+ 229 00b2 0E94 0000 		call chSchReadyI
+ 230               	.LVL11:
+ 231 00b6 00C0      		rjmp .L9
+ 232               	.LFE90:
+ 274               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 chmsg.c
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccAaFPV.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccAaFPV.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccAaFPV.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccAaFPV.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccAaFPV.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccAaFPV.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccAaFPV.s:18     .text:00000000 chMsgRelease
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccAaFPV.s:58     .text:0000000a chMsgWait
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccAaFPV.s:140    .text:0000005e chMsgSend
+
+UNDEFINED SYMBOLS
+chSchWakeupS
+ch
+chSchGoSleepS
+chSchReadyI

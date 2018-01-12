@@ -1,0 +1,112 @@
+   1               		.file	"test_root.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	test_support
+  18               	test_support:
+  19               	.LFB53:
+  20               	.LM1:
+  21               	.LVL0:
+  22               	/* prologue: function */
+  23               	/* frame size = 0 */
+  24 0000 8C01      		movw r16,r24
+  25               	.LVL1:
+  26               	.LM2:
+  27 0002 1092 0000 		sts gsem1,__zero_reg__
+  28               	.LM3:
+  29 0006 1092 0000 		sts gsem2,__zero_reg__
+  30 000a 00C0      		rjmp .L3
+  31               	.L2:
+  32               	.LM4:
+  33 000c 80E0      		ldi r24,lo8(gsem2)
+  34 000e 90E0      		ldi r25,hi8(gsem2)
+  35 0010 60E0      		ldi r22,lo8(0)
+  36 0012 0E94 0000 		call chSemResetI
+  37               	.LM5:
+  38 0016 80E0      		ldi r24,lo8(gtr1)
+  39 0018 90E0      		ldi r25,hi8(gtr1)
+  40 001a 60E0      		ldi r22,lo8(0)
+  41 001c 70E0      		ldi r23,hi8(0)
+  42 001e 0E94 0000 		call chThdResumeI
+  43               	.LM6:
+  44 0022 C801      		movw r24,r16
+  45 0024 65E5      		ldi r22,lo8(85)
+  46 0026 0E94 0000 		call chEvtSignalI
+  47               	.LM7:
+  48 002a 0E94 0000 		call chSchRescheduleS
+  49               	.LBB6:
+  50               	.LBB7:
+  51               	.LM8:
+  52               	/* #APP */
+  53               	 ;  327 "../../../os/nil/ports/AVR/nilcore.h" 1
+  54 002e 7894      		sei
+  55               	 ;  0 "" 2
+  56               	/* #NOAPP */
+  57               	.LBE7:
+  58               	.LBE6:
+  59               	.LM9:
+  60 0030 8BED      		ldi r24,lo8(15579)
+  61 0032 9CE3      		ldi r25,hi8(15579)
+  62 0034 0E94 0000 		call chThdSleep
+  63               	.L3:
+  64               	.LBB8:
+  65               	.LBB9:
+  66               	.LM10:
+  67               	/* #APP */
+  68               	 ;  319 "../../../os/nil/ports/AVR/nilcore.h" 1
+  69 0038 F894      		cli
+  70               	 ;  0 "" 2
+  71               	/* #NOAPP */
+  72               	.LBE9:
+  73               	.LBE8:
+  74               	.LM11:
+  75 003a 8091 0000 		lds r24,gsem1
+  76 003e 87FF      		sbrs r24,7
+  77 0040 00C0      		rjmp .L2
+  78               	.LM12:
+  79 0042 80E0      		ldi r24,lo8(gsem1)
+  80 0044 90E0      		ldi r25,hi8(gsem1)
+  81 0046 0E94 0000 		call chSemSignalI
+  82 004a 00C0      		rjmp .L2
+  83               	.LFE53:
+  85               	.global	test_suite
+  86               		.data
+  89               	test_suite:
+  90 0000 0000      		.word	test_sequence_001
+  91 0002 0000      		.word	test_sequence_002
+  92 0004 0000      		.word	0
+  93               		.comm gsem1,1,1
+  94               		.comm gsem2,1,1
+  95               		.comm gtr1,2,1
+  96               		.comm wa_test_support,180,1
+ 121               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 test_root.c
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccFRXEMb.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccFRXEMb.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccFRXEMb.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccFRXEMb.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccFRXEMb.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccFRXEMb.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccFRXEMb.s:18     .text:00000000 test_support
+                            *COM*:00000001 gsem1
+                            *COM*:00000001 gsem2
+                            *COM*:00000002 gtr1
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccFRXEMb.s:89     .data:00000000 test_suite
+                            *COM*:000000b4 wa_test_support
+
+UNDEFINED SYMBOLS
+chSemResetI
+chThdResumeI
+chEvtSignalI
+chSchRescheduleS
+chThdSleep
+chSemSignalI
+test_sequence_001
+test_sequence_002
+__do_copy_data
+__do_clear_bss

@@ -1,0 +1,1397 @@
+   1               		.file	"testmbox.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.data
+  17               	.LC0:
+  18 0000 4142 4344 		.string	"ABCDE"
+  18      4500 
+  19               		.text
+  21               	mbox1_execute:
+  22               	.LFB91:
+  23               	.LM1:
+  24 0000 EF92      		push r14
+  25 0002 FF92      		push r15
+  26 0004 0F93      		push r16
+  27 0006 1F93      		push r17
+  28 0008 DF93      		push r29
+  29 000a CF93      		push r28
+  30 000c 00D0      		rcall .
+  31 000e CDB7      		in r28,__SP_L__
+  32 0010 DEB7      		in r29,__SP_H__
+  33               	/* prologue: function */
+  34               	/* frame size = 2 */
+  35               	.LBB168:
+  36               	.LBB169:
+  37               	.LM2:
+  38               	/* #APP */
+  39               	 ;  300 "../../../os/rt/include/chsys.h" 1
+  40 0012 F894      		cli
+  41               	 ;  0 "" 2
+  42               	/* #NOAPP */
+  43               	.LBE169:
+  44               	.LBE168:
+  45               	.LM3:
+  46 0014 60E0      		ldi r22,lo8(0)
+  47 0016 8091 0000 		lds r24,mb1+17
+  48 001a 8530      		cpi r24,lo8(5)
+  49 001c 01F4      		brne .+2
+  50 001e 00C0      		rjmp .L72
+  51               	.L2:
+  52 0020 81E0      		ldi r24,lo8(1)
+  53 0022 90E0      		ldi r25,hi8(1)
+  54 0024 0E94 0000 		call _test_assert
+  55 0028 8823      		tst r24
+  56 002a 01F0      		breq .+2
+  57 002c 00C0      		rjmp .L65
+  58               	.LBB170:
+  59               	.LBB171:
+  60               	/* #APP */
+  61               	 ;  322 "../../../os/rt/include/chsys.h" 1
+  62 002e 7894      		sei
+  63               	 ;  0 "" 2
+  64               	/* #NOAPP */
+  65 0030 02E4      		ldi r16,lo8(66)
+  66 0032 10E0      		ldi r17,hi8(66)
+  67               	.L6:
+  68               	.LBE171:
+  69               	.LBE170:
+  70               	.LM4:
+  71 0034 80E0      		ldi r24,lo8(mb1)
+  72 0036 90E0      		ldi r25,hi8(mb1)
+  73 0038 B801      		movw r22,r16
+  74 003a 4FEF      		ldi r20,lo8(-1)
+  75 003c 5FEF      		ldi r21,hi8(-1)
+  76 003e 0E94 0000 		call chMBPost
+  77               	.LM5:
+  78 0042 60E0      		ldi r22,lo8(0)
+  79 0044 892B      		or r24,r25
+  80 0046 01F4      		brne .L5
+  81 0048 61E0      		ldi r22,lo8(1)
+  82               	.L5:
+  83 004a 82E0      		ldi r24,lo8(2)
+  84 004c 90E0      		ldi r25,hi8(2)
+  85 004e 0E94 0000 		call _test_assert
+  86 0052 8823      		tst r24
+  87 0054 01F4      		brne .L66
+  88 0056 0F5F      		subi r16,lo8(-(1))
+  89 0058 1F4F      		sbci r17,hi8(-(1))
+  90               	.LM6:
+  91 005a 0634      		cpi r16,70
+  92 005c 1105      		cpc r17,__zero_reg__
+  93 005e 01F4      		brne .L6
+  94               	.LM7:
+  95 0060 80E0      		ldi r24,lo8(mb1)
+  96 0062 90E0      		ldi r25,hi8(mb1)
+  97 0064 61E4      		ldi r22,lo8(65)
+  98 0066 70E0      		ldi r23,hi8(65)
+  99 0068 4FEF      		ldi r20,lo8(-1)
+ 100 006a 5FEF      		ldi r21,hi8(-1)
+ 101 006c 0E94 0000 		call chMBPostAhead
+ 102               	.LM8:
+ 103 0070 60E0      		ldi r22,lo8(0)
+ 104 0072 892B      		or r24,r25
+ 105 0074 01F4      		brne .L7
+ 106 0076 61E0      		ldi r22,lo8(1)
+ 107               	.L7:
+ 108 0078 83E0      		ldi r24,lo8(3)
+ 109 007a 90E0      		ldi r25,hi8(3)
+ 110 007c 0E94 0000 		call _test_assert
+ 111 0080 8823      		tst r24
+ 112 0082 01F0      		breq .L73
+ 113               	.LVL0:
+ 114               	.L66:
+ 115               	/* epilogue start */
+ 116               	.LM9:
+ 117 0084 0F90      		pop __tmp_reg__
+ 118 0086 0F90      		pop __tmp_reg__
+ 119 0088 CF91      		pop r28
+ 120 008a DF91      		pop r29
+ 121 008c 1F91      		pop r17
+ 122 008e 0F91      		pop r16
+ 123               	.LVL1:
+ 124 0090 FF90      		pop r15
+ 125 0092 EF90      		pop r14
+ 126 0094 0895      		ret
+ 127               	.LVL2:
+ 128               	.L73:
+ 129               	.LM10:
+ 130 0096 80E0      		ldi r24,lo8(mb1)
+ 131 0098 90E0      		ldi r25,hi8(mb1)
+ 132 009a 68E5      		ldi r22,lo8(88)
+ 133 009c 70E0      		ldi r23,hi8(88)
+ 134 009e 41E0      		ldi r20,lo8(1)
+ 135 00a0 50E0      		ldi r21,hi8(1)
+ 136 00a2 0E94 0000 		call chMBPost
+ 137               	.LM11:
+ 138 00a6 60E0      		ldi r22,lo8(0)
+ 139 00a8 8F5F      		subi r24,lo8(-1)
+ 140 00aa 9F4F      		sbci r25,hi8(-1)
+ 141 00ac 01F4      		brne .+2
+ 142 00ae 00C0      		rjmp .L74
+ 143               	.L8:
+ 144 00b0 84E0      		ldi r24,lo8(4)
+ 145 00b2 90E0      		ldi r25,hi8(4)
+ 146 00b4 0E94 0000 		call _test_assert
+ 147 00b8 8823      		tst r24
+ 148 00ba 01F4      		brne .L66
+ 149               	.LBB172:
+ 150               	.LBB173:
+ 151               	.LM12:
+ 152               	/* #APP */
+ 153               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 154 00bc F894      		cli
+ 155               	 ;  0 "" 2
+ 156               	/* #NOAPP */
+ 157               	.LBE173:
+ 158               	.LBE172:
+ 159               	.LM13:
+ 160 00be 80E0      		ldi r24,lo8(mb1)
+ 161 00c0 90E0      		ldi r25,hi8(mb1)
+ 162 00c2 68E5      		ldi r22,lo8(88)
+ 163 00c4 70E0      		ldi r23,hi8(88)
+ 164 00c6 0E94 0000 		call chMBPostI
+ 165               	.LBB174:
+ 166               	.LBB175:
+ 167               	.LM14:
+ 168               	/* #APP */
+ 169               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 170 00ca 7894      		sei
+ 171               	 ;  0 "" 2
+ 172               	/* #NOAPP */
+ 173               	.LBE175:
+ 174               	.LBE174:
+ 175               	.LM15:
+ 176 00cc 60E0      		ldi r22,lo8(0)
+ 177 00ce 8F5F      		subi r24,lo8(-1)
+ 178 00d0 9F4F      		sbci r25,hi8(-1)
+ 179               	.LVL3:
+ 180 00d2 01F4      		brne .L9
+ 181 00d4 61E0      		ldi r22,lo8(1)
+ 182               	.L9:
+ 183 00d6 85E0      		ldi r24,lo8(5)
+ 184 00d8 90E0      		ldi r25,hi8(5)
+ 185               	.LVL4:
+ 186 00da 0E94 0000 		call _test_assert
+ 187 00de 8823      		tst r24
+ 188 00e0 01F4      		brne .L66
+ 189               	.LM16:
+ 190 00e2 80E0      		ldi r24,lo8(mb1)
+ 191 00e4 90E0      		ldi r25,hi8(mb1)
+ 192 00e6 68E5      		ldi r22,lo8(88)
+ 193 00e8 70E0      		ldi r23,hi8(88)
+ 194 00ea 41E0      		ldi r20,lo8(1)
+ 195 00ec 50E0      		ldi r21,hi8(1)
+ 196 00ee 0E94 0000 		call chMBPostAhead
+ 197               	.LM17:
+ 198 00f2 60E0      		ldi r22,lo8(0)
+ 199 00f4 8F5F      		subi r24,lo8(-1)
+ 200 00f6 9F4F      		sbci r25,hi8(-1)
+ 201 00f8 01F4      		brne .+2
+ 202 00fa 00C0      		rjmp .L75
+ 203               	.L10:
+ 204 00fc 86E0      		ldi r24,lo8(6)
+ 205 00fe 90E0      		ldi r25,hi8(6)
+ 206 0100 0E94 0000 		call _test_assert
+ 207 0104 8823      		tst r24
+ 208 0106 01F0      		breq .+2
+ 209 0108 00C0      		rjmp .L66
+ 210               	.LBB176:
+ 211               	.LBB177:
+ 212               	.LM18:
+ 213               	/* #APP */
+ 214               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 215 010a F894      		cli
+ 216               	 ;  0 "" 2
+ 217               	/* #NOAPP */
+ 218               	.LBE177:
+ 219               	.LBE176:
+ 220               	.LM19:
+ 221 010c 80E0      		ldi r24,lo8(mb1)
+ 222 010e 90E0      		ldi r25,hi8(mb1)
+ 223 0110 68E5      		ldi r22,lo8(88)
+ 224 0112 70E0      		ldi r23,hi8(88)
+ 225 0114 0E94 0000 		call chMBPostAheadI
+ 226               	.LBB178:
+ 227               	.LBB179:
+ 228               	.LM20:
+ 229               	/* #APP */
+ 230               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 231 0118 7894      		sei
+ 232               	 ;  0 "" 2
+ 233               	/* #NOAPP */
+ 234               	.LBE179:
+ 235               	.LBE178:
+ 236               	.LM21:
+ 237 011a 60E0      		ldi r22,lo8(0)
+ 238 011c 8F5F      		subi r24,lo8(-1)
+ 239 011e 9F4F      		sbci r25,hi8(-1)
+ 240               	.LVL5:
+ 241 0120 01F4      		brne .+2
+ 242 0122 00C0      		rjmp .L76
+ 243               	.L11:
+ 244 0124 87E0      		ldi r24,lo8(7)
+ 245 0126 90E0      		ldi r25,hi8(7)
+ 246               	.LVL6:
+ 247 0128 0E94 0000 		call _test_assert
+ 248 012c 8823      		tst r24
+ 249 012e 01F0      		breq .+2
+ 250 0130 00C0      		rjmp .L66
+ 251               	.LBB180:
+ 252               	.LBB181:
+ 253               	.LM22:
+ 254               	/* #APP */
+ 255               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 256 0132 F894      		cli
+ 257               	 ;  0 "" 2
+ 258               	/* #NOAPP */
+ 259               	.LBE181:
+ 260               	.LBE180:
+ 261               	.LM23:
+ 262 0134 60E0      		ldi r22,lo8(0)
+ 263 0136 8091 0000 		lds r24,mb1+17
+ 264 013a 8823      		tst r24
+ 265 013c 01F4      		brne .L12
+ 266 013e 61E0      		ldi r22,lo8(1)
+ 267               	.L12:
+ 268 0140 88E0      		ldi r24,lo8(8)
+ 269 0142 90E0      		ldi r25,hi8(8)
+ 270 0144 0E94 0000 		call _test_assert
+ 271 0148 8823      		tst r24
+ 272 014a 01F0      		breq .+2
+ 273 014c 00C0      		rjmp .L65
+ 274               	.LBB182:
+ 275               	.LBB183:
+ 276               	/* #APP */
+ 277               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 278 014e 7894      		sei
+ 279               	 ;  0 "" 2
+ 280               	/* #NOAPP */
+ 281               	.LBE183:
+ 282               	.LBE182:
+ 283               	.LBB184:
+ 284               	.LBB185:
+ 285               	.LM24:
+ 286               	/* #APP */
+ 287               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 288 0150 F894      		cli
+ 289               	 ;  0 "" 2
+ 290               	/* #NOAPP */
+ 291               	.LBE185:
+ 292               	.LBE184:
+ 293               	.LM25:
+ 294 0152 60E0      		ldi r22,lo8(0)
+ 295 0154 8091 0000 		lds r24,mb1+12
+ 296 0158 8530      		cpi r24,lo8(5)
+ 297 015a 01F4      		brne .L14
+ 298 015c 61E0      		ldi r22,lo8(1)
+ 299               	.L14:
+ 300 015e 89E0      		ldi r24,lo8(9)
+ 301 0160 90E0      		ldi r25,hi8(9)
+ 302 0162 0E94 0000 		call _test_assert
+ 303 0166 8823      		tst r24
+ 304 0168 01F0      		breq .+2
+ 305 016a 00C0      		rjmp .L65
+ 306               	.LBB186:
+ 307               	.LBB187:
+ 308               	/* #APP */
+ 309               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 310 016c 7894      		sei
+ 311               	 ;  0 "" 2
+ 312               	/* #NOAPP */
+ 313               	.LBE187:
+ 314               	.LBE186:
+ 315               	.LBB188:
+ 316               	.LBB189:
+ 317               	.LM26:
+ 318               	/* #APP */
+ 319               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 320 016e F894      		cli
+ 321               	 ;  0 "" 2
+ 322               	/* #NOAPP */
+ 323               	.LBE189:
+ 324               	.LBE188:
+ 325               	.LM27:
+ 326 0170 60E0      		ldi r22,lo8(0)
+ 327 0172 2091 0000 		lds r18,mb1+6
+ 328 0176 3091 0000 		lds r19,(mb1+6)+1
+ 329 017a 8091 0000 		lds r24,mb1+4
+ 330 017e 9091 0000 		lds r25,(mb1+4)+1
+ 331 0182 2817      		cp r18,r24
+ 332 0184 3907      		cpc r19,r25
+ 333 0186 01F4      		brne .+2
+ 334 0188 00C0      		rjmp .L77
+ 335               	.L16:
+ 336 018a 8AE0      		ldi r24,lo8(10)
+ 337 018c 90E0      		ldi r25,hi8(10)
+ 338 018e 0E94 0000 		call _test_assert
+ 339 0192 8823      		tst r24
+ 340 0194 01F0      		breq .+2
+ 341 0196 00C0      		rjmp .L65
+ 342               	.LBB190:
+ 343               	.LBB191:
+ 344               	/* #APP */
+ 345               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 346 0198 7894      		sei
+ 347               	 ;  0 "" 2
+ 348               	/* #NOAPP */
+ 349 019a 00E0      		ldi r16,lo8(0)
+ 350 019c 10E0      		ldi r17,hi8(0)
+ 351               	.LVL7:
+ 352 019e 7E01      		movw r14,r28
+ 353 01a0 0894      		sec
+ 354 01a2 E11C      		adc r14,__zero_reg__
+ 355 01a4 F11C      		adc r15,__zero_reg__
+ 356               	.LVL8:
+ 357               	.L19:
+ 358               	.LBE191:
+ 359               	.LBE190:
+ 360               	.LM28:
+ 361 01a6 80E0      		ldi r24,lo8(mb1)
+ 362 01a8 90E0      		ldi r25,hi8(mb1)
+ 363 01aa B701      		movw r22,r14
+ 364 01ac 4FEF      		ldi r20,lo8(-1)
+ 365 01ae 5FEF      		ldi r21,hi8(-1)
+ 366 01b0 0E94 0000 		call chMBFetch
+ 367               	.LM29:
+ 368 01b4 60E0      		ldi r22,lo8(0)
+ 369 01b6 892B      		or r24,r25
+ 370 01b8 01F4      		brne .L18
+ 371 01ba 61E0      		ldi r22,lo8(1)
+ 372               	.L18:
+ 373 01bc 8BE0      		ldi r24,lo8(11)
+ 374 01be 90E0      		ldi r25,hi8(11)
+ 375 01c0 0E94 0000 		call _test_assert
+ 376 01c4 8823      		tst r24
+ 377 01c6 01F0      		breq .+2
+ 378 01c8 00C0      		rjmp .L66
+ 379               	.LM30:
+ 380 01ca 8981      		ldd r24,Y+1
+ 381 01cc 0E94 0000 		call test_emit_token
+ 382               	.LM31:
+ 383 01d0 0F5F      		subi r16,lo8(-(1))
+ 384 01d2 1F4F      		sbci r17,hi8(-(1))
+ 385 01d4 0530      		cpi r16,5
+ 386 01d6 1105      		cpc r17,__zero_reg__
+ 387 01d8 01F4      		brne .L19
+ 388               	.LM32:
+ 389 01da 8CE0      		ldi r24,lo8(12)
+ 390 01dc 90E0      		ldi r25,hi8(12)
+ 391 01de 60E0      		ldi r22,lo8(.LC0)
+ 392 01e0 70E0      		ldi r23,hi8(.LC0)
+ 393 01e2 0E94 0000 		call _test_assert_sequence
+ 394 01e6 8823      		tst r24
+ 395 01e8 01F0      		breq .+2
+ 396 01ea 00C0      		rjmp .L66
+ 397               	.LM33:
+ 398 01ec 80E0      		ldi r24,lo8(mb1)
+ 399 01ee 90E0      		ldi r25,hi8(mb1)
+ 400 01f0 67E4      		ldi r22,lo8(71)
+ 401 01f2 70E0      		ldi r23,hi8(71)
+ 402 01f4 4FEF      		ldi r20,lo8(-1)
+ 403 01f6 5FEF      		ldi r21,hi8(-1)
+ 404 01f8 0E94 0000 		call chMBPost
+ 405               	.LM34:
+ 406 01fc 60E0      		ldi r22,lo8(0)
+ 407 01fe 892B      		or r24,r25
+ 408 0200 01F4      		brne .L20
+ 409 0202 61E0      		ldi r22,lo8(1)
+ 410               	.L20:
+ 411 0204 8DE0      		ldi r24,lo8(13)
+ 412 0206 90E0      		ldi r25,hi8(13)
+ 413 0208 0E94 0000 		call _test_assert
+ 414 020c 8823      		tst r24
+ 415 020e 01F0      		breq .+2
+ 416 0210 00C0      		rjmp .L66
+ 417               	.LM35:
+ 418 0212 80E0      		ldi r24,lo8(mb1)
+ 419 0214 90E0      		ldi r25,hi8(mb1)
+ 420 0216 B701      		movw r22,r14
+ 421 0218 4FEF      		ldi r20,lo8(-1)
+ 422 021a 5FEF      		ldi r21,hi8(-1)
+ 423 021c 0E94 0000 		call chMBFetch
+ 424               	.LM36:
+ 425 0220 60E0      		ldi r22,lo8(0)
+ 426 0222 892B      		or r24,r25
+ 427 0224 01F4      		brne .L21
+ 428 0226 61E0      		ldi r22,lo8(1)
+ 429               	.L21:
+ 430 0228 8EE0      		ldi r24,lo8(14)
+ 431 022a 90E0      		ldi r25,hi8(14)
+ 432 022c 0E94 0000 		call _test_assert
+ 433 0230 8823      		tst r24
+ 434 0232 01F0      		breq .+2
+ 435 0234 00C0      		rjmp .L66
+ 436               	.LM37:
+ 437 0236 60E0      		ldi r22,lo8(0)
+ 438 0238 2091 0000 		lds r18,mb1
+ 439 023c 3091 0000 		lds r19,(mb1)+1
+ 440 0240 8091 0000 		lds r24,mb1+4
+ 441 0244 9091 0000 		lds r25,(mb1+4)+1
+ 442 0248 2817      		cp r18,r24
+ 443 024a 3907      		cpc r19,r25
+ 444 024c 01F4      		brne .L22
+ 445 024e 61E0      		ldi r22,lo8(1)
+ 446               	.L22:
+ 447 0250 8FE0      		ldi r24,lo8(15)
+ 448 0252 90E0      		ldi r25,hi8(15)
+ 449 0254 0E94 0000 		call _test_assert
+ 450 0258 8823      		tst r24
+ 451 025a 01F0      		breq .+2
+ 452 025c 00C0      		rjmp .L66
+ 453               	.LM38:
+ 454 025e 60E0      		ldi r22,lo8(0)
+ 455 0260 2091 0000 		lds r18,mb1
+ 456 0264 3091 0000 		lds r19,(mb1)+1
+ 457 0268 8091 0000 		lds r24,mb1+6
+ 458 026c 9091 0000 		lds r25,(mb1+6)+1
+ 459 0270 2817      		cp r18,r24
+ 460 0272 3907      		cpc r19,r25
+ 461 0274 01F4      		brne .L23
+ 462 0276 61E0      		ldi r22,lo8(1)
+ 463               	.L23:
+ 464 0278 80E1      		ldi r24,lo8(16)
+ 465 027a 90E0      		ldi r25,hi8(16)
+ 466 027c 0E94 0000 		call _test_assert
+ 467 0280 8823      		tst r24
+ 468 0282 01F0      		breq .+2
+ 469 0284 00C0      		rjmp .L66
+ 470               	.LM39:
+ 471 0286 80E0      		ldi r24,lo8(mb1)
+ 472 0288 90E0      		ldi r25,hi8(mb1)
+ 473 028a B701      		movw r22,r14
+ 474 028c 41E0      		ldi r20,lo8(1)
+ 475 028e 50E0      		ldi r21,hi8(1)
+ 476 0290 0E94 0000 		call chMBFetch
+ 477               	.LM40:
+ 478 0294 60E0      		ldi r22,lo8(0)
+ 479 0296 8F5F      		subi r24,lo8(-1)
+ 480 0298 9F4F      		sbci r25,hi8(-1)
+ 481 029a 01F4      		brne .L24
+ 482 029c 61E0      		ldi r22,lo8(1)
+ 483               	.L24:
+ 484 029e 81E1      		ldi r24,lo8(17)
+ 485 02a0 90E0      		ldi r25,hi8(17)
+ 486 02a2 0E94 0000 		call _test_assert
+ 487 02a6 8823      		tst r24
+ 488 02a8 01F0      		breq .+2
+ 489 02aa 00C0      		rjmp .L66
+ 490               	.LBB192:
+ 491               	.LBB193:
+ 492               	.LM41:
+ 493               	/* #APP */
+ 494               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 495 02ac F894      		cli
+ 496               	 ;  0 "" 2
+ 497               	/* #NOAPP */
+ 498               	.LBE193:
+ 499               	.LBE192:
+ 500               	.LM42:
+ 501 02ae 80E0      		ldi r24,lo8(mb1)
+ 502 02b0 90E0      		ldi r25,hi8(mb1)
+ 503 02b2 B701      		movw r22,r14
+ 504 02b4 0E94 0000 		call chMBFetchI
+ 505               	.LBB194:
+ 506               	.LBB195:
+ 507               	.LM43:
+ 508               	/* #APP */
+ 509               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 510 02b8 7894      		sei
+ 511               	 ;  0 "" 2
+ 512               	/* #NOAPP */
+ 513               	.LBE195:
+ 514               	.LBE194:
+ 515               	.LM44:
+ 516 02ba 60E0      		ldi r22,lo8(0)
+ 517 02bc 8F5F      		subi r24,lo8(-1)
+ 518 02be 9F4F      		sbci r25,hi8(-1)
+ 519               	.LVL9:
+ 520 02c0 01F4      		brne .L25
+ 521 02c2 61E0      		ldi r22,lo8(1)
+ 522               	.L25:
+ 523 02c4 82E1      		ldi r24,lo8(18)
+ 524 02c6 90E0      		ldi r25,hi8(18)
+ 525               	.LVL10:
+ 526 02c8 0E94 0000 		call _test_assert
+ 527 02cc 8823      		tst r24
+ 528 02ce 01F0      		breq .+2
+ 529 02d0 00C0      		rjmp .L66
+ 530               	.LBB196:
+ 531               	.LBB197:
+ 532               	.LM45:
+ 533               	/* #APP */
+ 534               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 535 02d2 F894      		cli
+ 536               	 ;  0 "" 2
+ 537               	/* #NOAPP */
+ 538               	.LBE197:
+ 539               	.LBE196:
+ 540               	.LM46:
+ 541 02d4 60E0      		ldi r22,lo8(0)
+ 542 02d6 8091 0000 		lds r24,mb1+17
+ 543 02da 8530      		cpi r24,lo8(5)
+ 544 02dc 01F4      		brne .L26
+ 545 02de 61E0      		ldi r22,lo8(1)
+ 546               	.L26:
+ 547 02e0 83E1      		ldi r24,lo8(19)
+ 548 02e2 90E0      		ldi r25,hi8(19)
+ 549 02e4 0E94 0000 		call _test_assert
+ 550 02e8 8823      		tst r24
+ 551 02ea 01F0      		breq .+2
+ 552 02ec 00C0      		rjmp .L65
+ 553               	.LBB198:
+ 554               	.LBB199:
+ 555               	/* #APP */
+ 556               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 557 02ee 7894      		sei
+ 558               	 ;  0 "" 2
+ 559               	/* #NOAPP */
+ 560               	.LBE199:
+ 561               	.LBE198:
+ 562               	.LBB200:
+ 563               	.LBB201:
+ 564               	.LM47:
+ 565               	/* #APP */
+ 566               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 567 02f0 F894      		cli
+ 568               	 ;  0 "" 2
+ 569               	/* #NOAPP */
+ 570               	.LBE201:
+ 571               	.LBE200:
+ 572               	.LM48:
+ 573 02f2 60E0      		ldi r22,lo8(0)
+ 574 02f4 8091 0000 		lds r24,mb1+12
+ 575 02f8 8823      		tst r24
+ 576 02fa 01F4      		brne .L28
+ 577 02fc 61E0      		ldi r22,lo8(1)
+ 578               	.L28:
+ 579 02fe 84E1      		ldi r24,lo8(20)
+ 580 0300 90E0      		ldi r25,hi8(20)
+ 581 0302 0E94 0000 		call _test_assert
+ 582 0306 8823      		tst r24
+ 583 0308 01F0      		breq .+2
+ 584 030a 00C0      		rjmp .L65
+ 585               	.LBB202:
+ 586               	.LBB203:
+ 587               	/* #APP */
+ 588               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 589 030c 7894      		sei
+ 590               	 ;  0 "" 2
+ 591               	/* #NOAPP */
+ 592               	.LBE203:
+ 593               	.LBE202:
+ 594               	.LBB204:
+ 595               	.LBB205:
+ 596               	.LM49:
+ 597               	/* #APP */
+ 598               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 599 030e F894      		cli
+ 600               	 ;  0 "" 2
+ 601               	/* #NOAPP */
+ 602               	.LBE205:
+ 603               	.LBE204:
+ 604               	.LM50:
+ 605 0310 60E0      		ldi r22,lo8(0)
+ 606 0312 2091 0000 		lds r18,mb1+6
+ 607 0316 3091 0000 		lds r19,(mb1+6)+1
+ 608 031a 8091 0000 		lds r24,mb1+4
+ 609 031e 9091 0000 		lds r25,(mb1+4)+1
+ 610 0322 2817      		cp r18,r24
+ 611 0324 3907      		cpc r19,r25
+ 612 0326 01F4      		brne .L30
+ 613 0328 61E0      		ldi r22,lo8(1)
+ 614               	.L30:
+ 615 032a 85E1      		ldi r24,lo8(21)
+ 616 032c 90E0      		ldi r25,hi8(21)
+ 617 032e 0E94 0000 		call _test_assert
+ 618 0332 8823      		tst r24
+ 619 0334 01F0      		breq .+2
+ 620 0336 00C0      		rjmp .L65
+ 621               	.LBB206:
+ 622               	.LBB207:
+ 623               	/* #APP */
+ 624               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 625 0338 7894      		sei
+ 626               	 ;  0 "" 2
+ 627               	/* #NOAPP */
+ 628               	.LBE207:
+ 629               	.LBE206:
+ 630               	.LBB208:
+ 631               	.LBB209:
+ 632               	.LM51:
+ 633               	/* #APP */
+ 634               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 635 033a F894      		cli
+ 636               	 ;  0 "" 2
+ 637               	/* #NOAPP */
+ 638               	.LBE209:
+ 639               	.LBE208:
+ 640               	.LM52:
+ 641 033c 80E0      		ldi r24,lo8(mb1)
+ 642 033e 90E0      		ldi r25,hi8(mb1)
+ 643 0340 61E4      		ldi r22,lo8(65)
+ 644 0342 70E0      		ldi r23,hi8(65)
+ 645 0344 0E94 0000 		call chMBPostI
+ 646               	.LM53:
+ 647 0348 60E0      		ldi r22,lo8(0)
+ 648 034a 892B      		or r24,r25
+ 649 034c 01F4      		brne .L32
+ 650 034e 61E0      		ldi r22,lo8(1)
+ 651               	.L32:
+ 652 0350 86E1      		ldi r24,lo8(22)
+ 653 0352 90E0      		ldi r25,hi8(22)
+ 654 0354 0E94 0000 		call _test_assert
+ 655 0358 8823      		tst r24
+ 656 035a 01F0      		breq .+2
+ 657 035c 00C0      		rjmp .L66
+ 658               	.LM54:
+ 659 035e 80E0      		ldi r24,lo8(mb1)
+ 660 0360 90E0      		ldi r25,hi8(mb1)
+ 661 0362 62E4      		ldi r22,lo8(66)
+ 662 0364 70E0      		ldi r23,hi8(66)
+ 663 0366 0E94 0000 		call chMBPostI
+ 664               	.LM55:
+ 665 036a 60E0      		ldi r22,lo8(0)
+ 666 036c 892B      		or r24,r25
+ 667 036e 01F4      		brne .L33
+ 668 0370 61E0      		ldi r22,lo8(1)
+ 669               	.L33:
+ 670 0372 87E1      		ldi r24,lo8(23)
+ 671 0374 90E0      		ldi r25,hi8(23)
+ 672 0376 0E94 0000 		call _test_assert
+ 673 037a 8823      		tst r24
+ 674 037c 01F0      		breq .+2
+ 675 037e 00C0      		rjmp .L66
+ 676               	.LM56:
+ 677 0380 80E0      		ldi r24,lo8(mb1)
+ 678 0382 90E0      		ldi r25,hi8(mb1)
+ 679 0384 63E4      		ldi r22,lo8(67)
+ 680 0386 70E0      		ldi r23,hi8(67)
+ 681 0388 0E94 0000 		call chMBPostI
+ 682               	.LM57:
+ 683 038c 60E0      		ldi r22,lo8(0)
+ 684 038e 892B      		or r24,r25
+ 685 0390 01F4      		brne .L34
+ 686 0392 61E0      		ldi r22,lo8(1)
+ 687               	.L34:
+ 688 0394 88E1      		ldi r24,lo8(24)
+ 689 0396 90E0      		ldi r25,hi8(24)
+ 690 0398 0E94 0000 		call _test_assert
+ 691 039c 8823      		tst r24
+ 692 039e 01F0      		breq .+2
+ 693 03a0 00C0      		rjmp .L66
+ 694               	.LM58:
+ 695 03a2 80E0      		ldi r24,lo8(mb1)
+ 696 03a4 90E0      		ldi r25,hi8(mb1)
+ 697 03a6 64E4      		ldi r22,lo8(68)
+ 698 03a8 70E0      		ldi r23,hi8(68)
+ 699 03aa 0E94 0000 		call chMBPostI
+ 700               	.LM59:
+ 701 03ae 60E0      		ldi r22,lo8(0)
+ 702 03b0 892B      		or r24,r25
+ 703 03b2 01F4      		brne .L35
+ 704 03b4 61E0      		ldi r22,lo8(1)
+ 705               	.L35:
+ 706 03b6 89E1      		ldi r24,lo8(25)
+ 707 03b8 90E0      		ldi r25,hi8(25)
+ 708 03ba 0E94 0000 		call _test_assert
+ 709 03be 8823      		tst r24
+ 710 03c0 01F0      		breq .+2
+ 711 03c2 00C0      		rjmp .L66
+ 712               	.LM60:
+ 713 03c4 80E0      		ldi r24,lo8(mb1)
+ 714 03c6 90E0      		ldi r25,hi8(mb1)
+ 715 03c8 65E4      		ldi r22,lo8(69)
+ 716 03ca 70E0      		ldi r23,hi8(69)
+ 717 03cc 0E94 0000 		call chMBPostI
+ 718               	.LBB210:
+ 719               	.LBB211:
+ 720               	.LM61:
+ 721               	/* #APP */
+ 722               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 723 03d0 7894      		sei
+ 724               	 ;  0 "" 2
+ 725               	/* #NOAPP */
+ 726               	.LBE211:
+ 727               	.LBE210:
+ 728               	.LM62:
+ 729 03d2 60E0      		ldi r22,lo8(0)
+ 730 03d4 892B      		or r24,r25
+ 731               	.LVL11:
+ 732 03d6 01F4      		brne .L36
+ 733 03d8 61E0      		ldi r22,lo8(1)
+ 734               	.L36:
+ 735 03da 8AE1      		ldi r24,lo8(26)
+ 736 03dc 90E0      		ldi r25,hi8(26)
+ 737               	.LVL12:
+ 738 03de 0E94 0000 		call _test_assert
+ 739 03e2 8823      		tst r24
+ 740 03e4 01F0      		breq .+2
+ 741 03e6 00C0      		rjmp .L66
+ 742               	.LM63:
+ 743 03e8 60E0      		ldi r22,lo8(0)
+ 744 03ea 2091 0000 		lds r18,mb1+6
+ 745 03ee 3091 0000 		lds r19,(mb1+6)+1
+ 746 03f2 8091 0000 		lds r24,mb1+4
+ 747 03f6 9091 0000 		lds r25,(mb1+4)+1
+ 748 03fa 2817      		cp r18,r24
+ 749 03fc 3907      		cpc r19,r25
+ 750 03fe 01F4      		brne .L37
+ 751 0400 61E0      		ldi r22,lo8(1)
+ 752               	.L37:
+ 753 0402 8BE1      		ldi r24,lo8(27)
+ 754 0404 90E0      		ldi r25,hi8(27)
+ 755 0406 0E94 0000 		call _test_assert
+ 756 040a 8823      		tst r24
+ 757 040c 01F0      		breq .+2
+ 758 040e 00C0      		rjmp .L66
+ 759 0410 00E0      		ldi r16,lo8(0)
+ 760 0412 10E0      		ldi r17,hi8(0)
+ 761               	.LVL13:
+ 762               	.L39:
+ 763               	.LBB212:
+ 764               	.LBB213:
+ 765               	.LM64:
+ 766               	/* #APP */
+ 767               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 768 0414 F894      		cli
+ 769               	 ;  0 "" 2
+ 770               	/* #NOAPP */
+ 771               	.LBE213:
+ 772               	.LBE212:
+ 773               	.LM65:
+ 774 0416 80E0      		ldi r24,lo8(mb1)
+ 775 0418 90E0      		ldi r25,hi8(mb1)
+ 776 041a B701      		movw r22,r14
+ 777 041c 0E94 0000 		call chMBFetchI
+ 778               	.LBB214:
+ 779               	.LBB215:
+ 780               	.LM66:
+ 781               	/* #APP */
+ 782               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 783 0420 7894      		sei
+ 784               	 ;  0 "" 2
+ 785               	/* #NOAPP */
+ 786               	.LBE215:
+ 787               	.LBE214:
+ 788               	.LM67:
+ 789 0422 60E0      		ldi r22,lo8(0)
+ 790 0424 892B      		or r24,r25
+ 791               	.LVL14:
+ 792 0426 01F4      		brne .L38
+ 793 0428 61E0      		ldi r22,lo8(1)
+ 794               	.L38:
+ 795 042a 8CE1      		ldi r24,lo8(28)
+ 796 042c 90E0      		ldi r25,hi8(28)
+ 797               	.LVL15:
+ 798 042e 0E94 0000 		call _test_assert
+ 799 0432 8823      		tst r24
+ 800 0434 01F0      		breq .+2
+ 801 0436 00C0      		rjmp .L66
+ 802               	.LM68:
+ 803 0438 8981      		ldd r24,Y+1
+ 804 043a 0E94 0000 		call test_emit_token
+ 805               	.LM69:
+ 806 043e 0F5F      		subi r16,lo8(-(1))
+ 807 0440 1F4F      		sbci r17,hi8(-(1))
+ 808 0442 0530      		cpi r16,5
+ 809 0444 1105      		cpc r17,__zero_reg__
+ 810 0446 01F4      		brne .L39
+ 811               	.LM70:
+ 812 0448 8DE1      		ldi r24,lo8(29)
+ 813 044a 90E0      		ldi r25,hi8(29)
+ 814 044c 60E0      		ldi r22,lo8(.LC0)
+ 815 044e 70E0      		ldi r23,hi8(.LC0)
+ 816 0450 0E94 0000 		call _test_assert_sequence
+ 817 0454 8823      		tst r24
+ 818 0456 01F0      		breq .+2
+ 819 0458 00C0      		rjmp .L66
+ 820               	.LBB216:
+ 821               	.LBB217:
+ 822               	.LM71:
+ 823               	/* #APP */
+ 824               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 825 045a F894      		cli
+ 826               	 ;  0 "" 2
+ 827               	/* #NOAPP */
+ 828               	.LBE217:
+ 829               	.LBE216:
+ 830               	.LM72:
+ 831 045c 60E0      		ldi r22,lo8(0)
+ 832 045e 8091 0000 		lds r24,mb1+17
+ 833 0462 8530      		cpi r24,lo8(5)
+ 834 0464 01F4      		brne .L40
+ 835 0466 61E0      		ldi r22,lo8(1)
+ 836               	.L40:
+ 837 0468 8EE1      		ldi r24,lo8(30)
+ 838 046a 90E0      		ldi r25,hi8(30)
+ 839 046c 0E94 0000 		call _test_assert
+ 840 0470 8823      		tst r24
+ 841 0472 01F0      		breq .+2
+ 842 0474 00C0      		rjmp .L65
+ 843               	.LBB218:
+ 844               	.LBB219:
+ 845               	/* #APP */
+ 846               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 847 0476 7894      		sei
+ 848               	 ;  0 "" 2
+ 849               	/* #NOAPP */
+ 850               	.LBE219:
+ 851               	.LBE218:
+ 852               	.LBB220:
+ 853               	.LBB221:
+ 854               	.LM73:
+ 855               	/* #APP */
+ 856               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 857 0478 F894      		cli
+ 858               	 ;  0 "" 2
+ 859               	/* #NOAPP */
+ 860               	.LBE221:
+ 861               	.LBE220:
+ 862               	.LM74:
+ 863 047a 60E0      		ldi r22,lo8(0)
+ 864 047c 8091 0000 		lds r24,mb1+12
+ 865 0480 8823      		tst r24
+ 866 0482 01F4      		brne .L42
+ 867 0484 61E0      		ldi r22,lo8(1)
+ 868               	.L42:
+ 869 0486 8FE1      		ldi r24,lo8(31)
+ 870 0488 90E0      		ldi r25,hi8(31)
+ 871 048a 0E94 0000 		call _test_assert
+ 872 048e 8823      		tst r24
+ 873 0490 01F0      		breq .+2
+ 874 0492 00C0      		rjmp .L65
+ 875               	.LBB222:
+ 876               	.LBB223:
+ 877               	/* #APP */
+ 878               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 879 0494 7894      		sei
+ 880               	 ;  0 "" 2
+ 881               	/* #NOAPP */
+ 882               	.LBE223:
+ 883               	.LBE222:
+ 884               	.LM75:
+ 885 0496 60E0      		ldi r22,lo8(0)
+ 886 0498 2091 0000 		lds r18,mb1+6
+ 887 049c 3091 0000 		lds r19,(mb1+6)+1
+ 888 04a0 8091 0000 		lds r24,mb1+4
+ 889 04a4 9091 0000 		lds r25,(mb1+4)+1
+ 890 04a8 2817      		cp r18,r24
+ 891 04aa 3907      		cpc r19,r25
+ 892 04ac 01F4      		brne .L44
+ 893 04ae 61E0      		ldi r22,lo8(1)
+ 894               	.L44:
+ 895 04b0 80E2      		ldi r24,lo8(32)
+ 896 04b2 90E0      		ldi r25,hi8(32)
+ 897 04b4 0E94 0000 		call _test_assert
+ 898 04b8 8823      		tst r24
+ 899 04ba 01F0      		breq .+2
+ 900 04bc 00C0      		rjmp .L66
+ 901               	.LBB224:
+ 902               	.LBB225:
+ 903               	.LM76:
+ 904               	/* #APP */
+ 905               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 906 04be F894      		cli
+ 907               	 ;  0 "" 2
+ 908               	/* #NOAPP */
+ 909               	.LBE225:
+ 910               	.LBE224:
+ 911               	.LM77:
+ 912 04c0 80E0      		ldi r24,lo8(mb1)
+ 913 04c2 90E0      		ldi r25,hi8(mb1)
+ 914 04c4 65E4      		ldi r22,lo8(69)
+ 915 04c6 70E0      		ldi r23,hi8(69)
+ 916 04c8 0E94 0000 		call chMBPostAheadI
+ 917               	.LM78:
+ 918 04cc 60E0      		ldi r22,lo8(0)
+ 919 04ce 892B      		or r24,r25
+ 920 04d0 01F4      		brne .L45
+ 921 04d2 61E0      		ldi r22,lo8(1)
+ 922               	.L45:
+ 923 04d4 81E2      		ldi r24,lo8(33)
+ 924 04d6 90E0      		ldi r25,hi8(33)
+ 925 04d8 0E94 0000 		call _test_assert
+ 926 04dc 8823      		tst r24
+ 927 04de 01F0      		breq .+2
+ 928 04e0 00C0      		rjmp .L66
+ 929               	.LM79:
+ 930 04e2 80E0      		ldi r24,lo8(mb1)
+ 931 04e4 90E0      		ldi r25,hi8(mb1)
+ 932 04e6 64E4      		ldi r22,lo8(68)
+ 933 04e8 70E0      		ldi r23,hi8(68)
+ 934 04ea 0E94 0000 		call chMBPostAheadI
+ 935               	.LM80:
+ 936 04ee 60E0      		ldi r22,lo8(0)
+ 937 04f0 892B      		or r24,r25
+ 938 04f2 01F4      		brne .L46
+ 939 04f4 61E0      		ldi r22,lo8(1)
+ 940               	.L46:
+ 941 04f6 82E2      		ldi r24,lo8(34)
+ 942 04f8 90E0      		ldi r25,hi8(34)
+ 943 04fa 0E94 0000 		call _test_assert
+ 944 04fe 8823      		tst r24
+ 945 0500 01F0      		breq .+2
+ 946 0502 00C0      		rjmp .L66
+ 947               	.LM81:
+ 948 0504 80E0      		ldi r24,lo8(mb1)
+ 949 0506 90E0      		ldi r25,hi8(mb1)
+ 950 0508 63E4      		ldi r22,lo8(67)
+ 951 050a 70E0      		ldi r23,hi8(67)
+ 952 050c 0E94 0000 		call chMBPostAheadI
+ 953               	.LM82:
+ 954 0510 60E0      		ldi r22,lo8(0)
+ 955 0512 892B      		or r24,r25
+ 956 0514 01F4      		brne .L47
+ 957 0516 61E0      		ldi r22,lo8(1)
+ 958               	.L47:
+ 959 0518 83E2      		ldi r24,lo8(35)
+ 960 051a 90E0      		ldi r25,hi8(35)
+ 961 051c 0E94 0000 		call _test_assert
+ 962 0520 8823      		tst r24
+ 963 0522 01F0      		breq .+2
+ 964 0524 00C0      		rjmp .L66
+ 965               	.LM83:
+ 966 0526 80E0      		ldi r24,lo8(mb1)
+ 967 0528 90E0      		ldi r25,hi8(mb1)
+ 968 052a 62E4      		ldi r22,lo8(66)
+ 969 052c 70E0      		ldi r23,hi8(66)
+ 970 052e 0E94 0000 		call chMBPostAheadI
+ 971               	.LM84:
+ 972 0532 60E0      		ldi r22,lo8(0)
+ 973 0534 892B      		or r24,r25
+ 974 0536 01F4      		brne .L48
+ 975 0538 61E0      		ldi r22,lo8(1)
+ 976               	.L48:
+ 977 053a 84E2      		ldi r24,lo8(36)
+ 978 053c 90E0      		ldi r25,hi8(36)
+ 979 053e 0E94 0000 		call _test_assert
+ 980 0542 8823      		tst r24
+ 981 0544 01F0      		breq .+2
+ 982 0546 00C0      		rjmp .L66
+ 983               	.LM85:
+ 984 0548 80E0      		ldi r24,lo8(mb1)
+ 985 054a 90E0      		ldi r25,hi8(mb1)
+ 986 054c 61E4      		ldi r22,lo8(65)
+ 987 054e 70E0      		ldi r23,hi8(65)
+ 988 0550 0E94 0000 		call chMBPostAheadI
+ 989               	.LBB226:
+ 990               	.LBB227:
+ 991               	.LM86:
+ 992               	/* #APP */
+ 993               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 994 0554 7894      		sei
+ 995               	 ;  0 "" 2
+ 996               	/* #NOAPP */
+ 997               	.LBE227:
+ 998               	.LBE226:
+ 999               	.LM87:
+ 1000 0556 60E0      		ldi r22,lo8(0)
+ 1001 0558 892B      		or r24,r25
+ 1002               	.LVL16:
+ 1003 055a 01F4      		brne .L49
+ 1004 055c 61E0      		ldi r22,lo8(1)
+ 1005               	.L49:
+ 1006 055e 85E2      		ldi r24,lo8(37)
+ 1007 0560 90E0      		ldi r25,hi8(37)
+ 1008               	.LVL17:
+ 1009 0562 0E94 0000 		call _test_assert
+ 1010 0566 8823      		tst r24
+ 1011 0568 01F0      		breq .+2
+ 1012 056a 00C0      		rjmp .L66
+ 1013               	.LM88:
+ 1014 056c 60E0      		ldi r22,lo8(0)
+ 1015 056e 2091 0000 		lds r18,mb1+6
+ 1016 0572 3091 0000 		lds r19,(mb1+6)+1
+ 1017 0576 8091 0000 		lds r24,mb1+4
+ 1018 057a 9091 0000 		lds r25,(mb1+4)+1
+ 1019 057e 2817      		cp r18,r24
+ 1020 0580 3907      		cpc r19,r25
+ 1021 0582 01F4      		brne .L50
+ 1022 0584 61E0      		ldi r22,lo8(1)
+ 1023               	.L50:
+ 1024 0586 86E2      		ldi r24,lo8(38)
+ 1025 0588 90E0      		ldi r25,hi8(38)
+ 1026 058a 0E94 0000 		call _test_assert
+ 1027 058e 8823      		tst r24
+ 1028 0590 01F0      		breq .+2
+ 1029 0592 00C0      		rjmp .L66
+ 1030 0594 00E0      		ldi r16,lo8(0)
+ 1031 0596 10E0      		ldi r17,hi8(0)
+ 1032               	.LVL18:
+ 1033               	.L52:
+ 1034               	.LBB228:
+ 1035               	.LBB229:
+ 1036               	.LM89:
+ 1037               	/* #APP */
+ 1038               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 1039 0598 F894      		cli
+ 1040               	 ;  0 "" 2
+ 1041               	/* #NOAPP */
+ 1042               	.LBE229:
+ 1043               	.LBE228:
+ 1044               	.LM90:
+ 1045 059a 80E0      		ldi r24,lo8(mb1)
+ 1046 059c 90E0      		ldi r25,hi8(mb1)
+ 1047 059e B701      		movw r22,r14
+ 1048 05a0 0E94 0000 		call chMBFetchI
+ 1049               	.LBB230:
+ 1050               	.LBB231:
+ 1051               	.LM91:
+ 1052               	/* #APP */
+ 1053               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 1054 05a4 7894      		sei
+ 1055               	 ;  0 "" 2
+ 1056               	/* #NOAPP */
+ 1057               	.LBE231:
+ 1058               	.LBE230:
+ 1059               	.LM92:
+ 1060 05a6 60E0      		ldi r22,lo8(0)
+ 1061 05a8 892B      		or r24,r25
+ 1062               	.LVL19:
+ 1063 05aa 01F4      		brne .L51
+ 1064 05ac 61E0      		ldi r22,lo8(1)
+ 1065               	.L51:
+ 1066 05ae 87E2      		ldi r24,lo8(39)
+ 1067 05b0 90E0      		ldi r25,hi8(39)
+ 1068               	.LVL20:
+ 1069 05b2 0E94 0000 		call _test_assert
+ 1070 05b6 8823      		tst r24
+ 1071 05b8 01F0      		breq .+2
+ 1072 05ba 00C0      		rjmp .L66
+ 1073               	.LM93:
+ 1074 05bc 8981      		ldd r24,Y+1
+ 1075 05be 0E94 0000 		call test_emit_token
+ 1076               	.LM94:
+ 1077 05c2 0F5F      		subi r16,lo8(-(1))
+ 1078 05c4 1F4F      		sbci r17,hi8(-(1))
+ 1079 05c6 0530      		cpi r16,5
+ 1080 05c8 1105      		cpc r17,__zero_reg__
+ 1081 05ca 01F4      		brne .L52
+ 1082               	.LM95:
+ 1083 05cc 88E2      		ldi r24,lo8(40)
+ 1084 05ce 90E0      		ldi r25,hi8(40)
+ 1085 05d0 60E0      		ldi r22,lo8(.LC0)
+ 1086 05d2 70E0      		ldi r23,hi8(.LC0)
+ 1087 05d4 0E94 0000 		call _test_assert_sequence
+ 1088 05d8 8823      		tst r24
+ 1089 05da 01F0      		breq .+2
+ 1090 05dc 00C0      		rjmp .L66
+ 1091               	.LBB232:
+ 1092               	.LBB233:
+ 1093               	.LM96:
+ 1094               	/* #APP */
+ 1095               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 1096 05de F894      		cli
+ 1097               	 ;  0 "" 2
+ 1098               	/* #NOAPP */
+ 1099               	.LBE233:
+ 1100               	.LBE232:
+ 1101               	.LM97:
+ 1102 05e0 60E0      		ldi r22,lo8(0)
+ 1103 05e2 8091 0000 		lds r24,mb1+17
+ 1104 05e6 8530      		cpi r24,lo8(5)
+ 1105 05e8 01F4      		brne .L53
+ 1106 05ea 61E0      		ldi r22,lo8(1)
+ 1107               	.L53:
+ 1108 05ec 89E2      		ldi r24,lo8(41)
+ 1109 05ee 90E0      		ldi r25,hi8(41)
+ 1110 05f0 0E94 0000 		call _test_assert
+ 1111 05f4 8823      		tst r24
+ 1112 05f6 01F0      		breq .+2
+ 1113 05f8 00C0      		rjmp .L65
+ 1114               	.LBB234:
+ 1115               	.LBB235:
+ 1116               	/* #APP */
+ 1117               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 1118 05fa 7894      		sei
+ 1119               	 ;  0 "" 2
+ 1120               	/* #NOAPP */
+ 1121               	.LBE235:
+ 1122               	.LBE234:
+ 1123               	.LBB236:
+ 1124               	.LBB237:
+ 1125               	.LM98:
+ 1126               	/* #APP */
+ 1127               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 1128 05fc F894      		cli
+ 1129               	 ;  0 "" 2
+ 1130               	/* #NOAPP */
+ 1131               	.LBE237:
+ 1132               	.LBE236:
+ 1133               	.LM99:
+ 1134 05fe 60E0      		ldi r22,lo8(0)
+ 1135 0600 8091 0000 		lds r24,mb1+12
+ 1136 0604 8823      		tst r24
+ 1137 0606 01F4      		brne .L55
+ 1138 0608 61E0      		ldi r22,lo8(1)
+ 1139               	.L55:
+ 1140 060a 8AE2      		ldi r24,lo8(42)
+ 1141 060c 90E0      		ldi r25,hi8(42)
+ 1142 060e 0E94 0000 		call _test_assert
+ 1143 0612 8823      		tst r24
+ 1144 0614 01F0      		breq .+2
+ 1145 0616 00C0      		rjmp .L65
+ 1146               	.LBB238:
+ 1147               	.LBB239:
+ 1148               	/* #APP */
+ 1149               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 1150 0618 7894      		sei
+ 1151               	 ;  0 "" 2
+ 1152               	/* #NOAPP */
+ 1153               	.LBE239:
+ 1154               	.LBE238:
+ 1155               	.LM100:
+ 1156 061a 60E0      		ldi r22,lo8(0)
+ 1157 061c 2091 0000 		lds r18,mb1+6
+ 1158 0620 3091 0000 		lds r19,(mb1+6)+1
+ 1159 0624 8091 0000 		lds r24,mb1+4
+ 1160 0628 9091 0000 		lds r25,(mb1+4)+1
+ 1161 062c 2817      		cp r18,r24
+ 1162 062e 3907      		cpc r19,r25
+ 1163 0630 01F4      		brne .L57
+ 1164 0632 61E0      		ldi r22,lo8(1)
+ 1165               	.L57:
+ 1166 0634 8BE2      		ldi r24,lo8(43)
+ 1167 0636 90E0      		ldi r25,hi8(43)
+ 1168 0638 0E94 0000 		call _test_assert
+ 1169 063c 8823      		tst r24
+ 1170 063e 01F0      		breq .+2
+ 1171 0640 00C0      		rjmp .L66
+ 1172               	.LM101:
+ 1173 0642 80E0      		ldi r24,lo8(mb1)
+ 1174 0644 90E0      		ldi r25,hi8(mb1)
+ 1175 0646 0E94 0000 		call chMBReset
+ 1176               	.LBB240:
+ 1177               	.LBB241:
+ 1178               	.LM102:
+ 1179               	/* #APP */
+ 1180               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 1181 064a F894      		cli
+ 1182               	 ;  0 "" 2
+ 1183               	/* #NOAPP */
+ 1184               	.LBE241:
+ 1185               	.LBE240:
+ 1186               	.LM103:
+ 1187 064c 60E0      		ldi r22,lo8(0)
+ 1188 064e 8091 0000 		lds r24,mb1+17
+ 1189 0652 8530      		cpi r24,lo8(5)
+ 1190 0654 01F4      		brne .L58
+ 1191 0656 61E0      		ldi r22,lo8(1)
+ 1192               	.L58:
+ 1193 0658 8CE2      		ldi r24,lo8(44)
+ 1194 065a 90E0      		ldi r25,hi8(44)
+ 1195 065c 0E94 0000 		call _test_assert
+ 1196 0660 8823      		tst r24
+ 1197 0662 01F4      		brne .L65
+ 1198               	.LBB242:
+ 1199               	.LBB243:
+ 1200               	/* #APP */
+ 1201               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 1202 0664 7894      		sei
+ 1203               	 ;  0 "" 2
+ 1204               	/* #NOAPP */
+ 1205               	.LBE243:
+ 1206               	.LBE242:
+ 1207               	.LBB244:
+ 1208               	.LBB245:
+ 1209               	.LM104:
+ 1210               	/* #APP */
+ 1211               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 1212 0666 F894      		cli
+ 1213               	 ;  0 "" 2
+ 1214               	/* #NOAPP */
+ 1215               	.LBE245:
+ 1216               	.LBE244:
+ 1217               	.LM105:
+ 1218 0668 60E0      		ldi r22,lo8(0)
+ 1219 066a 8091 0000 		lds r24,mb1+12
+ 1220 066e 8823      		tst r24
+ 1221 0670 01F4      		brne .L60
+ 1222 0672 61E0      		ldi r22,lo8(1)
+ 1223               	.L60:
+ 1224 0674 8DE2      		ldi r24,lo8(45)
+ 1225 0676 90E0      		ldi r25,hi8(45)
+ 1226 0678 0E94 0000 		call _test_assert
+ 1227 067c 8823      		tst r24
+ 1228 067e 01F4      		brne .L65
+ 1229               	.LBB246:
+ 1230               	.LBB247:
+ 1231               	/* #APP */
+ 1232               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 1233 0680 7894      		sei
+ 1234               	 ;  0 "" 2
+ 1235               	/* #NOAPP */
+ 1236               	.LBE247:
+ 1237               	.LBE246:
+ 1238               	.LBB248:
+ 1239               	.LBB249:
+ 1240               	.LM106:
+ 1241               	/* #APP */
+ 1242               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 1243 0682 F894      		cli
+ 1244               	 ;  0 "" 2
+ 1245               	/* #NOAPP */
+ 1246               	.LBE249:
+ 1247               	.LBE248:
+ 1248               	.LM107:
+ 1249 0684 60E0      		ldi r22,lo8(0)
+ 1250 0686 2091 0000 		lds r18,mb1
+ 1251 068a 3091 0000 		lds r19,(mb1)+1
+ 1252 068e 8091 0000 		lds r24,mb1+4
+ 1253 0692 9091 0000 		lds r25,(mb1+4)+1
+ 1254 0696 2817      		cp r18,r24
+ 1255 0698 3907      		cpc r19,r25
+ 1256 069a 01F4      		brne .L62
+ 1257 069c 61E0      		ldi r22,lo8(1)
+ 1258               	.L62:
+ 1259 069e 8EE2      		ldi r24,lo8(46)
+ 1260 06a0 90E0      		ldi r25,hi8(46)
+ 1261 06a2 0E94 0000 		call _test_assert
+ 1262 06a6 8823      		tst r24
+ 1263 06a8 01F4      		brne .L65
+ 1264               	.LBB250:
+ 1265               	.LBB251:
+ 1266               	/* #APP */
+ 1267               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 1268 06aa 7894      		sei
+ 1269               	 ;  0 "" 2
+ 1270               	/* #NOAPP */
+ 1271               	.LBE251:
+ 1272               	.LBE250:
+ 1273               	.LBB252:
+ 1274               	.LBB253:
+ 1275               	.LM108:
+ 1276               	/* #APP */
+ 1277               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 1278 06ac F894      		cli
+ 1279               	 ;  0 "" 2
+ 1280               	/* #NOAPP */
+ 1281               	.LBE253:
+ 1282               	.LBE252:
+ 1283               	.LM109:
+ 1284 06ae 60E0      		ldi r22,lo8(0)
+ 1285 06b0 2091 0000 		lds r18,mb1
+ 1286 06b4 3091 0000 		lds r19,(mb1)+1
+ 1287 06b8 8091 0000 		lds r24,mb1+6
+ 1288 06bc 9091 0000 		lds r25,(mb1+6)+1
+ 1289 06c0 2817      		cp r18,r24
+ 1290 06c2 3907      		cpc r19,r25
+ 1291 06c4 01F4      		brne .L64
+ 1292 06c6 61E0      		ldi r22,lo8(1)
+ 1293               	.L64:
+ 1294 06c8 8FE2      		ldi r24,lo8(47)
+ 1295 06ca 90E0      		ldi r25,hi8(47)
+ 1296 06cc 0E94 0000 		call _test_assert
+ 1297               	.L65:
+ 1298               	.LBB254:
+ 1299               	.LBB255:
+ 1300               	/* #APP */
+ 1301               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 1302 06d0 7894      		sei
+ 1303               	 ;  0 "" 2
+ 1304               	/* #NOAPP */
+ 1305 06d2 00C0      		rjmp .L66
+ 1306               	.LVL21:
+ 1307               	.L72:
+ 1308               	.LBE255:
+ 1309               	.LBE254:
+ 1310               	.LM110:
+ 1311 06d4 61E0      		ldi r22,lo8(1)
+ 1312 06d6 00C0      		rjmp .L2
+ 1313               	.L74:
+ 1314               	.LM111:
+ 1315 06d8 61E0      		ldi r22,lo8(1)
+ 1316 06da 00C0      		rjmp .L8
+ 1317               	.L75:
+ 1318               	.LM112:
+ 1319 06dc 61E0      		ldi r22,lo8(1)
+ 1320 06de 00C0      		rjmp .L10
+ 1321               	.LVL22:
+ 1322               	.L76:
+ 1323               	.LM113:
+ 1324 06e0 61E0      		ldi r22,lo8(1)
+ 1325 06e2 00C0      		rjmp .L11
+ 1326               	.LVL23:
+ 1327               	.L77:
+ 1328               	.LM114:
+ 1329 06e4 61E0      		ldi r22,lo8(1)
+ 1330 06e6 00C0      		rjmp .L16
+ 1331               	.LFE91:
+ 1334               	mbox1_setup:
+ 1335               	.LFB90:
+ 1336               	.LM115:
+ 1337               	/* prologue: function */
+ 1338               	/* frame size = 0 */
+ 1339               	.LM116:
+ 1340 06e8 80E0      		ldi r24,lo8(mb1)
+ 1341 06ea 90E0      		ldi r25,hi8(mb1)
+ 1342 06ec 60E0      		ldi r22,lo8(test)
+ 1343 06ee 70E0      		ldi r23,hi8(test)
+ 1344 06f0 45E0      		ldi r20,lo8(5)
+ 1345 06f2 0E94 0000 		call chMBObjectInit
+ 1346               	/* epilogue start */
+ 1347               	.LM117:
+ 1348 06f6 0895      		ret
+ 1349               	.LFE90:
+ 1351               	.global	testmbox1
+ 1352               		.data
+ 1353               	.LC1:
+ 1354 0006 4D61 696C 		.string	"Mailboxes, queuing and timeouts"
+ 1354      626F 7865 
+ 1354      732C 2071 
+ 1354      7565 7569 
+ 1354      6E67 2061 
+ 1357               	testmbox1:
+ 1358 0026 0000      		.word	.LC1
+ 1359 0028 0000      		.word	gs(mbox1_setup)
+ 1360 002a 0000      		.word	0
+ 1361 002c 0000      		.word	gs(mbox1_execute)
+ 1362               	.global	patternmbox
+ 1365               	patternmbox:
+ 1366 002e 0000      		.word	testmbox1
+ 1367 0030 0000      		.word	0
+ 1370               	mb1:
+ 1371 0032 0000      		.word	test
+ 1372 0034 0000      		.word	test+10
+ 1373 0036 0000      		.word	test
+ 1374 0038 0000      		.word	test
+ 1375 003a 0000      		.word	mb1+8
+ 1376 003c 0000      		.word	mb1+8
+ 1377 003e 00        		.byte	0
+ 1378 003f 0000      		.word	mb1+13
+ 1379 0041 0000      		.word	mb1+13
+ 1380 0043 05        		.byte	5
+ 1413               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 testmbox.c
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccNHWpGq.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccNHWpGq.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccNHWpGq.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccNHWpGq.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccNHWpGq.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccNHWpGq.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccNHWpGq.s:21     .text:00000000 mbox1_execute
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccNHWpGq.s:1370   .data:00000032 mb1
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccNHWpGq.s:1334   .text:000006e8 mbox1_setup
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccNHWpGq.s:1357   .data:00000026 testmbox1
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccNHWpGq.s:1365   .data:0000002e patternmbox
+
+UNDEFINED SYMBOLS
+_test_assert
+chMBPost
+chMBPostAhead
+chMBPostI
+chMBPostAheadI
+chMBFetch
+test_emit_token
+_test_assert_sequence
+chMBFetchI
+chMBReset
+test
+chMBObjectInit
+__do_copy_data
