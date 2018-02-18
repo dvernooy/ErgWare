@@ -1,4 +1,4 @@
-#### Ergware ####
+## Ergware ##
 ErgWare is an open source hardware/software platform for DIY ergometers. All of the source code is hosted here and the project itself is fully documented at [my project page.](https://dvernooy.github.io/projects/ergware)
 
 #### v0.1 ####
