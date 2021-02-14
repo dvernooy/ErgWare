@@ -1,0 +1,116 @@
+   1               		.file	"pal_lld.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	_pal_lld_init
+  18               	_pal_lld_init:
+  19               	.LFB48:
+  20               	.LM1:
+  21               	.LVL0:
+  22               	/* prologue: function */
+  23               	/* frame size = 0 */
+  24 0000 FC01      		movw r30,r24
+  25               	.LM2:
+  26 0002 8081      		ld r24,Z
+  27               	.LVL1:
+  28 0004 85B9      		out 37-32,r24
+  29               	.LM3:
+  30 0006 8181      		ldd r24,Z+1
+  31 0008 84B9      		out 36-32,r24
+  32               	.LM4:
+  33 000a 8281      		ldd r24,Z+2
+  34 000c 88B9      		out 40-32,r24
+  35               	.LM5:
+  36 000e 8381      		ldd r24,Z+3
+  37 0010 87B9      		out 39-32,r24
+  38               	.LM6:
+  39 0012 8481      		ldd r24,Z+4
+  40 0014 8BB9      		out 43-32,r24
+  41               	.LM7:
+  42 0016 8581      		ldd r24,Z+5
+  43 0018 8AB9      		out 42-32,r24
+  44               	/* epilogue start */
+  45               	.LM8:
+  46 001a 0895      		ret
+  47               	.LFE48:
+  49               	.global	_pal_lld_setgroupmode
+  51               	_pal_lld_setgroupmode:
+  52               	.LFB49:
+  53               	.LM9:
+  54               	.LVL2:
+  55               	/* prologue: function */
+  56               	/* frame size = 0 */
+  57 001c FC01      		movw r30,r24
+  58               	.LM10:
+  59 001e 4230      		cpi r20,lo8(2)
+  60 0020 01F0      		breq .L5
+  61               	.LVL3:
+  62 0022 4330      		cpi r20,lo8(3)
+  63 0024 00F0      		brlo .L12
+  64 0026 4530      		cpi r20,lo8(5)
+  65 0028 01F0      		breq .L5
+  66 002a 4630      		cpi r20,lo8(6)
+  67 002c 01F0      		breq .L7
+  68 002e 4330      		cpi r20,lo8(3)
+  69 0030 01F4      		brne .L9
+  70               	.L6:
+  71               	.LM11:
+  72 0032 8181      		ldd r24,Z+1
+  73 0034 962F      		mov r25,r22
+  74 0036 9095      		com r25
+  75 0038 9823      		and r25,r24
+  76 003a 9183      		std Z+1,r25
+  77               	.LM12:
+  78 003c 8281      		ldd r24,Z+2
+  79 003e 862B      		or r24,r22
+  80 0040 8283      		std Z+2,r24
+  81 0042 0895      		ret
+  82               	.LVL4:
+  83               	.L12:
+  84               	.LM13:
+  85 0044 4423      		tst r20
+  86 0046 01F4      		brne .L13
+  87               	.L5:
+  88               	.LM14:
+  89 0048 8181      		ldd r24,Z+1
+  90 004a 962F      		mov r25,r22
+  91 004c 9095      		com r25
+  92 004e 8923      		and r24,r25
+  93 0050 8183      		std Z+1,r24
+  94               	.LM15:
+  95 0052 8281      		ldd r24,Z+2
+  96 0054 9823      		and r25,r24
+  97 0056 9283      		std Z+2,r25
+  98 0058 0895      		ret
+  99               	.LVL5:
+ 100               	.L7:
+ 101               	.LM16:
+ 102 005a 8181      		ldd r24,Z+1
+ 103 005c 862B      		or r24,r22
+ 104 005e 8183      		std Z+1,r24
+ 105               	.LVL6:
+ 106               	.L9:
+ 107 0060 0895      		ret
+ 108               	.L13:
+ 109               	.LM17:
+ 110 0062 4130      		cpi r20,lo8(1)
+ 111 0064 01F0      		breq .L6
+ 112 0066 0895      		ret
+ 113               	.LFE49:
+ 147               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 pal_lld.c
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccc47u6d.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccc47u6d.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccc47u6d.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccc47u6d.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccc47u6d.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccc47u6d.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccc47u6d.s:18     .text:00000000 _pal_lld_init
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccc47u6d.s:51     .text:0000001c _pal_lld_setgroupmode
+
+NO UNDEFINED SYMBOLS

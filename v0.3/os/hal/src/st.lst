@@ -1,0 +1,114 @@
+   1               		.file	"st.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	stStartAlarm
+  18               	stStartAlarm:
+  19               	.LFB49:
+  20               	.LM1:
+  21               	.LVL0:
+  22               	/* prologue: function */
+  23               	/* frame size = 0 */
+  24               	.LBB10:
+  25               	.LBB11:
+  26               	.LM2:
+  27 0000 7093 8900 		sts (136)+1,r23
+  28 0004 6093 8800 		sts 136,r22
+  29               	.LM3:
+  30 0008 82E0      		ldi r24,lo8(2)
+  31 000a 86BB      		out 54-32,r24
+  32               	.LM4:
+  33 000c 8093 6F00 		sts 111,r24
+  34               	/* epilogue start */
+  35               	.LBE11:
+  36               	.LBE10:
+  37               	.LM5:
+  38 0010 0895      		ret
+  39               	.LFE49:
+  41               	.global	stStopAlarm
+  43               	stStopAlarm:
+  44               	.LFB50:
+  45               	.LM6:
+  46               	/* prologue: function */
+  47               	/* frame size = 0 */
+  48               	.LBB12:
+  49               	.LBB13:
+  50               	.LM7:
+  51 0012 1092 6F00 		sts 111,__zero_reg__
+  52               	/* epilogue start */
+  53               	.LBE13:
+  54               	.LBE12:
+  55               	.LM8:
+  56 0016 0895      		ret
+  57               	.LFE50:
+  59               	.global	stSetAlarm
+  61               	stSetAlarm:
+  62               	.LFB51:
+  63               	.LM9:
+  64               	.LVL1:
+  65               	/* prologue: function */
+  66               	/* frame size = 0 */
+  67               	.LBB14:
+  68               	.LBB15:
+  69               	.LM10:
+  70 0018 7093 8900 		sts (136)+1,r23
+  71 001c 6093 8800 		sts 136,r22
+  72               	/* epilogue start */
+  73               	.LBE15:
+  74               	.LBE14:
+  75               	.LM11:
+  76 0020 0895      		ret
+  77               	.LFE51:
+  79               	.global	stGetAlarm
+  81               	stGetAlarm:
+  82               	.LFB52:
+  83               	.LM12:
+  84               	/* prologue: function */
+  85               	/* frame size = 0 */
+  86               	.LBB16:
+  87               	.LBB17:
+  88               	.LM13:
+  89 0022 8091 8800 		lds r24,136
+  90 0026 9091 8900 		lds r25,(136)+1
+  91               	.LBE17:
+  92               	.LBE16:
+  93               	.LM14:
+  94 002a BC01      		movw r22,r24
+  95 002c 80E0      		ldi r24,lo8(0)
+  96 002e 90E0      		ldi r25,lo8(0)
+  97               	/* epilogue start */
+  98 0030 0895      		ret
+  99               	.LFE52:
+ 101               	.global	stInit
+ 103               	stInit:
+ 104               	.LFB48:
+ 105               	.LM15:
+ 106               	/* prologue: function */
+ 107               	/* frame size = 0 */
+ 108               	.LM16:
+ 109 0032 0E94 0000 		call st_lld_init
+ 110               	/* epilogue start */
+ 111               	.LM17:
+ 112 0036 0895      		ret
+ 113               	.LFE48:
+ 171               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 st.c
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccrDhoz.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccrDhoz.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccrDhoz.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccrDhoz.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccrDhoz.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccrDhoz.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccrDhoz.s:18     .text:00000000 stStartAlarm
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccrDhoz.s:43     .text:00000012 stStopAlarm
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccrDhoz.s:61     .text:00000018 stSetAlarm
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccrDhoz.s:81     .text:00000022 stGetAlarm
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccrDhoz.s:103    .text:00000032 stInit
+
+UNDEFINED SYMBOLS
+st_lld_init

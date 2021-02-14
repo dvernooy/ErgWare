@@ -1,0 +1,260 @@
+   1               		.file	"nilcore.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.weak	_port_switch
+  18               	_port_switch:
+  19               	.LFB15:
+  20               	.LM1:
+  21               	.LVL0:
+  22               	/* prologue: naked */
+  23               	/* frame size = 0 */
+  24               	.LM2:
+  25               	/* #APP */
+  26               	 ;  71 "..//os/nil/ports/AVR/nilcore.c" 1
+  27 0000 2F92      		push    r2
+  28               	 ;  0 "" 2
+  29               	.LM3:
+  30               	 ;  72 "..//os/nil/ports/AVR/nilcore.c" 1
+  31 0002 3F92      		push    r3
+  32               	 ;  0 "" 2
+  33               	.LM4:
+  34               	 ;  73 "..//os/nil/ports/AVR/nilcore.c" 1
+  35 0004 4F92      		push    r4
+  36               	 ;  0 "" 2
+  37               	.LM5:
+  38               	 ;  74 "..//os/nil/ports/AVR/nilcore.c" 1
+  39 0006 5F92      		push    r5
+  40               	 ;  0 "" 2
+  41               	.LM6:
+  42               	 ;  75 "..//os/nil/ports/AVR/nilcore.c" 1
+  43 0008 6F92      		push    r6
+  44               	 ;  0 "" 2
+  45               	.LM7:
+  46               	 ;  76 "..//os/nil/ports/AVR/nilcore.c" 1
+  47 000a 7F92      		push    r7
+  48               	 ;  0 "" 2
+  49               	.LM8:
+  50               	 ;  77 "..//os/nil/ports/AVR/nilcore.c" 1
+  51 000c 8F92      		push    r8
+  52               	 ;  0 "" 2
+  53               	.LM9:
+  54               	 ;  78 "..//os/nil/ports/AVR/nilcore.c" 1
+  55 000e 9F92      		push    r9
+  56               	 ;  0 "" 2
+  57               	.LM10:
+  58               	 ;  79 "..//os/nil/ports/AVR/nilcore.c" 1
+  59 0010 AF92      		push    r10
+  60               	 ;  0 "" 2
+  61               	.LM11:
+  62               	 ;  80 "..//os/nil/ports/AVR/nilcore.c" 1
+  63 0012 BF92      		push    r11
+  64               	 ;  0 "" 2
+  65               	.LM12:
+  66               	 ;  81 "..//os/nil/ports/AVR/nilcore.c" 1
+  67 0014 CF92      		push    r12
+  68               	 ;  0 "" 2
+  69               	.LM13:
+  70               	 ;  82 "..//os/nil/ports/AVR/nilcore.c" 1
+  71 0016 DF92      		push    r13
+  72               	 ;  0 "" 2
+  73               	.LM14:
+  74               	 ;  83 "..//os/nil/ports/AVR/nilcore.c" 1
+  75 0018 EF92      		push    r14
+  76               	 ;  0 "" 2
+  77               	.LM15:
+  78               	 ;  84 "..//os/nil/ports/AVR/nilcore.c" 1
+  79 001a FF92      		push    r15
+  80               	 ;  0 "" 2
+  81               	.LM16:
+  82               	 ;  85 "..//os/nil/ports/AVR/nilcore.c" 1
+  83 001c 0F93      		push    r16
+  84               	 ;  0 "" 2
+  85               	.LM17:
+  86               	 ;  86 "..//os/nil/ports/AVR/nilcore.c" 1
+  87 001e 1F93      		push    r17
+  88               	 ;  0 "" 2
+  89               	.LM18:
+  90               	 ;  87 "..//os/nil/ports/AVR/nilcore.c" 1
+  91 0020 CF93      		push    r28
+  92               	 ;  0 "" 2
+  93               	.LM19:
+  94               	 ;  88 "..//os/nil/ports/AVR/nilcore.c" 1
+  95 0022 DF93      		push    r29
+  96               	 ;  0 "" 2
+  97               	.LM20:
+  98               	 ;  90 "..//os/nil/ports/AVR/nilcore.c" 1
+  99 0024 FB01      		movw    r30, r22
+ 100               	 ;  0 "" 2
+ 101               	.LM21:
+ 102               	 ;  91 "..//os/nil/ports/AVR/nilcore.c" 1
+ 103 0026 0DB6      		in      r0, 0x3d
+ 104               	 ;  0 "" 2
+ 105               	.LM22:
+ 106               	 ;  92 "..//os/nil/ports/AVR/nilcore.c" 1
+ 107 0028 0082      		std     Z+0, r0
+ 108               	 ;  0 "" 2
+ 109               	.LM23:
+ 110               	 ;  93 "..//os/nil/ports/AVR/nilcore.c" 1
+ 111 002a 0EB6      		in      r0, 0x3e
+ 112               	 ;  0 "" 2
+ 113               	.LM24:
+ 114               	 ;  94 "..//os/nil/ports/AVR/nilcore.c" 1
+ 115 002c 0182      		std     Z+1, r0
+ 116               	 ;  0 "" 2
+ 117               	.LM25:
+ 118               	 ;  96 "..//os/nil/ports/AVR/nilcore.c" 1
+ 119 002e FC01      		movw    r30, r24
+ 120               	 ;  0 "" 2
+ 121               	.LM26:
+ 122               	 ;  97 "..//os/nil/ports/AVR/nilcore.c" 1
+ 123 0030 0080      		ldd     r0, Z+0
+ 124               	 ;  0 "" 2
+ 125               	.LM27:
+ 126               	 ;  98 "..//os/nil/ports/AVR/nilcore.c" 1
+ 127 0032 0DBE      		out     0x3d, r0
+ 128               	 ;  0 "" 2
+ 129               	.LM28:
+ 130               	 ;  99 "..//os/nil/ports/AVR/nilcore.c" 1
+ 131 0034 0180      		ldd     r0, Z+1
+ 132               	 ;  0 "" 2
+ 133               	.LM29:
+ 134               	 ;  100 "..//os/nil/ports/AVR/nilcore.c" 1
+ 135 0036 0EBE      		out     0x3e, r0
+ 136               	 ;  0 "" 2
+ 137               	.LM30:
+ 138               	 ;  102 "..//os/nil/ports/AVR/nilcore.c" 1
+ 139 0038 DF91      		pop     r29
+ 140               	 ;  0 "" 2
+ 141               	.LM31:
+ 142               	 ;  103 "..//os/nil/ports/AVR/nilcore.c" 1
+ 143 003a CF91      		pop     r28
+ 144               	 ;  0 "" 2
+ 145               	.LM32:
+ 146               	 ;  104 "..//os/nil/ports/AVR/nilcore.c" 1
+ 147 003c 1F91      		pop     r17
+ 148               	 ;  0 "" 2
+ 149               	.LM33:
+ 150               	 ;  105 "..//os/nil/ports/AVR/nilcore.c" 1
+ 151 003e 0F91      		pop     r16
+ 152               	 ;  0 "" 2
+ 153               	.LM34:
+ 154               	 ;  106 "..//os/nil/ports/AVR/nilcore.c" 1
+ 155 0040 FF90      		pop     r15
+ 156               	 ;  0 "" 2
+ 157               	.LM35:
+ 158               	 ;  107 "..//os/nil/ports/AVR/nilcore.c" 1
+ 159 0042 EF90      		pop     r14
+ 160               	 ;  0 "" 2
+ 161               	.LM36:
+ 162               	 ;  108 "..//os/nil/ports/AVR/nilcore.c" 1
+ 163 0044 DF90      		pop     r13
+ 164               	 ;  0 "" 2
+ 165               	.LM37:
+ 166               	 ;  109 "..//os/nil/ports/AVR/nilcore.c" 1
+ 167 0046 CF90      		pop     r12
+ 168               	 ;  0 "" 2
+ 169               	.LM38:
+ 170               	 ;  110 "..//os/nil/ports/AVR/nilcore.c" 1
+ 171 0048 BF90      		pop     r11
+ 172               	 ;  0 "" 2
+ 173               	.LM39:
+ 174               	 ;  111 "..//os/nil/ports/AVR/nilcore.c" 1
+ 175 004a AF90      		pop     r10
+ 176               	 ;  0 "" 2
+ 177               	.LM40:
+ 178               	 ;  112 "..//os/nil/ports/AVR/nilcore.c" 1
+ 179 004c 9F90      		pop     r9
+ 180               	 ;  0 "" 2
+ 181               	.LM41:
+ 182               	 ;  113 "..//os/nil/ports/AVR/nilcore.c" 1
+ 183 004e 8F90      		pop     r8
+ 184               	 ;  0 "" 2
+ 185               	.LM42:
+ 186               	 ;  114 "..//os/nil/ports/AVR/nilcore.c" 1
+ 187 0050 7F90      		pop     r7
+ 188               	 ;  0 "" 2
+ 189               	.LM43:
+ 190               	 ;  115 "..//os/nil/ports/AVR/nilcore.c" 1
+ 191 0052 6F90      		pop     r6
+ 192               	 ;  0 "" 2
+ 193               	.LM44:
+ 194               	 ;  116 "..//os/nil/ports/AVR/nilcore.c" 1
+ 195 0054 5F90      		pop     r5
+ 196               	 ;  0 "" 2
+ 197               	.LM45:
+ 198               	 ;  117 "..//os/nil/ports/AVR/nilcore.c" 1
+ 199 0056 4F90      		pop     r4
+ 200               	 ;  0 "" 2
+ 201               	.LM46:
+ 202               	 ;  118 "..//os/nil/ports/AVR/nilcore.c" 1
+ 203 0058 3F90      		pop     r3
+ 204               	 ;  0 "" 2
+ 205               	.LM47:
+ 206               	 ;  119 "..//os/nil/ports/AVR/nilcore.c" 1
+ 207 005a 2F90      		pop     r2
+ 208               	 ;  0 "" 2
+ 209               	.LM48:
+ 210               	 ;  120 "..//os/nil/ports/AVR/nilcore.c" 1
+ 211 005c 0895      		ret
+ 212               	 ;  0 "" 2
+ 213               	/* epilogue start */
+ 214               	.LM49:
+ 215               	/* #NOAPP */
+ 216               	.LFE15:
+ 218               	.global	_port_thread_start
+ 220               	_port_thread_start:
+ 221               	.LFB16:
+ 222               	.LM50:
+ 223               	/* prologue: function */
+ 224               	/* frame size = 0 */
+ 225               	.LBB4:
+ 226               	.LBB5:
+ 227               	.LM51:
+ 228               	/* #APP */
+ 229               	 ;  327 "..//os/nil/ports/AVR/nilcore.h" 1
+ 230 005e 7894      		sei
+ 231               	 ;  0 "" 2
+ 232               	/* #NOAPP */
+ 233               	.LBE5:
+ 234               	.LBE4:
+ 235               	.LM52:
+ 236               	/* #APP */
+ 237               	 ;  131 "..//os/nil/ports/AVR/nilcore.c" 1
+ 238 0060 C201      		movw    r24, r4
+ 239               	 ;  0 "" 2
+ 240               	.LM53:
+ 241               	 ;  132 "..//os/nil/ports/AVR/nilcore.c" 1
+ 242 0062 F101      		movw    r30, r2
+ 243               	 ;  0 "" 2
+ 244               	.LM54:
+ 245               	 ;  133 "..//os/nil/ports/AVR/nilcore.c" 1
+ 246 0064 0995      		icall
+ 247               	 ;  0 "" 2
+ 248               	.LM55:
+ 249               	/* #NOAPP */
+ 250 0066 80E0      		ldi r24,lo8(0)
+ 251 0068 90E0      		ldi r25,hi8(0)
+ 252 006a 0E94 0000 		call chSysHalt
+ 253               	/* epilogue start */
+ 254               	.LM56:
+ 255 006e 0895      		ret
+ 256               	.LFE16:
+ 290               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 nilcore.c
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccZHVTRb.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccZHVTRb.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccZHVTRb.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccZHVTRb.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccZHVTRb.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccZHVTRb.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccZHVTRb.s:18     .text:00000000 _port_switch
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccZHVTRb.s:220    .text:0000005e _port_thread_start
+
+UNDEFINED SYMBOLS
+chSysHalt

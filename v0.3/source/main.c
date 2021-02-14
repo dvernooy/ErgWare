@@ -73,7 +73,7 @@ static double seconds_per_tick = 0.000008; //8us per tick with 64 divider in tim
 Global Variables - NIL
 ********************************************************************************/
 static FILE lcd_out = FDEV_SETUP_STREAM(lcd_chr_printf, NULL, _FDEV_SETUP_WRITE);
-//static FILE usart_out = FDEV_SETUP_STREAM(usart_putchar_printf, NULL, _FDEV_SETUP_WRITE);
+static FILE usart_out = FDEV_SETUP_STREAM(usart_putchar_printf, NULL, _FDEV_SETUP_WRITE);
 
 volatile uint8_t lcd_context = 1; //which thread has LCD_context
 volatile uint8_t lcd_context_count[6] = {1,1,1,1,1,1}; //start screen within thread
@@ -1415,7 +1415,7 @@ THD_FUNCTION(Thread7, arg) {
 /*********************************************************************************
 Thread 8 -  autonomous task, triggered at start, runs UART
 ********************************************************************************/ 
-/*
+
 THD_FUNCTION(Thread8, arg) {
 
 // this thread will print stack usage to uart once per second 
@@ -1438,7 +1438,7 @@ THD_FUNCTION(Thread8, arg) {
 
   systime_t wakeTime = chVTGetSystemTimeX();
   // Welcome message
-  fprintf_P(&usart_out,PSTR("Hello World!\r\n"));
+  fprintf_P(&usart_out,PSTR("Ciao!\r\n"));
   
   while (true) {
 	// Print unused stack for thread 1, thread 2, and idle thread.
@@ -1458,7 +1458,7 @@ THD_FUNCTION(Thread8, arg) {
 	
   
 }//THREAD8
-*/
+
 
 
 
@@ -1472,16 +1472,16 @@ Notes:
 4. Names of threads don't matter, order does!!!
 ********************************************************************************/ 
 
-THD_WORKING_AREA(waThread1, 16);
-THD_WORKING_AREA(waThread2, 90);
+THD_WORKING_AREA(waThread1, 5);
+THD_WORKING_AREA(waThread2, 95);
 THD_WORKING_AREA(waThread3, 90);
-THD_WORKING_AREA(waThread4, 100);
-THD_WORKING_AREA(waThread5, 96);
-THD_WORKING_AREA(waThread6, 110);
-THD_WORKING_AREA(waThread7, 80);
-//THD_WORKING_AREA(waThread8, 80); //don't include because too much mem usage
-THD_WORKING_AREA(waThread9, 80);
-//THD_WORKING_AREA(waTimer, 20); //just for completeness, commented out here because defined in time.c
+THD_WORKING_AREA(waThread4, 140);
+THD_WORKING_AREA(waThread5, 95);
+THD_WORKING_AREA(waThread6, 115);
+THD_WORKING_AREA(waThread7, 5);
+THD_WORKING_AREA(waThread8, 95); 
+THD_WORKING_AREA(waThread9, 5);
+//THD_WORKING_AREA(waTimer, 15); //just for completeness, commented out here because defined in time.c
 
 
 THD_TABLE_BEGIN  
@@ -1490,7 +1490,7 @@ THD_TABLE_BEGIN
   THD_TABLE_ENTRY(waThread7, NULL, Thread7, NULL) //Chopper Calculations
   THD_TABLE_ENTRY(waThread2, NULL, Thread2, NULL) //Menu Navigation Handler
   THD_TABLE_ENTRY(waThread6, NULL, Thread6, NULL) //Stack Output via LCD
- //  THD_TABLE_ENTRY(waThread8, NULL, Thread8, NULL) //Stack Output via USART ... omit due to mem usage
+  THD_TABLE_ENTRY(waThread8, NULL, Thread8, NULL) //Stack Output via USART
   THD_TABLE_ENTRY(waThread4, NULL, Thread4, NULL) //Time, Dist & Calories
   THD_TABLE_ENTRY(waThread5, NULL, Thread5, NULL) //LCD navigation
   THD_TABLE_ENTRY(waThread3, NULL, Thread3, NULL) //LCD ergo

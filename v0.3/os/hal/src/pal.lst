@@ -1,0 +1,123 @@
+   1               		.file	"pal.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	palReadBus
+  18               	palReadBus:
+  19               	.LFB48:
+  20               	.LM1:
+  21               	.LVL0:
+  22               	/* prologue: function */
+  23               	/* frame size = 0 */
+  24 0000 DC01      		movw r26,r24
+  25               	.LM2:
+  26 0002 ED91      		ld r30,X+
+  27 0004 FC91      		ld r31,X
+  28 0006 1197      		sbiw r26,1
+  29 0008 2081      		ld r18,Z
+  30 000a 30E0      		ldi r19,lo8(0)
+  31 000c 1396      		adiw r26,3
+  32 000e 0C90      		ld r0,X
+  33 0010 1397      		sbiw r26,3
+  34 0012 00C0      		rjmp 2f
+  35 0014 3595      	1:	asr r19
+  36 0016 2795      		ror r18
+  37 0018 0A94      	2:	dec r0
+  38 001a 02F4      		brpl 1b
+  39 001c 1296      		adiw r26,2
+  40 001e 8C91      		ld r24,X
+  41               	.LVL1:
+  42               	.LM3:
+  43 0020 8223      		and r24,r18
+  44               	/* epilogue start */
+  45 0022 0895      		ret
+  46               	.LFE48:
+  48               	.global	palWriteBus
+  50               	palWriteBus:
+  51               	.LFB49:
+  52               	.LM4:
+  53               	.LVL2:
+  54               	/* prologue: function */
+  55               	/* frame size = 0 */
+  56 0024 FC01      		movw r30,r24
+  57               	.LM5:
+  58 0026 A081      		ld r26,Z
+  59 0028 B181      		ldd r27,Z+1
+  60 002a 1296      		adiw r26,2
+  61 002c 3C91      		ld r19,X
+  62 002e 1297      		sbiw r26,2
+  63 0030 8281      		ldd r24,Z+2
+  64               	.LVL3:
+  65 0032 2381      		ldd r18,Z+3
+  66 0034 6823      		and r22,r24
+  67               	.LVL4:
+  68 0036 70E0      		ldi r23,lo8(0)
+  69 0038 022E      		mov r0,r18
+  70 003a 00C0      		rjmp 2f
+  71 003c 660F      	1:	lsl r22
+  72 003e 771F      		rol r23
+  73 0040 0A94      	2:	dec r0
+  74 0042 02F4      		brpl 1b
+  75               	.LVL5:
+  76 0044 90E0      		ldi r25,lo8(0)
+  77 0046 00C0      		rjmp 2f
+  78 0048 880F      	1:	lsl r24
+  79 004a 991F      		rol r25
+  80 004c 2A95      	2:	dec r18
+  81 004e 02F4      		brpl 1b
+  82 0050 8095      		com r24
+  83 0052 8323      		and r24,r19
+  84 0054 862B      		or r24,r22
+  85 0056 1296      		adiw r26,2
+  86 0058 8C93      		st X,r24
+  87               	/* epilogue start */
+  88               	.LM6:
+  89 005a 0895      		ret
+  90               	.LFE49:
+  92               	.global	palSetBusMode
+  94               	palSetBusMode:
+  95               	.LFB50:
+  96               	.LM7:
+  97               	.LVL6:
+  98               	/* prologue: function */
+  99               	/* frame size = 0 */
+ 100 005c FC01      		movw r30,r24
+ 101 005e 462F      		mov r20,r22
+ 102               	.LM8:
+ 103 0060 6281      		ldd r22,Z+2
+ 104               	.LVL7:
+ 105 0062 70E0      		ldi r23,lo8(0)
+ 106 0064 0380      		ldd r0,Z+3
+ 107 0066 00C0      		rjmp 2f
+ 108 0068 660F      	1:	lsl r22
+ 109 006a 771F      		rol r23
+ 110 006c 0A94      	2:	dec r0
+ 111 006e 02F4      		brpl 1b
+ 112 0070 8081      		ld r24,Z
+ 113 0072 9181      		ldd r25,Z+1
+ 114               	.LVL8:
+ 115 0074 0E94 0000 		call _pal_lld_setgroupmode
+ 116               	.LVL9:
+ 117               	/* epilogue start */
+ 118               	.LM9:
+ 119 0078 0895      		ret
+ 120               	.LFE50:
+ 162               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 pal.c
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccSDVpzi.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccSDVpzi.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccSDVpzi.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccSDVpzi.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccSDVpzi.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccSDVpzi.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccSDVpzi.s:18     .text:00000000 palReadBus
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccSDVpzi.s:50     .text:00000024 palWriteBus
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccSDVpzi.s:94     .text:0000005c palSetBusMode
+
+UNDEFINED SYMBOLS
+_pal_lld_setgroupmode

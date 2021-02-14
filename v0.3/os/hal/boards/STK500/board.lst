@@ -1,0 +1,47 @@
+   1               		.file	"board.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	boardInit
+  18               	boardInit:
+  19               	.LFB48:
+  20               	.LM1:
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	.LM2:
+  24 0000 87E0      		ldi r24,lo8(7)
+  25 0002 8093 6900 		sts 105,r24
+  26               	.LM3:
+  27 0006 81E0      		ldi r24,lo8(1)
+  28 0008 8DBB      		out 61-32,r24
+  29               	/* epilogue start */
+  30               	.LM4:
+  31 000a 0895      		ret
+  32               	.LFE48:
+  34               	.global	pal_default_config
+  35               		.data
+  38               	pal_default_config:
+  39 0000 FF        		.byte	-1
+  40 0001 74        		.byte	116
+  41 0002 00        		.byte	0
+  42 0003 FF        		.byte	-1
+  43 0004 FF        		.byte	-1
+  44 0005 02        		.byte	2
+  69               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 board.c
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc2xjuh1.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc2xjuh1.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc2xjuh1.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc2xjuh1.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc2xjuh1.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc2xjuh1.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc2xjuh1.s:18     .text:00000000 boardInit
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc2xjuh1.s:38     .data:00000000 pal_default_config
+
+UNDEFINED SYMBOLS
+__do_copy_data

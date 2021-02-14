@@ -1,0 +1,1148 @@
+   1               		.file	"nil.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	chSysHalt
+  18               	chSysHalt:
+  19               	.LFB16:
+  20               	.LM1:
+  21               	.LVL0:
+  22               	/* prologue: function */
+  23               	/* frame size = 0 */
+  24               	.LBB86:
+  25               	.LBB87:
+  26               	.LM2:
+  27               	/* #APP */
+  28               	 ;  351 "..//os/nil/ports/AVR/nilcore.h" 1
+  29 0000 F894      		cli
+  30               	 ;  0 "" 2
+  31               	/* #NOAPP */
+  32               	.L2:
+  33 0002 00C0      		rjmp .L2
+  34               	.LBE87:
+  35               	.LBE86:
+  36               	.LFE16:
+  38               	.global	chSysTimerHandlerI
+  40               	chSysTimerHandlerI:
+  41               	.LFB17:
+  42               	.LM3:
+  43 0004 CF93      		push r28
+  44 0006 DF93      		push r29
+  45               	/* prologue: function */
+  46               	/* frame size = 0 */
+  47               	.LM4:
+  48 0008 8091 0000 		lds r24,nil+4
+  49 000c 9091 0000 		lds r25,(nil+4)+1
+  50 0010 A091 0000 		lds r26,(nil+4)+2
+  51 0014 B091 0000 		lds r27,(nil+4)+3
+  52 0018 0196      		adiw r24,1
+  53 001a A11D      		adc r26,__zero_reg__
+  54 001c B11D      		adc r27,__zero_reg__
+  55 001e 8093 0000 		sts nil+4,r24
+  56 0022 9093 0000 		sts (nil+4)+1,r25
+  57 0026 A093 0000 		sts (nil+4)+2,r26
+  58 002a B093 0000 		sts (nil+4)+3,r27
+  59 002e C0E0      		ldi r28,lo8(nil+8)
+  60 0030 D0E0      		ldi r29,hi8(nil+8)
+  61               	.LVL1:
+  62               	.LBB88:
+  63               	.LBB89:
+  64               	.LM5:
+  65 0032 2FEF      		ldi r18,lo8(-1)
+  66 0034 3FEF      		ldi r19,hi8(-1)
+  67               	.L9:
+  68               	.LBE89:
+  69               	.LBE88:
+  70               	.LM6:
+  71 0036 8D81      		ldd r24,Y+5
+  72 0038 9E81      		ldd r25,Y+6
+  73 003a AF81      		ldd r26,Y+7
+  74 003c B885      		ldd r27,Y+8
+  75 003e 0097      		sbiw r24,0
+  76 0040 A105      		cpc r26,__zero_reg__
+  77 0042 B105      		cpc r27,__zero_reg__
+  78 0044 01F0      		breq .L6
+  79               	.LM7:
+  80 0046 8D81      		ldd r24,Y+5
+  81 0048 9E81      		ldd r25,Y+6
+  82 004a AF81      		ldd r26,Y+7
+  83 004c B885      		ldd r27,Y+8
+  84 004e 0197      		sbiw r24,1
+  85 0050 A109      		sbc r26,__zero_reg__
+  86 0052 B109      		sbc r27,__zero_reg__
+  87 0054 8D83      		std Y+5,r24
+  88 0056 9E83      		std Y+6,r25
+  89 0058 AF83      		std Y+7,r26
+  90 005a B887      		std Y+8,r27
+  91 005c 8D81      		ldd r24,Y+5
+  92 005e 9E81      		ldd r25,Y+6
+  93 0060 AF81      		ldd r26,Y+7
+  94 0062 B885      		ldd r27,Y+8
+  95 0064 0097      		sbiw r24,0
+  96 0066 A105      		cpc r26,__zero_reg__
+  97 0068 B105      		cpc r27,__zero_reg__
+  98 006a 01F4      		brne .L6
+  99               	.LM8:
+ 100 006c 8A81      		ldd r24,Y+2
+ 101 006e 8330      		cpi r24,lo8(3)
+ 102 0070 01F0      		breq .L12
+ 103               	.LM9:
+ 104 0072 8230      		cpi r24,lo8(2)
+ 105 0074 01F0      		breq .L13
+ 106               	.L8:
+ 107               	.LBB91:
+ 108               	.LBB90:
+ 109               	.LM10:
+ 110 0076 3C83      		std Y+4,r19
+ 111 0078 2B83      		std Y+3,r18
+ 112               	.LM11:
+ 113 007a 1A82      		std Y+2,__zero_reg__
+ 114               	.LM12:
+ 115 007c 1D82      		std Y+5,__zero_reg__
+ 116 007e 1E82      		std Y+6,__zero_reg__
+ 117 0080 1F82      		std Y+7,__zero_reg__
+ 118 0082 1886      		std Y+8,__zero_reg__
+ 119               	.LM13:
+ 120 0084 8091 0000 		lds r24,nil+2
+ 121 0088 9091 0000 		lds r25,(nil+2)+1
+ 122 008c C817      		cp r28,r24
+ 123 008e D907      		cpc r29,r25
+ 124 0090 00F4      		brsh .L6
+ 125               	.LM14:
+ 126 0092 D093 0000 		sts (nil+2)+1,r29
+ 127 0096 C093 0000 		sts nil+2,r28
+ 128               	.L6:
+ 129               	.LBE90:
+ 130               	.LBE91:
+ 131               	.LM15:
+ 132 009a 2A96      		adiw r28,10
+ 133               	.LM16:
+ 134 009c 80E0      		ldi r24,hi8(nil+108)
+ 135 009e C030      		cpi r28,lo8(nil+108)
+ 136 00a0 D807      		cpc r29,r24
+ 137 00a2 01F4      		brne .L9
+ 138               	/* epilogue start */
+ 139               	.LM17:
+ 140 00a4 DF91      		pop r29
+ 141 00a6 CF91      		pop r28
+ 142               	.LVL2:
+ 143 00a8 0895      		ret
+ 144               	.LVL3:
+ 145               	.L12:
+ 146               	.LM18:
+ 147 00aa EB81      		ldd r30,Y+3
+ 148 00ac FC81      		ldd r31,Y+4
+ 149 00ae 8081      		ld r24,Z
+ 150 00b0 8F5F      		subi r24,lo8(-(1))
+ 151 00b2 8083      		st Z,r24
+ 152 00b4 00C0      		rjmp .L8
+ 153               	.L13:
+ 154               	.LM19:
+ 155 00b6 EB81      		ldd r30,Y+3
+ 156 00b8 FC81      		ldd r31,Y+4
+ 157 00ba 1182      		std Z+1,__zero_reg__
+ 158 00bc 1082      		st Z,__zero_reg__
+ 159 00be 00C0      		rjmp .L8
+ 160               	.LFE17:
+ 162               	.global	chSysConditionalLock
+ 164               	chSysConditionalLock:
+ 165               	.LFB18:
+ 166               	.LM20:
+ 167               	/* prologue: function */
+ 168               	/* frame size = 0 */
+ 169               	/* epilogue start */
+ 170               	.LM21:
+ 171 00c0 0895      		ret
+ 172               	.LFE18:
+ 174               	.global	chSysConditionalUnlock
+ 176               	chSysConditionalUnlock:
+ 177               	.LFB19:
+ 178               	.LM22:
+ 179               	/* prologue: function */
+ 180               	/* frame size = 0 */
+ 181               	.LBB92:
+ 182               	.LBB93:
+ 183               	.LM23:
+ 184               	/* #APP */
+ 185               	 ;  327 "..//os/nil/ports/AVR/nilcore.h" 1
+ 186 00c2 7894      		sei
+ 187               	 ;  0 "" 2
+ 188               	/* epilogue start */
+ 189               	/* #NOAPP */
+ 190               	.LBE93:
+ 191               	.LBE92:
+ 192               	.LM24:
+ 193 00c4 0895      		ret
+ 194               	.LFE19:
+ 196               	.global	chSysGetStatusAndLockX
+ 198               	chSysGetStatusAndLockX:
+ 199               	.LFB20:
+ 200               	.LM25:
+ 201               	/* prologue: function */
+ 202               	/* frame size = 0 */
+ 203               	.LM26:
+ 204 00c6 80E0      		ldi r24,lo8(0)
+ 205               	/* epilogue start */
+ 206 00c8 0895      		ret
+ 207               	.LFE20:
+ 209               	.global	chSysRestoreStatusX
+ 211               	chSysRestoreStatusX:
+ 212               	.LFB21:
+ 213               	.LM27:
+ 214               	.LVL4:
+ 215               	/* prologue: function */
+ 216               	/* frame size = 0 */
+ 217               	/* epilogue start */
+ 218               	.LM28:
+ 219 00ca 0895      		ret
+ 220               	.LFE21:
+ 222               	.global	chSchReadyI
+ 224               	chSchReadyI:
+ 225               	.LFB22:
+ 226               	.LM29:
+ 227               	.LVL5:
+ 228               	/* prologue: function */
+ 229               	/* frame size = 0 */
+ 230 00cc FC01      		movw r30,r24
+ 231               	.LM30:
+ 232 00ce 7483      		std Z+4,r23
+ 233 00d0 6383      		std Z+3,r22
+ 234               	.LM31:
+ 235 00d2 1282      		std Z+2,__zero_reg__
+ 236               	.LM32:
+ 237 00d4 1582      		std Z+5,__zero_reg__
+ 238 00d6 1682      		std Z+6,__zero_reg__
+ 239 00d8 1782      		std Z+7,__zero_reg__
+ 240 00da 1086      		std Z+8,__zero_reg__
+ 241               	.LM33:
+ 242 00dc 8091 0000 		lds r24,nil+2
+ 243 00e0 9091 0000 		lds r25,(nil+2)+1
+ 244               	.LVL6:
+ 245 00e4 E817      		cp r30,r24
+ 246 00e6 F907      		cpc r31,r25
+ 247 00e8 00F4      		brsh .L23
+ 248               	.LM34:
+ 249 00ea F093 0000 		sts (nil+2)+1,r31
+ 250 00ee E093 0000 		sts nil+2,r30
+ 251               	.L23:
+ 252               	.LM35:
+ 253 00f2 CF01      		movw r24,r30
+ 254               	.LVL7:
+ 255               	/* epilogue start */
+ 256 00f4 0895      		ret
+ 257               	.LFE22:
+ 259               	.global	chThdResumeI
+ 261               	chThdResumeI:
+ 262               	.LFB26:
+ 263               	.LM36:
+ 264               	.LVL8:
+ 265               	/* prologue: function */
+ 266               	/* frame size = 0 */
+ 267 00f6 DC01      		movw r26,r24
+ 268               	.LM37:
+ 269 00f8 ED91      		ld r30,X+
+ 270 00fa FC91      		ld r31,X
+ 271 00fc 1197      		sbiw r26,1
+ 272 00fe 3097      		sbiw r30,0
+ 273 0100 01F0      		breq .L27
+ 274               	.LVL9:
+ 275               	.LBB94:
+ 276               	.LM38:
+ 277 0102 1D92      		st X+,__zero_reg__
+ 278 0104 1C92      		st X,__zero_reg__
+ 279               	.LBB95:
+ 280               	.LBB96:
+ 281               	.LM39:
+ 282 0106 7483      		std Z+4,r23
+ 283 0108 6383      		std Z+3,r22
+ 284               	.LM40:
+ 285 010a 1282      		std Z+2,__zero_reg__
+ 286               	.LM41:
+ 287 010c 1582      		std Z+5,__zero_reg__
+ 288 010e 1682      		std Z+6,__zero_reg__
+ 289 0110 1782      		std Z+7,__zero_reg__
+ 290 0112 1086      		std Z+8,__zero_reg__
+ 291               	.LM42:
+ 292 0114 8091 0000 		lds r24,nil+2
+ 293 0118 9091 0000 		lds r25,(nil+2)+1
+ 294 011c E817      		cp r30,r24
+ 295 011e F907      		cpc r31,r25
+ 296 0120 00F4      		brsh .L27
+ 297               	.LM43:
+ 298 0122 F093 0000 		sts (nil+2)+1,r31
+ 299 0126 E093 0000 		sts nil+2,r30
+ 300               	.LVL10:
+ 301               	.L27:
+ 302 012a 0895      		ret
+ 303               	.LBE96:
+ 304               	.LBE95:
+ 305               	.LBE94:
+ 306               	.LFE26:
+ 308               	.global	chSemSignalI
+ 310               	chSemSignalI:
+ 311               	.LFB32:
+ 312               	.LM44:
+ 313               	.LVL11:
+ 314               	/* prologue: function */
+ 315               	/* frame size = 0 */
+ 316 012c DC01      		movw r26,r24
+ 317               	.LM45:
+ 318 012e 8C91      		ld r24,X
+ 319               	.LVL12:
+ 320 0130 8F5F      		subi r24,lo8(-(1))
+ 321 0132 8C93      		st X,r24
+ 322 0134 8C91      		ld r24,X
+ 323 0136 1816      		cp __zero_reg__,r24
+ 324 0138 04F4      		brge .L34
+ 325               	.LVL13:
+ 326               	.L33:
+ 327 013a 0895      		ret
+ 328               	.LVL14:
+ 329               	.L34:
+ 330               	.LBB97:
+ 331               	.LM46:
+ 332 013c 8091 0000 		lds r24,nil+11
+ 333 0140 9091 0000 		lds r25,(nil+11)+1
+ 334 0144 8A17      		cp r24,r26
+ 335 0146 9B07      		cpc r25,r27
+ 336 0148 01F0      		breq .L35
+ 337               	.LBB98:
+ 338               	.LBB99:
+ 339               	.LM47:
+ 340 014a E0E0      		ldi r30,lo8(nil+8)
+ 341 014c F0E0      		ldi r31,hi8(nil+8)
+ 342               	.LVL15:
+ 343               	.L32:
+ 344               	.LBE99:
+ 345               	.LBE98:
+ 346               	.LM48:
+ 347 014e 3A96      		adiw r30,10
+ 348               	.LM49:
+ 349 0150 8381      		ldd r24,Z+3
+ 350 0152 9481      		ldd r25,Z+4
+ 351 0154 8A17      		cp r24,r26
+ 352 0156 9B07      		cpc r25,r27
+ 353 0158 01F4      		brne .L32
+ 354               	.L31:
+ 355               	.LBB101:
+ 356               	.LBB100:
+ 357               	.LM50:
+ 358 015a 1482      		std Z+4,__zero_reg__
+ 359 015c 1382      		std Z+3,__zero_reg__
+ 360               	.LM51:
+ 361 015e 1282      		std Z+2,__zero_reg__
+ 362               	.LM52:
+ 363 0160 1582      		std Z+5,__zero_reg__
+ 364 0162 1682      		std Z+6,__zero_reg__
+ 365 0164 1782      		std Z+7,__zero_reg__
+ 366 0166 1086      		std Z+8,__zero_reg__
+ 367               	.LM53:
+ 368 0168 8091 0000 		lds r24,nil+2
+ 369 016c 9091 0000 		lds r25,(nil+2)+1
+ 370 0170 E817      		cp r30,r24
+ 371 0172 F907      		cpc r31,r25
+ 372 0174 00F4      		brsh .L33
+ 373               	.LM54:
+ 374 0176 F093 0000 		sts (nil+2)+1,r31
+ 375 017a E093 0000 		sts nil+2,r30
+ 376 017e 0895      		ret
+ 377               	.LVL16:
+ 378               	.L35:
+ 379               	.LBE100:
+ 380               	.LBE101:
+ 381               	.LM55:
+ 382 0180 E0E0      		ldi r30,lo8(nil+8)
+ 383 0182 F0E0      		ldi r31,hi8(nil+8)
+ 384               	.LVL17:
+ 385 0184 00C0      		rjmp .L31
+ 386               	.LBE97:
+ 387               	.LFE32:
+ 389               	.global	chSemResetI
+ 391               	chSemResetI:
+ 392               	.LFB34:
+ 393               	.LM56:
+ 394               	.LVL18:
+ 395               	/* prologue: function */
+ 396               	/* frame size = 0 */
+ 397 0186 DC01      		movw r26,r24
+ 398               	.LM57:
+ 399 0188 2C91      		ld r18,X
+ 400               	.LVL19:
+ 401               	.LM58:
+ 402 018a 6C93      		st X,r22
+ 403               	.LM59:
+ 404 018c 27FF      		sbrs r18,7
+ 405 018e 00C0      		rjmp .L41
+ 406               	.LVL20:
+ 407 0190 4091 0000 		lds r20,nil+2
+ 408 0194 5091 0000 		lds r21,(nil+2)+1
+ 409               	.LVL21:
+ 410 0198 E0E0      		ldi r30,lo8(nil+8)
+ 411 019a F0E0      		ldi r31,hi8(nil+8)
+ 412               	.LVL22:
+ 413               	.LBB102:
+ 414               	.LBB103:
+ 415               	.LM60:
+ 416 019c 6EEF      		ldi r22,lo8(-2)
+ 417 019e 7FEF      		ldi r23,hi8(-2)
+ 418               	.LVL23:
+ 419 01a0 00C0      		rjmp .L40
+ 420               	.LVL24:
+ 421               	.L38:
+ 422               	.LBE103:
+ 423               	.LBE102:
+ 424               	.LM61:
+ 425 01a2 27FF      		sbrs r18,7
+ 426 01a4 00C0      		rjmp .L39
+ 427               	.L42:
+ 428               	.LM62:
+ 429 01a6 3A96      		adiw r30,10
+ 430               	.LVL25:
+ 431               	.L40:
+ 432               	.LM63:
+ 433 01a8 8381      		ldd r24,Z+3
+ 434 01aa 9481      		ldd r25,Z+4
+ 435 01ac 8A17      		cp r24,r26
+ 436 01ae 9B07      		cpc r25,r27
+ 437 01b0 01F4      		brne .L38
+ 438               	.LM64:
+ 439 01b2 2F5F      		subi r18,lo8(-(1))
+ 440               	.LBB105:
+ 441               	.LBB104:
+ 442               	.LM65:
+ 443 01b4 7483      		std Z+4,r23
+ 444 01b6 6383      		std Z+3,r22
+ 445               	.LM66:
+ 446 01b8 1282      		std Z+2,__zero_reg__
+ 447               	.LM67:
+ 448 01ba 1582      		std Z+5,__zero_reg__
+ 449 01bc 1682      		std Z+6,__zero_reg__
+ 450 01be 1782      		std Z+7,__zero_reg__
+ 451 01c0 1086      		std Z+8,__zero_reg__
+ 452               	.LM68:
+ 453 01c2 E417      		cp r30,r20
+ 454 01c4 F507      		cpc r31,r21
+ 455 01c6 00F4      		brsh .L38
+ 456 01c8 AF01      		movw r20,r30
+ 457               	.LBE104:
+ 458               	.LBE105:
+ 459               	.LM69:
+ 460 01ca 27FD      		sbrc r18,7
+ 461 01cc 00C0      		rjmp .L42
+ 462               	.L39:
+ 463               	.LM70:
+ 464 01ce 5093 0000 		sts (nil+2)+1,r21
+ 465 01d2 4093 0000 		sts nil+2,r20
+ 466               	.LVL26:
+ 467               	.L41:
+ 468 01d6 0895      		ret
+ 469               	.LFE34:
+ 471               	.global	chEvtSignalI
+ 473               	chEvtSignalI:
+ 474               	.LFB36:
+ 475               	.LM71:
+ 476               	.LVL27:
+ 477               	/* prologue: function */
+ 478               	/* frame size = 0 */
+ 479 01d8 FC01      		movw r30,r24
+ 480               	.LM72:
+ 481 01da 8185      		ldd r24,Z+9
+ 482               	.LVL28:
+ 483 01dc 682B      		or r22,r24
+ 484               	.LVL29:
+ 485 01de 6187      		std Z+9,r22
+ 486               	.LM73:
+ 487 01e0 8281      		ldd r24,Z+2
+ 488 01e2 8430      		cpi r24,lo8(4)
+ 489 01e4 01F0      		breq .L46
+ 490               	.L45:
+ 491 01e6 0895      		ret
+ 492               	.L46:
+ 493 01e8 8381      		ldd r24,Z+3
+ 494 01ea 6823      		and r22,r24
+ 495 01ec 01F0      		breq .L45
+ 496               	.LBB106:
+ 497               	.LBB107:
+ 498               	.LM74:
+ 499 01ee 1482      		std Z+4,__zero_reg__
+ 500 01f0 1382      		std Z+3,__zero_reg__
+ 501               	.LM75:
+ 502 01f2 1282      		std Z+2,__zero_reg__
+ 503               	.LM76:
+ 504 01f4 1582      		std Z+5,__zero_reg__
+ 505 01f6 1682      		std Z+6,__zero_reg__
+ 506 01f8 1782      		std Z+7,__zero_reg__
+ 507 01fa 1086      		std Z+8,__zero_reg__
+ 508               	.LM77:
+ 509 01fc 8091 0000 		lds r24,nil+2
+ 510 0200 9091 0000 		lds r25,(nil+2)+1
+ 511 0204 E817      		cp r30,r24
+ 512 0206 F907      		cpc r31,r25
+ 513 0208 00F4      		brsh .L45
+ 514               	.LM78:
+ 515 020a F093 0000 		sts (nil+2)+1,r31
+ 516 020e E093 0000 		sts nil+2,r30
+ 517 0212 0895      		ret
+ 518               	.LBE107:
+ 519               	.LBE106:
+ 520               	.LFE36:
+ 522               	.global	chSchGoSleepTimeoutS
+ 524               	chSchGoSleepTimeoutS:
+ 525               	.LFB24:
+ 526               	.LM79:
+ 527               	.LVL30:
+ 528               	/* prologue: function */
+ 529               	/* frame size = 0 */
+ 530               	.LM80:
+ 531 0214 A091 0000 		lds r26,nil
+ 532 0218 B091 0000 		lds r27,(nil)+1
+ 533               	.LVL31:
+ 534               	.LM81:
+ 535 021c 1296      		adiw r26,2
+ 536 021e 8C93      		st X,r24
+ 537 0220 1297      		sbiw r26,2
+ 538               	.LM82:
+ 539 0222 1596      		adiw r26,5
+ 540 0224 4D93      		st X+,r20
+ 541 0226 5D93      		st X+,r21
+ 542 0228 6D93      		st X+,r22
+ 543 022a 7C93      		st X,r23
+ 544 022c 1897      		sbiw r26,5+3
+ 545               	.LM83:
+ 546 022e 8091 0000 		lds r24,nil+10
+ 547               	.LVL32:
+ 548 0232 8823      		tst r24
+ 549 0234 01F0      		breq .L52
+ 550               	.LM84:
+ 551 0236 E0E0      		ldi r30,lo8(nil+8)
+ 552 0238 F0E0      		ldi r31,hi8(nil+8)
+ 553               	.LVL33:
+ 554               	.L50:
+ 555               	.LM85:
+ 556 023a 3A96      		adiw r30,10
+ 557               	.LM86:
+ 558 023c 8281      		ldd r24,Z+2
+ 559 023e 8823      		tst r24
+ 560 0240 01F4      		brne .L50
+ 561               	.L49:
+ 562               	.LM87:
+ 563 0242 F093 0000 		sts (nil+2)+1,r31
+ 564 0246 E093 0000 		sts nil+2,r30
+ 565 024a F093 0000 		sts (nil)+1,r31
+ 566 024e E093 0000 		sts nil,r30
+ 567               	.LM88:
+ 568 0252 CF01      		movw r24,r30
+ 569 0254 BD01      		movw r22,r26
+ 570 0256 0E94 0000 		call _port_switch
+ 571               	.LVL34:
+ 572 025a E091 0000 		lds r30,nil
+ 573 025e F091 0000 		lds r31,(nil)+1
+ 574               	.LM89:
+ 575 0262 8381      		ldd r24,Z+3
+ 576 0264 9481      		ldd r25,Z+4
+ 577               	/* epilogue start */
+ 578 0266 0895      		ret
+ 579               	.LVL35:
+ 580               	.L52:
+ 581               	.LM90:
+ 582 0268 E0E0      		ldi r30,lo8(nil+8)
+ 583 026a F0E0      		ldi r31,hi8(nil+8)
+ 584               	.LVL36:
+ 585 026c 00C0      		rjmp .L49
+ 586               	.LFE24:
+ 588               	.global	chEvtWaitAnyTimeoutS
+ 590               	chEvtWaitAnyTimeoutS:
+ 591               	.LFB38:
+ 592               	.LM91:
+ 593               	.LVL37:
+ 594 026e 0F93      		push r16
+ 595 0270 1F93      		push r17
+ 596 0272 CF93      		push r28
+ 597 0274 DF93      		push r29
+ 598               	/* prologue: function */
+ 599               	/* frame size = 0 */
+ 600 0276 082F      		mov r16,r24
+ 601               	.LM92:
+ 602 0278 C091 0000 		lds r28,nil
+ 603 027c D091 0000 		lds r29,(nil)+1
+ 604               	.LVL38:
+ 605               	.LM93:
+ 606 0280 9985      		ldd r25,Y+9
+ 607 0282 182F      		mov r17,r24
+ 608               	.LVL39:
+ 609 0284 1923      		and r17,r25
+ 610 0286 01F4      		brne .L54
+ 611               	.LM94:
+ 612 0288 4F3F      		cpi r20,lo8(-1)
+ 613 028a 8FEF      		ldi r24,hi8(-1)
+ 614 028c 5807      		cpc r21,r24
+ 615 028e 8FEF      		ldi r24,hlo8(-1)
+ 616 0290 6807      		cpc r22,r24
+ 617 0292 8FEF      		ldi r24,hhi8(-1)
+ 618 0294 7807      		cpc r23,r24
+ 619               	.LVL40:
+ 620 0296 01F0      		breq .L59
+ 621               	.LM95:
+ 622 0298 0B83      		std Y+3,r16
+ 623               	.LM96:
+ 624 029a 84E0      		ldi r24,lo8(4)
+ 625 029c 0E94 0000 		call chSchGoSleepTimeoutS
+ 626               	.LVL41:
+ 627 02a0 97FD      		sbrc r25,7
+ 628 02a2 00C0      		rjmp .L59
+ 629               	.LM97:
+ 630 02a4 9985      		ldd r25,Y+9
+ 631 02a6 102F      		mov r17,r16
+ 632 02a8 1923      		and r17,r25
+ 633               	.LVL42:
+ 634               	.L54:
+ 635               	.LM98:
+ 636 02aa 812F      		mov r24,r17
+ 637 02ac 8095      		com r24
+ 638 02ae 8923      		and r24,r25
+ 639 02b0 8987      		std Y+9,r24
+ 640               	.LM99:
+ 641 02b2 812F      		mov r24,r17
+ 642               	/* epilogue start */
+ 643 02b4 DF91      		pop r29
+ 644 02b6 CF91      		pop r28
+ 645               	.LVL43:
+ 646 02b8 1F91      		pop r17
+ 647               	.LVL44:
+ 648 02ba 0F91      		pop r16
+ 649               	.LVL45:
+ 650 02bc 0895      		ret
+ 651               	.LVL46:
+ 652               	.L59:
+ 653               	.LBB108:
+ 654               	.LBB109:
+ 655               	.LM100:
+ 656               	/* #APP */
+ 657               	 ;  327 "..//os/nil/ports/AVR/nilcore.h" 1
+ 658 02be 7894      		sei
+ 659               	 ;  0 "" 2
+ 660               	/* #NOAPP */
+ 661               	.LBE109:
+ 662               	.LBE108:
+ 663               	.LM101:
+ 664 02c0 812F      		mov r24,r17
+ 665 02c2 DF91      		pop r29
+ 666 02c4 CF91      		pop r28
+ 667               	.LVL47:
+ 668 02c6 1F91      		pop r17
+ 669               	.LVL48:
+ 670 02c8 0F91      		pop r16
+ 671               	.LVL49:
+ 672 02ca 0895      		ret
+ 673               	.LFE38:
+ 675               	.global	chEvtWaitAnyTimeout
+ 677               	chEvtWaitAnyTimeout:
+ 678               	.LFB37:
+ 679               	.LM102:
+ 680               	.LVL50:
+ 681               	/* prologue: function */
+ 682               	/* frame size = 0 */
+ 683               	.LBB110:
+ 684               	.LBB111:
+ 685               	.LM103:
+ 686               	/* #APP */
+ 687               	 ;  319 "..//os/nil/ports/AVR/nilcore.h" 1
+ 688 02cc F894      		cli
+ 689               	 ;  0 "" 2
+ 690               	/* #NOAPP */
+ 691               	.LBE111:
+ 692               	.LBE110:
+ 693               	.LM104:
+ 694 02ce 0E94 0000 		call chEvtWaitAnyTimeoutS
+ 695               	.LVL51:
+ 696               	.LBB112:
+ 697               	.LBB113:
+ 698               	.LM105:
+ 699               	/* #APP */
+ 700               	 ;  327 "..//os/nil/ports/AVR/nilcore.h" 1
+ 701 02d2 7894      		sei
+ 702               	 ;  0 "" 2
+ 703               	/* epilogue start */
+ 704               	/* #NOAPP */
+ 705               	.LBE113:
+ 706               	.LBE112:
+ 707               	.LM106:
+ 708 02d4 0895      		ret
+ 709               	.LFE37:
+ 711               	.global	chSemWaitTimeoutS
+ 713               	chSemWaitTimeoutS:
+ 714               	.LFB30:
+ 715               	.LM107:
+ 716               	.LVL52:
+ 717               	/* prologue: function */
+ 718               	/* frame size = 0 */
+ 719 02d6 DC01      		movw r26,r24
+ 720               	.LM108:
+ 721 02d8 8C91      		ld r24,X
+ 722               	.LVL53:
+ 723               	.LM109:
+ 724 02da 1816      		cp __zero_reg__,r24
+ 725 02dc 04F4      		brge .L67
+ 726               	.LM110:
+ 727 02de 8150      		subi r24,lo8(-(-1))
+ 728 02e0 8C93      		st X,r24
+ 729 02e2 20E0      		ldi r18,lo8(0)
+ 730 02e4 30E0      		ldi r19,hi8(0)
+ 731               	.L65:
+ 732               	.LM111:
+ 733 02e6 C901      		movw r24,r18
+ 734               	.LVL54:
+ 735               	/* epilogue start */
+ 736 02e8 0895      		ret
+ 737               	.LVL55:
+ 738               	.L67:
+ 739               	.LM112:
+ 740 02ea 4F3F      		cpi r20,lo8(-1)
+ 741 02ec 9FEF      		ldi r25,hi8(-1)
+ 742 02ee 5907      		cpc r21,r25
+ 743 02f0 9FEF      		ldi r25,hlo8(-1)
+ 744 02f2 6907      		cpc r22,r25
+ 745 02f4 9FEF      		ldi r25,hhi8(-1)
+ 746 02f6 7907      		cpc r23,r25
+ 747 02f8 01F4      		brne .L64
+ 748 02fa 2FEF      		ldi r18,lo8(-1)
+ 749 02fc 3FEF      		ldi r19,hi8(-1)
+ 750 02fe 00C0      		rjmp .L65
+ 751               	.L64:
+ 752               	.LM113:
+ 753 0300 8150      		subi r24,lo8(-(-1))
+ 754 0302 8C93      		st X,r24
+ 755               	.LM114:
+ 756 0304 E091 0000 		lds r30,nil
+ 757 0308 F091 0000 		lds r31,(nil)+1
+ 758 030c B483      		std Z+4,r27
+ 759 030e A383      		std Z+3,r26
+ 760               	.LM115:
+ 761 0310 83E0      		ldi r24,lo8(3)
+ 762               	.LVL56:
+ 763 0312 0E94 0000 		call chSchGoSleepTimeoutS
+ 764               	.LVL57:
+ 765 0316 9C01      		movw r18,r24
+ 766 0318 00C0      		rjmp .L65
+ 767               	.LFE30:
+ 769               	.global	chSemWaitTimeout
+ 771               	chSemWaitTimeout:
+ 772               	.LFB29:
+ 773               	.LM116:
+ 774               	.LVL58:
+ 775               	/* prologue: function */
+ 776               	/* frame size = 0 */
+ 777               	.LBB114:
+ 778               	.LBB115:
+ 779               	.LM117:
+ 780               	/* #APP */
+ 781               	 ;  319 "..//os/nil/ports/AVR/nilcore.h" 1
+ 782 031a F894      		cli
+ 783               	 ;  0 "" 2
+ 784               	/* #NOAPP */
+ 785               	.LBE115:
+ 786               	.LBE114:
+ 787               	.LM118:
+ 788 031c 0E94 0000 		call chSemWaitTimeoutS
+ 789               	.LVL59:
+ 790               	.LBB116:
+ 791               	.LBB117:
+ 792               	.LM119:
+ 793               	/* #APP */
+ 794               	 ;  327 "..//os/nil/ports/AVR/nilcore.h" 1
+ 795 0320 7894      		sei
+ 796               	 ;  0 "" 2
+ 797               	/* epilogue start */
+ 798               	/* #NOAPP */
+ 799               	.LBE117:
+ 800               	.LBE116:
+ 801               	.LM120:
+ 802 0322 0895      		ret
+ 803               	.LFE29:
+ 805               	.global	chThdSleepUntil
+ 807               	chThdSleepUntil:
+ 808               	.LFB28:
+ 809               	.LM121:
+ 810               	.LVL60:
+ 811               	/* prologue: function */
+ 812               	/* frame size = 0 */
+ 813 0324 AB01      		movw r20,r22
+ 814 0326 BC01      		movw r22,r24
+ 815               	.LBB118:
+ 816               	.LBB119:
+ 817               	.LM122:
+ 818               	/* #APP */
+ 819               	 ;  319 "..//os/nil/ports/AVR/nilcore.h" 1
+ 820 0328 F894      		cli
+ 821               	 ;  0 "" 2
+ 822               	/* #NOAPP */
+ 823               	.LBE119:
+ 824               	.LBE118:
+ 825               	.LM123:
+ 826 032a 8091 0000 		lds r24,nil+4
+ 827 032e 9091 0000 		lds r25,(nil+4)+1
+ 828 0332 A091 0000 		lds r26,(nil+4)+2
+ 829 0336 B091 0000 		lds r27,(nil+4)+3
+ 830 033a 481B      		sub r20,r24
+ 831 033c 590B      		sbc r21,r25
+ 832 033e 6A0B      		sbc r22,r26
+ 833 0340 7B0B      		sbc r23,r27
+ 834               	.LVL61:
+ 835 0342 81E0      		ldi r24,lo8(1)
+ 836 0344 0E94 0000 		call chSchGoSleepTimeoutS
+ 837               	.LVL62:
+ 838               	.LBB120:
+ 839               	.LBB121:
+ 840               	.LM124:
+ 841               	/* #APP */
+ 842               	 ;  327 "..//os/nil/ports/AVR/nilcore.h" 1
+ 843 0348 7894      		sei
+ 844               	 ;  0 "" 2
+ 845               	/* epilogue start */
+ 846               	/* #NOAPP */
+ 847               	.LBE121:
+ 848               	.LBE120:
+ 849               	.LM125:
+ 850 034a 0895      		ret
+ 851               	.LFE28:
+ 853               	.global	chThdSleep
+ 855               	chThdSleep:
+ 856               	.LFB27:
+ 857               	.LM126:
+ 858               	.LVL63:
+ 859               	/* prologue: function */
+ 860               	/* frame size = 0 */
+ 861 034c AB01      		movw r20,r22
+ 862 034e BC01      		movw r22,r24
+ 863               	.LBB122:
+ 864               	.LBB123:
+ 865               	.LM127:
+ 866               	/* #APP */
+ 867               	 ;  319 "..//os/nil/ports/AVR/nilcore.h" 1
+ 868 0350 F894      		cli
+ 869               	 ;  0 "" 2
+ 870               	/* #NOAPP */
+ 871               	.LBE123:
+ 872               	.LBE122:
+ 873               	.LM128:
+ 874 0352 81E0      		ldi r24,lo8(1)
+ 875 0354 0E94 0000 		call chSchGoSleepTimeoutS
+ 876               	.LVL64:
+ 877               	.LBB124:
+ 878               	.LBB125:
+ 879               	.LM129:
+ 880               	/* #APP */
+ 881               	 ;  327 "..//os/nil/ports/AVR/nilcore.h" 1
+ 882 0358 7894      		sei
+ 883               	 ;  0 "" 2
+ 884               	/* epilogue start */
+ 885               	/* #NOAPP */
+ 886               	.LBE125:
+ 887               	.LBE124:
+ 888               	.LM130:
+ 889 035a 0895      		ret
+ 890               	.LFE27:
+ 892               	.global	chThdSuspendTimeoutS
+ 894               	chThdSuspendTimeoutS:
+ 895               	.LFB25:
+ 896               	.LM131:
+ 897               	.LVL65:
+ 898               	/* prologue: function */
+ 899               	/* frame size = 0 */
+ 900 035c DC01      		movw r26,r24
+ 901               	.LM132:
+ 902 035e 8091 0000 		lds r24,nil
+ 903 0362 9091 0000 		lds r25,(nil)+1
+ 904               	.LVL66:
+ 905 0366 1196      		adiw r26,1
+ 906 0368 9C93      		st X,r25
+ 907 036a 8E93      		st -X,r24
+ 908               	.LM133:
+ 909 036c E091 0000 		lds r30,nil
+ 910 0370 F091 0000 		lds r31,(nil)+1
+ 911 0374 B483      		std Z+4,r27
+ 912 0376 A383      		std Z+3,r26
+ 913               	.LM134:
+ 914 0378 82E0      		ldi r24,lo8(2)
+ 915 037a 0E94 0000 		call chSchGoSleepTimeoutS
+ 916               	.LVL67:
+ 917               	/* epilogue start */
+ 918               	.LM135:
+ 919 037e 0895      		ret
+ 920               	.LFE25:
+ 922               	.global	chSchRescheduleS
+ 924               	chSchRescheduleS:
+ 925               	.LFB23:
+ 926               	.LM136:
+ 927               	/* prologue: function */
+ 928               	/* frame size = 0 */
+ 929               	.LM137:
+ 930 0380 6091 0000 		lds r22,nil
+ 931 0384 7091 0000 		lds r23,(nil)+1
+ 932 0388 8091 0000 		lds r24,nil+2
+ 933 038c 9091 0000 		lds r25,(nil+2)+1
+ 934 0390 6817      		cp r22,r24
+ 935 0392 7907      		cpc r23,r25
+ 936 0394 01F0      		breq .L78
+ 937               	.LBB126:
+ 938               	.LM138:
+ 939 0396 9093 0000 		sts (nil)+1,r25
+ 940 039a 8093 0000 		sts nil,r24
+ 941               	.LM139:
+ 942 039e 0E94 0000 		call _port_switch
+ 943               	.L78:
+ 944 03a2 0895      		ret
+ 945               	.LBE126:
+ 946               	.LFE23:
+ 948               	.global	chEvtSignal
+ 950               	chEvtSignal:
+ 951               	.LFB35:
+ 952               	.LM140:
+ 953               	.LVL68:
+ 954               	/* prologue: function */
+ 955               	/* frame size = 0 */
+ 956               	.LBB127:
+ 957               	.LBB128:
+ 958               	.LM141:
+ 959               	/* #APP */
+ 960               	 ;  319 "..//os/nil/ports/AVR/nilcore.h" 1
+ 961 03a4 F894      		cli
+ 962               	 ;  0 "" 2
+ 963               	/* #NOAPP */
+ 964               	.LBE128:
+ 965               	.LBE127:
+ 966               	.LM142:
+ 967 03a6 0E94 0000 		call chEvtSignalI
+ 968               	.LVL69:
+ 969               	.LM143:
+ 970 03aa 0E94 0000 		call chSchRescheduleS
+ 971               	.LBB129:
+ 972               	.LBB130:
+ 973               	.LM144:
+ 974               	/* #APP */
+ 975               	 ;  327 "..//os/nil/ports/AVR/nilcore.h" 1
+ 976 03ae 7894      		sei
+ 977               	 ;  0 "" 2
+ 978               	/* epilogue start */
+ 979               	/* #NOAPP */
+ 980               	.LBE130:
+ 981               	.LBE129:
+ 982               	.LM145:
+ 983 03b0 0895      		ret
+ 984               	.LFE35:
+ 986               	.global	chSemReset
+ 988               	chSemReset:
+ 989               	.LFB33:
+ 990               	.LM146:
+ 991               	.LVL70:
+ 992               	/* prologue: function */
+ 993               	/* frame size = 0 */
+ 994               	.LBB131:
+ 995               	.LBB132:
+ 996               	.LM147:
+ 997               	/* #APP */
+ 998               	 ;  319 "..//os/nil/ports/AVR/nilcore.h" 1
+ 999 03b2 F894      		cli
+ 1000               	 ;  0 "" 2
+ 1001               	/* #NOAPP */
+ 1002               	.LBE132:
+ 1003               	.LBE131:
+ 1004               	.LM148:
+ 1005 03b4 0E94 0000 		call chSemResetI
+ 1006               	.LVL71:
+ 1007               	.LM149:
+ 1008 03b8 0E94 0000 		call chSchRescheduleS
+ 1009               	.LBB133:
+ 1010               	.LBB134:
+ 1011               	.LM150:
+ 1012               	/* #APP */
+ 1013               	 ;  327 "..//os/nil/ports/AVR/nilcore.h" 1
+ 1014 03bc 7894      		sei
+ 1015               	 ;  0 "" 2
+ 1016               	/* epilogue start */
+ 1017               	/* #NOAPP */
+ 1018               	.LBE134:
+ 1019               	.LBE133:
+ 1020               	.LM151:
+ 1021 03be 0895      		ret
+ 1022               	.LFE33:
+ 1024               	.global	chSemSignal
+ 1026               	chSemSignal:
+ 1027               	.LFB31:
+ 1028               	.LM152:
+ 1029               	.LVL72:
+ 1030               	/* prologue: function */
+ 1031               	/* frame size = 0 */
+ 1032               	.LBB135:
+ 1033               	.LBB136:
+ 1034               	.LM153:
+ 1035               	/* #APP */
+ 1036               	 ;  319 "..//os/nil/ports/AVR/nilcore.h" 1
+ 1037 03c0 F894      		cli
+ 1038               	 ;  0 "" 2
+ 1039               	/* #NOAPP */
+ 1040               	.LBE136:
+ 1041               	.LBE135:
+ 1042               	.LM154:
+ 1043 03c2 0E94 0000 		call chSemSignalI
+ 1044               	.LVL73:
+ 1045               	.LM155:
+ 1046 03c6 0E94 0000 		call chSchRescheduleS
+ 1047               	.LBB137:
+ 1048               	.LBB138:
+ 1049               	.LM156:
+ 1050               	/* #APP */
+ 1051               	 ;  327 "..//os/nil/ports/AVR/nilcore.h" 1
+ 1052 03ca 7894      		sei
+ 1053               	 ;  0 "" 2
+ 1054               	/* epilogue start */
+ 1055               	/* #NOAPP */
+ 1056               	.LBE138:
+ 1057               	.LBE137:
+ 1058               	.LM157:
+ 1059 03cc 0895      		ret
+ 1060               	.LFE31:
+ 1062               	.global	chSysInit
+ 1064               	chSysInit:
+ 1065               	.LFB15:
+ 1066               	.LM158:
+ 1067 03ce CF93      		push r28
+ 1068 03d0 DF93      		push r29
+ 1069               	/* prologue: function */
+ 1070               	/* frame size = 0 */
+ 1071               	.LM159:
+ 1072 03d2 20E0      		ldi r18,lo8(gs(_port_thread_start))
+ 1073 03d4 30E0      		ldi r19,hi8(gs(_port_thread_start))
+ 1074 03d6 832F      		mov r24,r19
+ 1075 03d8 9927      		clr r25
+ 1076 03da 87FD      		sbrc r24,7
+ 1077 03dc 9A95      		dec r25
+ 1078 03de 482F      		mov r20,r24
+ 1079 03e0 60E0      		ldi r22,lo8(nil+8)
+ 1080 03e2 70E0      		ldi r23,hi8(nil+8)
+ 1081 03e4 DB01      		movw r26,r22
+ 1082               	.LVL74:
+ 1083 03e6 C0E0      		ldi r28,lo8(nil_thd_configs)
+ 1084 03e8 D0E0      		ldi r29,hi8(nil_thd_configs)
+ 1085               	.LVL75:
+ 1086               	.L86:
+ 1087               	.LM160:
+ 1088 03ea EA81      		ldd r30,Y+2
+ 1089 03ec FB81      		ldd r31,Y+3
+ 1090 03ee 7597      		sbiw r30,21
+ 1091 03f0 1196      		adiw r26,1
+ 1092 03f2 FC93      		st X,r31
+ 1093 03f4 EE93      		st -X,r30
+ 1094 03f6 8E81      		ldd r24,Y+6
+ 1095 03f8 828B      		std Z+18,r24
+ 1096 03fa ED91      		ld r30,X+
+ 1097 03fc FC91      		ld r31,X
+ 1098 03fe 1197      		sbiw r26,1
+ 1099 0400 8E81      		ldd r24,Y+6
+ 1100 0402 9F81      		ldd r25,Y+7
+ 1101 0404 892F      		mov r24,r25
+ 1102 0406 990F      		lsl r25
+ 1103 0408 990B      		sbc r25,r25
+ 1104 040a 818B      		std Z+17,r24
+ 1105 040c ED91      		ld r30,X+
+ 1106 040e FC91      		ld r31,X
+ 1107 0410 1197      		sbiw r26,1
+ 1108 0412 8885      		ldd r24,Y+8
+ 1109 0414 808B      		std Z+16,r24
+ 1110 0416 ED91      		ld r30,X+
+ 1111 0418 FC91      		ld r31,X
+ 1112 041a 1197      		sbiw r26,1
+ 1113 041c 8885      		ldd r24,Y+8
+ 1114 041e 9985      		ldd r25,Y+9
+ 1115 0420 892F      		mov r24,r25
+ 1116 0422 990F      		lsl r25
+ 1117 0424 990B      		sbc r25,r25
+ 1118 0426 8787      		std Z+15,r24
+ 1119 0428 ED91      		ld r30,X+
+ 1120 042a FC91      		ld r31,X
+ 1121 042c 1197      		sbiw r26,1
+ 1122 042e 438B      		std Z+19,r20
+ 1123 0430 ED91      		ld r30,X+
+ 1124 0432 FC91      		ld r31,X
+ 1125 0434 1197      		sbiw r26,1
+ 1126 0436 248B      		std Z+20,r18
+ 1127               	.LM161:
+ 1128 0438 1A96      		adiw r26,10
+ 1129 043a 2A96      		adiw r28,10
+ 1130               	.LM162:
+ 1131 043c 80E0      		ldi r24,hi8(nil+108)
+ 1132 043e A030      		cpi r26,lo8(nil+108)
+ 1133 0440 B807      		cpc r27,r24
+ 1134 0442 01F4      		brne .L86
+ 1135               	.LM163:
+ 1136 0444 7093 0000 		sts (nil+2)+1,r23
+ 1137 0448 6093 0000 		sts nil+2,r22
+ 1138 044c 7093 0000 		sts (nil)+1,r23
+ 1139 0450 6093 0000 		sts nil,r22
+ 1140               	.LM164:
+ 1141 0454 CB01      		movw r24,r22
+ 1142 0456 BD01      		movw r22,r26
+ 1143 0458 0E94 0000 		call _port_switch
+ 1144               	.LVL76:
+ 1145               	.LBB139:
+ 1146               	.LBB140:
+ 1147               	.LM165:
+ 1148               	/* #APP */
+ 1149               	 ;  367 "..//os/nil/ports/AVR/nilcore.h" 1
+ 1150 045c 7894      		sei
+ 1151               	 ;  0 "" 2
+ 1152               	/* epilogue start */
+ 1153               	/* #NOAPP */
+ 1154               	.LBE140:
+ 1155               	.LBE139:
+ 1156               	.LM166:
+ 1157 045e DF91      		pop r29
+ 1158 0460 CF91      		pop r28
+ 1159               	.LVL77:
+ 1160 0462 0895      		ret
+ 1161               	.LFE15:
+ 1163               		.comm nil,118,1
+ 1372               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 nil.c
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:18     .text:00000000 chSysHalt
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:40     .text:00000004 chSysTimerHandlerI
+                            *COM*:00000076 nil
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:164    .text:000000c0 chSysConditionalLock
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:176    .text:000000c2 chSysConditionalUnlock
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:198    .text:000000c6 chSysGetStatusAndLockX
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:211    .text:000000ca chSysRestoreStatusX
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:224    .text:000000cc chSchReadyI
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:261    .text:000000f6 chThdResumeI
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:310    .text:0000012c chSemSignalI
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:391    .text:00000186 chSemResetI
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:473    .text:000001d8 chEvtSignalI
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:524    .text:00000214 chSchGoSleepTimeoutS
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:590    .text:0000026e chEvtWaitAnyTimeoutS
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:677    .text:000002cc chEvtWaitAnyTimeout
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:713    .text:000002d6 chSemWaitTimeoutS
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:771    .text:0000031a chSemWaitTimeout
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:807    .text:00000324 chThdSleepUntil
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:855    .text:0000034c chThdSleep
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:894    .text:0000035c chThdSuspendTimeoutS
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:924    .text:00000380 chSchRescheduleS
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:950    .text:000003a4 chEvtSignal
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:988    .text:000003b2 chSemReset
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:1026   .text:000003c0 chSemSignal
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:1064   .text:000003ce chSysInit
+
+UNDEFINED SYMBOLS
+_port_switch
+_port_thread_start
+nil_thd_configs
+__do_clear_bss
