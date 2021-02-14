@@ -1,0 +1,638 @@
+   1               		.file	"chschd.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	_scheduler_init
+  18               	_scheduler_init:
+  19               	.LFB90:
+  20               	.LM1:
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	.LBB25:
+  24               	.LBB26:
+  25               	.LM2:
+  26 0000 80E0      		ldi r24,lo8(ch)
+  27 0002 90E0      		ldi r25,hi8(ch)
+  28 0004 9093 0000 		sts (ch+2)+1,r25
+  29 0008 8093 0000 		sts ch+2,r24
+  30 000c 9093 0000 		sts (ch)+1,r25
+  31 0010 8093 0000 		sts ch,r24
+  32               	.LBE26:
+  33               	.LBE25:
+  34               	.LM3:
+  35 0014 1092 0000 		sts ch+4,__zero_reg__
+  36               	.LM4:
+  37 0018 9093 0000 		sts (ch+9)+1,r25
+  38 001c 8093 0000 		sts ch+9,r24
+  39 0020 9093 0000 		sts (ch+7)+1,r25
+  40 0024 8093 0000 		sts ch+7,r24
+  41               	/* epilogue start */
+  42               	.LM5:
+  43 0028 0895      		ret
+  44               	.LFE90:
+  46               	.global	chSchReadyI
+  48               	chSchReadyI:
+  49               	.LFB91:
+  50               	.LM6:
+  51               	.LVL0:
+  52 002a CF93      		push r28
+  53 002c DF93      		push r29
+  54               	/* prologue: function */
+  55               	/* frame size = 0 */
+  56 002e EC01      		movw r28,r24
+  57               	.LM7:
+  58 0030 1D86      		std Y+13,__zero_reg__
+  59               	.LM8:
+  60 0032 A0E0      		ldi r26,lo8(ch)
+  61 0034 B0E0      		ldi r27,hi8(ch)
+  62               	.LVL1:
+  63 0036 9C81      		ldd r25,Y+4
+  64               	.LVL2:
+  65               	.L4:
+  66               	.LM9:
+  67 0038 0D90      		ld __tmp_reg__,X+
+  68 003a BC91      		ld r27,X
+  69 003c A02D      		mov r26,__tmp_reg__
+  70               	.LM10:
+  71 003e 1496      		adiw r26,4
+  72 0040 8C91      		ld r24,X
+  73 0042 1497      		sbiw r26,4
+  74 0044 8917      		cp r24,r25
+  75 0046 00F4      		brsh .L4
+  76               	.LM11:
+  77 0048 B983      		std Y+1,r27
+  78 004a A883      		st Y,r26
+  79               	.LM12:
+  80 004c 1296      		adiw r26,2
+  81 004e ED91      		ld r30,X+
+  82 0050 FC91      		ld r31,X
+  83 0052 1397      		sbiw r26,2+1
+  84 0054 FB83      		std Y+3,r31
+  85 0056 EA83      		std Y+2,r30
+  86               	.LM13:
+  87 0058 1396      		adiw r26,2+1
+  88 005a DC93      		st X,r29
+  89 005c CE93      		st -X,r28
+  90 005e 1297      		sbiw r26,2
+  91 0060 D183      		std Z+1,r29
+  92 0062 C083      		st Z,r28
+  93               	.LM14:
+  94 0064 CE01      		movw r24,r28
+  95               	.LVL3:
+  96               	/* epilogue start */
+  97 0066 DF91      		pop r29
+  98 0068 CF91      		pop r28
+  99 006a 0895      		ret
+ 100               	.LFE91:
+ 103               	wakeup:
+ 104               	.LFB93:
+ 105               	.LM15:
+ 106               	.LVL4:
+ 107 006c CF93      		push r28
+ 108 006e DF93      		push r29
+ 109               	/* prologue: function */
+ 110               	/* frame size = 0 */
+ 111               	.LM16:
+ 112 0070 EC01      		movw r28,r24
+ 113               	.LVL5:
+ 114               	.LM17:
+ 115 0072 8D85      		ldd r24,Y+13
+ 116               	.LVL6:
+ 117 0074 8430      		cpi r24,lo8(4)
+ 118 0076 01F0      		breq .L12
+ 119 0078 8530      		cpi r24,lo8(5)
+ 120 007a 00F0      		brlo .L16
+ 121 007c 8530      		cpi r24,lo8(5)
+ 122 007e 01F0      		breq .L13
+ 123 0080 8730      		cpi r24,lo8(7)
+ 124 0082 01F0      		breq .L12
+ 125               	.L9:
+ 126               	.LM18:
+ 127 0084 8FEF      		ldi r24,lo8(-1)
+ 128 0086 9FEF      		ldi r25,hi8(-1)
+ 129 0088 998B      		std Y+17,r25
+ 130 008a 888B      		std Y+16,r24
+ 131               	.LM19:
+ 132 008c CE01      		movw r24,r28
+ 133 008e 0E94 0000 		call chSchReadyI
+ 134               	.L15:
+ 135               	/* epilogue start */
+ 136               	.LM20:
+ 137 0092 DF91      		pop r29
+ 138 0094 CF91      		pop r28
+ 139               	.LVL7:
+ 140 0096 0895      		ret
+ 141               	.LVL8:
+ 142               	.L16:
+ 143               	.LM21:
+ 144 0098 8823      		tst r24
+ 145 009a 01F0      		breq .L15
+ 146 009c 8330      		cpi r24,lo8(3)
+ 147 009e 01F4      		brne .L9
+ 148               	.LM22:
+ 149 00a0 E889      		ldd r30,Y+16
+ 150 00a2 F989      		ldd r31,Y+17
+ 151 00a4 1182      		std Z+1,__zero_reg__
+ 152 00a6 1082      		st Z,__zero_reg__
+ 153               	.LM23:
+ 154 00a8 8FEF      		ldi r24,lo8(-1)
+ 155 00aa 9FEF      		ldi r25,hi8(-1)
+ 156 00ac 998B      		std Y+17,r25
+ 157 00ae 888B      		std Y+16,r24
+ 158               	.LM24:
+ 159 00b0 CE01      		movw r24,r28
+ 160 00b2 0E94 0000 		call chSchReadyI
+ 161 00b6 00C0      		rjmp .L15
+ 162               	.L13:
+ 163               	.LM25:
+ 164 00b8 E889      		ldd r30,Y+16
+ 165 00ba F989      		ldd r31,Y+17
+ 166               	.LBB27:
+ 167               	.LBB28:
+ 168               	.LM26:
+ 169 00bc 8481      		ldd r24,Z+4
+ 170 00be 8F5F      		subi r24,lo8(-(1))
+ 171 00c0 8483      		std Z+4,r24
+ 172               	.L12:
+ 173               	.LBE28:
+ 174               	.LBE27:
+ 175               	.LBB29:
+ 176               	.LBB30:
+ 177               	.LM27:
+ 178 00c2 EA81      		ldd r30,Y+2
+ 179 00c4 FB81      		ldd r31,Y+3
+ 180 00c6 8881      		ld r24,Y
+ 181 00c8 9981      		ldd r25,Y+1
+ 182 00ca 9183      		std Z+1,r25
+ 183 00cc 8083      		st Z,r24
+ 184               	.LM28:
+ 185 00ce A881      		ld r26,Y
+ 186 00d0 B981      		ldd r27,Y+1
+ 187 00d2 1396      		adiw r26,2+1
+ 188 00d4 FC93      		st X,r31
+ 189 00d6 EE93      		st -X,r30
+ 190 00d8 1297      		sbiw r26,2
+ 191               	.LBE30:
+ 192               	.LBE29:
+ 193               	.LM29:
+ 194 00da 8FEF      		ldi r24,lo8(-1)
+ 195 00dc 9FEF      		ldi r25,hi8(-1)
+ 196 00de 998B      		std Y+17,r25
+ 197 00e0 888B      		std Y+16,r24
+ 198               	.LM30:
+ 199 00e2 CE01      		movw r24,r28
+ 200 00e4 0E94 0000 		call chSchReadyI
+ 201 00e8 00C0      		rjmp .L15
+ 202               	.LFE93:
+ 204               	.global	chSchIsPreemptionRequired
+ 206               	chSchIsPreemptionRequired:
+ 207               	.LFB97:
+ 208               	.LM31:
+ 209               	/* prologue: function */
+ 210               	/* frame size = 0 */
+ 211               	.LM32:
+ 212 00ea E091 0000 		lds r30,ch
+ 213 00ee F091 0000 		lds r31,(ch)+1
+ 214 00f2 2481      		ldd r18,Z+4
+ 215               	.LVL9:
+ 216               	.LM33:
+ 217 00f4 E091 0000 		lds r30,ch+11
+ 218 00f8 F091 0000 		lds r31,(ch+11)+1
+ 219 00fc 9481      		ldd r25,Z+4
+ 220               	.LVL10:
+ 221               	.LM34:
+ 222 00fe 8785      		ldd r24,Z+15
+ 223 0100 8823      		tst r24
+ 224 0102 01F4      		brne .L23
+ 225 0104 80E0      		ldi r24,lo8(0)
+ 226 0106 2917      		cp r18,r25
+ 227 0108 00F4      		brsh .L24
+ 228               	.L20:
+ 229               	.LM35:
+ 230 010a 0895      		ret
+ 231               	.L24:
+ 232               	.LM36:
+ 233 010c 81E0      		ldi r24,lo8(1)
+ 234               	.LM37:
+ 235 010e 0895      		ret
+ 236               	.L23:
+ 237               	.LM38:
+ 238 0110 80E0      		ldi r24,lo8(0)
+ 239 0112 9217      		cp r25,r18
+ 240 0114 00F4      		brsh .L20
+ 241 0116 81E0      		ldi r24,lo8(1)
+ 242 0118 0895      		ret
+ 243               	.LFE97:
+ 245               	.global	chSchDoRescheduleAhead
+ 247               	chSchDoRescheduleAhead:
+ 248               	.LFB99:
+ 249               	.LM39:
+ 250 011a CF93      		push r28
+ 251 011c DF93      		push r29
+ 252               	/* prologue: function */
+ 253               	/* frame size = 0 */
+ 254               	.LM40:
+ 255 011e 2091 0000 		lds r18,ch+11
+ 256 0122 3091 0000 		lds r19,(ch+11)+1
+ 257               	.LVL11:
+ 258               	.LBB31:
+ 259               	.LBB32:
+ 260               	.LM41:
+ 261 0126 E091 0000 		lds r30,ch
+ 262 012a F091 0000 		lds r31,(ch)+1
+ 263               	.LVL12:
+ 264               	.LM42:
+ 265 012e A081      		ld r26,Z
+ 266 0130 B181      		ldd r27,Z+1
+ 267 0132 B093 0000 		sts (ch)+1,r27
+ 268 0136 A093 0000 		sts ch,r26
+ 269 013a C0E0      		ldi r28,lo8(ch)
+ 270 013c D0E0      		ldi r29,hi8(ch)
+ 271               	.LVL13:
+ 272 013e 1396      		adiw r26,2+1
+ 273 0140 DC93      		st X,r29
+ 274 0142 CE93      		st -X,r28
+ 275 0144 1297      		sbiw r26,2
+ 276               	.LBE32:
+ 277               	.LBE31:
+ 278               	.LM43:
+ 279 0146 F093 0000 		sts (ch+11)+1,r31
+ 280 014a E093 0000 		sts ch+11,r30
+ 281               	.LM44:
+ 282 014e 81E0      		ldi r24,lo8(1)
+ 283 0150 8587      		std Z+13,r24
+ 284               	.LM45:
+ 285 0152 D901      		movw r26,r18
+ 286 0154 1D96      		adiw r26,13
+ 287 0156 1C92      		st X,__zero_reg__
+ 288 0158 1D97      		sbiw r26,13
+ 289 015a 1496      		adiw r26,4
+ 290 015c 9C91      		ld r25,X
+ 291               	.L26:
+ 292               	.LM46:
+ 293 015e 0990      		ld __tmp_reg__,Y+
+ 294 0160 D881      		ld r29,Y
+ 295 0162 C02D      		mov r28,__tmp_reg__
+ 296               	.LM47:
+ 297 0164 8C81      		ldd r24,Y+4
+ 298 0166 9817      		cp r25,r24
+ 299 0168 00F0      		brlo .L26
+ 300               	.LM48:
+ 301 016a F901      		movw r30,r18
+ 302               	.LVL14:
+ 303 016c D183      		std Z+1,r29
+ 304 016e C083      		st Z,r28
+ 305               	.LM49:
+ 306 0170 EA81      		ldd r30,Y+2
+ 307 0172 FB81      		ldd r31,Y+3
+ 308 0174 D901      		movw r26,r18
+ 309 0176 1396      		adiw r26,2+1
+ 310 0178 FC93      		st X,r31
+ 311 017a EE93      		st -X,r30
+ 312 017c 1297      		sbiw r26,2
+ 313               	.LM50:
+ 314 017e 3B83      		std Y+3,r19
+ 315 0180 2A83      		std Y+2,r18
+ 316 0182 3183      		std Z+1,r19
+ 317 0184 2083      		st Z,r18
+ 318               	.LM51:
+ 319 0186 8091 0000 		lds r24,ch+11
+ 320 018a 9091 0000 		lds r25,(ch+11)+1
+ 321 018e B901      		movw r22,r18
+ 322 0190 0E94 0000 		call port_switch
+ 323               	.LVL15:
+ 324               	/* epilogue start */
+ 325               	.LM52:
+ 326 0194 DF91      		pop r29
+ 327 0196 CF91      		pop r28
+ 328               	.LVL16:
+ 329 0198 0895      		ret
+ 330               	.LFE99:
+ 332               	.global	chSchRescheduleS
+ 334               	chSchRescheduleS:
+ 335               	.LFB96:
+ 336               	.LM53:
+ 337               	/* prologue: function */
+ 338               	/* frame size = 0 */
+ 339               	.LM54:
+ 340 019a E091 0000 		lds r30,ch
+ 341 019e F091 0000 		lds r31,(ch)+1
+ 342 01a2 A091 0000 		lds r26,ch+11
+ 343 01a6 B091 0000 		lds r27,(ch+11)+1
+ 344 01aa 9481      		ldd r25,Z+4
+ 345 01ac 1496      		adiw r26,4
+ 346 01ae 8C91      		ld r24,X
+ 347 01b0 8917      		cp r24,r25
+ 348 01b2 00F0      		brlo .L32
+ 349 01b4 0895      		ret
+ 350               	.L32:
+ 351               	.LM55:
+ 352 01b6 0E94 0000 		call chSchDoRescheduleAhead
+ 353 01ba 0895      		ret
+ 354               	.LFE96:
+ 356               	.global	chSchDoRescheduleBehind
+ 358               	chSchDoRescheduleBehind:
+ 359               	.LFB98:
+ 360               	.LM56:
+ 361 01bc 0F93      		push r16
+ 362 01be 1F93      		push r17
+ 363 01c0 CF93      		push r28
+ 364 01c2 DF93      		push r29
+ 365               	/* prologue: function */
+ 366               	/* frame size = 0 */
+ 367               	.LM57:
+ 368 01c4 0091 0000 		lds r16,ch+11
+ 369 01c8 1091 0000 		lds r17,(ch+11)+1
+ 370               	.LVL17:
+ 371               	.LBB33:
+ 372               	.LBB34:
+ 373               	.LM58:
+ 374 01cc E0E0      		ldi r30,lo8(ch)
+ 375 01ce F0E0      		ldi r31,hi8(ch)
+ 376 01d0 8081      		ld r24,Z
+ 377 01d2 9181      		ldd r25,Z+1
+ 378               	.LVL18:
+ 379               	.LM59:
+ 380 01d4 EC01      		movw r28,r24
+ 381 01d6 A881      		ld r26,Y
+ 382 01d8 B981      		ldd r27,Y+1
+ 383 01da B183      		std Z+1,r27
+ 384 01dc A083      		st Z,r26
+ 385 01de 1396      		adiw r26,2+1
+ 386 01e0 FC93      		st X,r31
+ 387 01e2 EE93      		st -X,r30
+ 388 01e4 1297      		sbiw r26,2
+ 389               	.LBE34:
+ 390               	.LBE33:
+ 391               	.LM60:
+ 392 01e6 9093 0000 		sts (ch+11)+1,r25
+ 393 01ea 8093 0000 		sts ch+11,r24
+ 394               	.LM61:
+ 395 01ee 21E0      		ldi r18,lo8(1)
+ 396 01f0 2D87      		std Y+13,r18
+ 397               	.LM62:
+ 398 01f2 84E1      		ldi r24,lo8(20)
+ 399               	.LVL19:
+ 400 01f4 F801      		movw r30,r16
+ 401 01f6 8787      		std Z+15,r24
+ 402               	.LM63:
+ 403 01f8 C801      		movw r24,r16
+ 404 01fa 0E94 0000 		call chSchReadyI
+ 405               	.LM64:
+ 406 01fe 8091 0000 		lds r24,ch+11
+ 407 0202 9091 0000 		lds r25,(ch+11)+1
+ 408 0206 B801      		movw r22,r16
+ 409 0208 0E94 0000 		call port_switch
+ 410               	/* epilogue start */
+ 411               	.LM65:
+ 412 020c DF91      		pop r29
+ 413 020e CF91      		pop r28
+ 414 0210 1F91      		pop r17
+ 415 0212 0F91      		pop r16
+ 416               	.LVL20:
+ 417 0214 0895      		ret
+ 418               	.LFE98:
+ 420               	.global	chSchDoReschedule
+ 422               	chSchDoReschedule:
+ 423               	.LFB100:
+ 424               	.LM66:
+ 425               	/* prologue: function */
+ 426               	/* frame size = 0 */
+ 427               	.LM67:
+ 428 0216 E091 0000 		lds r30,ch+11
+ 429 021a F091 0000 		lds r31,(ch+11)+1
+ 430 021e 8785      		ldd r24,Z+15
+ 431 0220 8823      		tst r24
+ 432 0222 01F0      		breq .L39
+ 433               	.LM68:
+ 434 0224 0E94 0000 		call chSchDoRescheduleAhead
+ 435 0228 0895      		ret
+ 436               	.L39:
+ 437               	.LM69:
+ 438 022a 0E94 0000 		call chSchDoRescheduleBehind
+ 439 022e 0895      		ret
+ 440               	.LFE100:
+ 442               	.global	chSchWakeupS
+ 444               	chSchWakeupS:
+ 445               	.LFB95:
+ 446               	.LM70:
+ 447               	.LVL21:
+ 448 0230 CF93      		push r28
+ 449 0232 DF93      		push r29
+ 450               	/* prologue: function */
+ 451               	/* frame size = 0 */
+ 452 0234 EC01      		movw r28,r24
+ 453               	.LM71:
+ 454 0236 798B      		std Y+17,r23
+ 455 0238 688B      		std Y+16,r22
+ 456               	.LM72:
+ 457 023a E091 0000 		lds r30,ch+11
+ 458 023e F091 0000 		lds r31,(ch+11)+1
+ 459 0242 9C81      		ldd r25,Y+4
+ 460 0244 8481      		ldd r24,Z+4
+ 461               	.LVL22:
+ 462 0246 8917      		cp r24,r25
+ 463 0248 00F4      		brsh .L44
+ 464               	.LBB35:
+ 465               	.LM73:
+ 466 024a CF01      		movw r24,r30
+ 467 024c 0E94 0000 		call chSchReadyI
+ 468               	.LVL23:
+ 469 0250 BC01      		movw r22,r24
+ 470               	.LVL24:
+ 471               	.LM74:
+ 472 0252 D093 0000 		sts (ch+11)+1,r29
+ 473 0256 C093 0000 		sts ch+11,r28
+ 474               	.LM75:
+ 475 025a 81E0      		ldi r24,lo8(1)
+ 476 025c 8D87      		std Y+13,r24
+ 477               	.LM76:
+ 478 025e CE01      		movw r24,r28
+ 479 0260 0E94 0000 		call port_switch
+ 480               	.LVL25:
+ 481               	/* epilogue start */
+ 482               	.LBE35:
+ 483               	.LM77:
+ 484 0264 DF91      		pop r29
+ 485 0266 CF91      		pop r28
+ 486               	.LVL26:
+ 487 0268 0895      		ret
+ 488               	.LVL27:
+ 489               	.L44:
+ 490               	.LM78:
+ 491 026a CE01      		movw r24,r28
+ 492 026c 0E94 0000 		call chSchReadyI
+ 493               	.LVL28:
+ 494               	.LM79:
+ 495 0270 DF91      		pop r29
+ 496 0272 CF91      		pop r28
+ 497               	.LVL29:
+ 498 0274 0895      		ret
+ 499               	.LFE95:
+ 501               	.global	chSchGoSleepS
+ 503               	chSchGoSleepS:
+ 504               	.LFB92:
+ 505               	.LM80:
+ 506               	.LVL30:
+ 507 0276 CF93      		push r28
+ 508 0278 DF93      		push r29
+ 509               	/* prologue: function */
+ 510               	/* frame size = 0 */
+ 511               	.LM81:
+ 512 027a 4091 0000 		lds r20,ch+11
+ 513 027e 5091 0000 		lds r21,(ch+11)+1
+ 514               	.LVL31:
+ 515 0282 EA01      		movw r28,r20
+ 516 0284 8D87      		std Y+13,r24
+ 517               	.LM82:
+ 518 0286 84E1      		ldi r24,lo8(20)
+ 519               	.LVL32:
+ 520 0288 8F87      		std Y+15,r24
+ 521               	.LBB36:
+ 522               	.LBB37:
+ 523               	.LM83:
+ 524 028a E0E0      		ldi r30,lo8(ch)
+ 525 028c F0E0      		ldi r31,hi8(ch)
+ 526 028e 8081      		ld r24,Z
+ 527 0290 9181      		ldd r25,Z+1
+ 528               	.LVL33:
+ 529               	.LM84:
+ 530 0292 EC01      		movw r28,r24
+ 531 0294 A881      		ld r26,Y
+ 532 0296 B981      		ldd r27,Y+1
+ 533 0298 B183      		std Z+1,r27
+ 534 029a A083      		st Z,r26
+ 535 029c 1396      		adiw r26,2+1
+ 536 029e FC93      		st X,r31
+ 537 02a0 EE93      		st -X,r30
+ 538 02a2 1297      		sbiw r26,2
+ 539               	.LBE37:
+ 540               	.LBE36:
+ 541               	.LM85:
+ 542 02a4 9093 0000 		sts (ch+11)+1,r25
+ 543 02a8 8093 0000 		sts ch+11,r24
+ 544               	.LM86:
+ 545 02ac 21E0      		ldi r18,lo8(1)
+ 546 02ae 2D87      		std Y+13,r18
+ 547               	.LM87:
+ 548 02b0 BA01      		movw r22,r20
+ 549 02b2 0E94 0000 		call port_switch
+ 550               	.LVL34:
+ 551               	/* epilogue start */
+ 552               	.LM88:
+ 553 02b6 DF91      		pop r29
+ 554 02b8 CF91      		pop r28
+ 555 02ba 0895      		ret
+ 556               	.LFE92:
+ 558               	.global	chSchGoSleepTimeoutS
+ 560               	chSchGoSleepTimeoutS:
+ 561               	.LFB94:
+ 562               	.LM89:
+ 563               	.LVL35:
+ 564 02bc FF92      		push r15
+ 565 02be 0F93      		push r16
+ 566 02c0 1F93      		push r17
+ 567 02c2 DF93      		push r29
+ 568 02c4 CF93      		push r28
+ 569 02c6 CDB7      		in r28,__SP_L__
+ 570 02c8 DEB7      		in r29,__SP_H__
+ 571 02ca 2A97      		sbiw r28,10
+ 572 02cc 0FB6      		in __tmp_reg__,__SREG__
+ 573 02ce F894      		cli
+ 574 02d0 DEBF      		out __SP_H__,r29
+ 575 02d2 0FBE      		out __SREG__,__tmp_reg__
+ 576 02d4 CDBF      		out __SP_L__,r28
+ 577               	/* prologue: function */
+ 578               	/* frame size = 10 */
+ 579 02d6 F82E      		mov r15,r24
+ 580               	.LM90:
+ 581 02d8 8FEF      		ldi r24,hi8(-1)
+ 582 02da 6F3F      		cpi r22,lo8(-1)
+ 583 02dc 7807      		cpc r23,r24
+ 584               	.LVL36:
+ 585 02de 01F0      		breq .L48
+ 586               	.LBB38:
+ 587               	.LM91:
+ 588 02e0 2091 0000 		lds r18,ch+11
+ 589 02e4 3091 0000 		lds r19,(ch+11)+1
+ 590 02e8 8E01      		movw r16,r28
+ 591 02ea 0F5F      		subi r16,lo8(-(1))
+ 592 02ec 1F4F      		sbci r17,hi8(-(1))
+ 593 02ee C801      		movw r24,r16
+ 594 02f0 40E0      		ldi r20,lo8(gs(wakeup))
+ 595 02f2 50E0      		ldi r21,hi8(gs(wakeup))
+ 596 02f4 0E94 0000 		call chVTDoSetI
+ 597               	.LVL37:
+ 598               	.LM92:
+ 599 02f8 8F2D      		mov r24,r15
+ 600 02fa 0E94 0000 		call chSchGoSleepS
+ 601               	.LM93:
+ 602 02fe 8F81      		ldd r24,Y+7
+ 603 0300 9885      		ldd r25,Y+8
+ 604 0302 892B      		or r24,r25
+ 605 0304 01F0      		breq .L49
+ 606               	.LM94:
+ 607 0306 C801      		movw r24,r16
+ 608 0308 0E94 0000 		call chVTDoResetI
+ 609               	.L49:
+ 610               	.LBE38:
+ 611               	.LM95:
+ 612 030c E091 0000 		lds r30,ch+11
+ 613 0310 F091 0000 		lds r31,(ch+11)+1
+ 614               	.LM96:
+ 615 0314 8089      		ldd r24,Z+16
+ 616 0316 9189      		ldd r25,Z+17
+ 617               	/* epilogue start */
+ 618 0318 2A96      		adiw r28,10
+ 619 031a 0FB6      		in __tmp_reg__,__SREG__
+ 620 031c F894      		cli
+ 621 031e DEBF      		out __SP_H__,r29
+ 622 0320 0FBE      		out __SREG__,__tmp_reg__
+ 623 0322 CDBF      		out __SP_L__,r28
+ 624 0324 CF91      		pop r28
+ 625 0326 DF91      		pop r29
+ 626 0328 1F91      		pop r17
+ 627 032a 0F91      		pop r16
+ 628 032c FF90      		pop r15
+ 629               	.LVL38:
+ 630 032e 0895      		ret
+ 631               	.LVL39:
+ 632               	.L48:
+ 633               	.LM97:
+ 634 0330 8F2D      		mov r24,r15
+ 635 0332 0E94 0000 		call chSchGoSleepS
+ 636               	.LVL40:
+ 637 0336 00C0      		rjmp .L49
+ 638               	.LFE94:
+ 640               		.comm ch,21,1
+ 745               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 chschd.c
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5YBTqy.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5YBTqy.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5YBTqy.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5YBTqy.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5YBTqy.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5YBTqy.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5YBTqy.s:18     .text:00000000 _scheduler_init
+                            *COM*:00000015 ch
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5YBTqy.s:48     .text:0000002a chSchReadyI
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5YBTqy.s:103    .text:0000006c wakeup
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5YBTqy.s:206    .text:000000ea chSchIsPreemptionRequired
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5YBTqy.s:247    .text:0000011a chSchDoRescheduleAhead
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5YBTqy.s:334    .text:0000019a chSchRescheduleS
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5YBTqy.s:358    .text:000001bc chSchDoRescheduleBehind
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5YBTqy.s:422    .text:00000216 chSchDoReschedule
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5YBTqy.s:444    .text:00000230 chSchWakeupS
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5YBTqy.s:503    .text:00000276 chSchGoSleepS
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5YBTqy.s:560    .text:000002bc chSchGoSleepTimeoutS
+
+UNDEFINED SYMBOLS
+port_switch
+chVTDoSetI
+chVTDoResetI
+__do_clear_bss

@@ -1,0 +1,195 @@
+   1               		.file	"testmsg.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.data
+  17               	.LC0:
+  18 0000 4142 4300 		.string	"ABC"
+  19               		.text
+  21               	msg1_execute:
+  22               	.LFB91:
+  23               	.LM1:
+  24 0000 0F93      		push r16
+  25 0002 1F93      		push r17
+  26               	/* prologue: function */
+  27               	/* frame size = 0 */
+  28               	.LBB16:
+  29               	.LBB17:
+  30               	.LBB18:
+  31               	.LBB19:
+  32               	.LM2:
+  33 0004 E091 0000 		lds r30,ch+11
+  34 0008 F091 0000 		lds r31,(ch+11)+1
+  35               	.LBE19:
+  36               	.LBE18:
+  37               	.LBE17:
+  38               	.LBE16:
+  39               	.LM3:
+  40 000c 4481      		ldd r20,Z+4
+  41 000e 4F5F      		subi r20,lo8(-(1))
+  42 0010 8091 0000 		lds r24,wa
+  43 0014 9091 0000 		lds r25,(wa)+1
+  44 0018 61E0      		ldi r22,lo8(257)
+  45 001a 71E0      		ldi r23,hi8(257)
+  46 001c 20E0      		ldi r18,lo8(gs(thread))
+  47 001e 30E0      		ldi r19,hi8(gs(thread))
+  48 0020 8F01      		movw r16,r30
+  49 0022 0E94 0000 		call chThdCreateStatic
+  50 0026 9093 0000 		sts (threads)+1,r25
+  51 002a 8093 0000 		sts threads,r24
+  52               	.LM4:
+  53 002e 0E94 0000 		call chMsgWait
+  54 0032 FC01      		movw r30,r24
+  55               	.LVL0:
+  56               	.LBB20:
+  57               	.LBB21:
+  58               	.LM5:
+  59 0034 108D      		ldd r17,Z+24
+  60               	.LVL1:
+  61 0036 718D      		ldd r23,Z+25
+  62               	.LVL2:
+  63               	.LBE21:
+  64               	.LBE20:
+  65               	.LM6:
+  66 0038 612F      		mov r22,r17
+  67 003a 0E94 0000 		call chMsgRelease
+  68               	.LVL3:
+  69               	.LM7:
+  70 003e 812F      		mov r24,r17
+  71 0040 0E94 0000 		call test_emit_token
+  72               	.LM8:
+  73 0044 0E94 0000 		call chMsgWait
+  74 0048 FC01      		movw r30,r24
+  75               	.LVL4:
+  76               	.LBB22:
+  77               	.LBB23:
+  78               	.LM9:
+  79 004a 108D      		ldd r17,Z+24
+  80               	.LVL5:
+  81 004c 718D      		ldd r23,Z+25
+  82               	.LVL6:
+  83               	.LBE23:
+  84               	.LBE22:
+  85               	.LM10:
+  86 004e 612F      		mov r22,r17
+  87 0050 0E94 0000 		call chMsgRelease
+  88               	.LVL7:
+  89               	.LM11:
+  90 0054 812F      		mov r24,r17
+  91 0056 0E94 0000 		call test_emit_token
+  92               	.LM12:
+  93 005a 0E94 0000 		call chMsgWait
+  94 005e FC01      		movw r30,r24
+  95               	.LVL8:
+  96               	.LBB24:
+  97               	.LBB25:
+  98               	.LM13:
+  99 0060 108D      		ldd r17,Z+24
+ 100               	.LVL9:
+ 101 0062 718D      		ldd r23,Z+25
+ 102               	.LVL10:
+ 103               	.LBE25:
+ 104               	.LBE24:
+ 105               	.LM14:
+ 106 0064 612F      		mov r22,r17
+ 107 0066 0E94 0000 		call chMsgRelease
+ 108               	.LVL11:
+ 109               	.LM15:
+ 110 006a 812F      		mov r24,r17
+ 111 006c 0E94 0000 		call test_emit_token
+ 112               	.LM16:
+ 113 0070 81E0      		ldi r24,lo8(1)
+ 114 0072 90E0      		ldi r25,hi8(1)
+ 115 0074 60E0      		ldi r22,lo8(.LC0)
+ 116 0076 70E0      		ldi r23,hi8(.LC0)
+ 117 0078 0E94 0000 		call _test_assert_sequence
+ 118               	/* epilogue start */
+ 119               	.LM17:
+ 120 007c 1F91      		pop r17
+ 121               	.LVL12:
+ 122 007e 0F91      		pop r16
+ 123 0080 0895      		ret
+ 124               	.LFE91:
+ 127               	thread:
+ 128               	.LFB90:
+ 129               	.LM18:
+ 130               	.LVL13:
+ 131 0082 0F93      		push r16
+ 132 0084 1F93      		push r17
+ 133               	/* prologue: function */
+ 134               	/* frame size = 0 */
+ 135 0086 182F      		mov r17,r24
+ 136 0088 092F      		mov r16,r25
+ 137               	.LVL14:
+ 138               	.LM19:
+ 139 008a 61E4      		ldi r22,lo8(65)
+ 140 008c 70E0      		ldi r23,hi8(65)
+ 141 008e 0E94 0000 		call chMsgSend
+ 142               	.LVL15:
+ 143               	.LM20:
+ 144 0092 812F      		mov r24,r17
+ 145 0094 902F      		mov r25,r16
+ 146 0096 62E4      		ldi r22,lo8(66)
+ 147 0098 70E0      		ldi r23,hi8(66)
+ 148 009a 0E94 0000 		call chMsgSend
+ 149               	.LM21:
+ 150 009e 812F      		mov r24,r17
+ 151 00a0 902F      		mov r25,r16
+ 152 00a2 63E4      		ldi r22,lo8(67)
+ 153 00a4 70E0      		ldi r23,hi8(67)
+ 154 00a6 0E94 0000 		call chMsgSend
+ 155               	.LM22:
+ 156 00aa 80E0      		ldi r24,lo8(0)
+ 157 00ac 90E0      		ldi r25,hi8(0)
+ 158               	/* epilogue start */
+ 159 00ae 1F91      		pop r17
+ 160               	.LVL16:
+ 161 00b0 0F91      		pop r16
+ 162               	.LVL17:
+ 163 00b2 0895      		ret
+ 164               	.LFE90:
+ 166               	.global	testmsg1
+ 167               		.data
+ 168               	.LC1:
+ 169 0004 4D65 7373 		.string	"Messages, loop"
+ 169      6167 6573 
+ 169      2C20 6C6F 
+ 169      6F70 00
+ 172               	testmsg1:
+ 173 0013 0000      		.word	.LC1
+ 174 0015 0000      		.word	0
+ 175 0017 0000      		.word	0
+ 176 0019 0000      		.word	gs(msg1_execute)
+ 177               	.global	patternmsg
+ 180               	patternmsg:
+ 181 001b 0000      		.word	testmsg1
+ 182 001d 0000      		.word	0
+ 215               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 testmsg.c
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc0AXZub.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc0AXZub.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc0AXZub.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc0AXZub.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc0AXZub.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc0AXZub.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc0AXZub.s:21     .text:00000000 msg1_execute
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc0AXZub.s:127    .text:00000082 thread
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc0AXZub.s:172    .data:00000013 testmsg1
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc0AXZub.s:180    .data:0000001b patternmsg
+
+UNDEFINED SYMBOLS
+ch
+wa
+chThdCreateStatic
+threads
+chMsgWait
+chMsgRelease
+test_emit_token
+_test_assert_sequence
+chMsgSend
+__do_copy_data

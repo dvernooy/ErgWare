@@ -1,0 +1,192 @@
+   1               		.file	"chvt.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	_vt_init
+  18               	_vt_init:
+  19               	.LFB90:
+  20               	.LM1:
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	.LM2:
+  24 0000 80E0      		ldi r24,lo8(ch+13)
+  25 0002 90E0      		ldi r25,hi8(ch+13)
+  26 0004 9093 0000 		sts (ch+15)+1,r25
+  27 0008 8093 0000 		sts ch+15,r24
+  28 000c 9093 0000 		sts (ch+13)+1,r25
+  29 0010 8093 0000 		sts ch+13,r24
+  30               	.LM3:
+  31 0014 8FEF      		ldi r24,lo8(-1)
+  32 0016 9FEF      		ldi r25,hi8(-1)
+  33 0018 9093 0000 		sts (ch+17)+1,r25
+  34 001c 8093 0000 		sts ch+17,r24
+  35               	.LM4:
+  36 0020 1092 0000 		sts (ch+19)+1,__zero_reg__
+  37 0024 1092 0000 		sts ch+19,__zero_reg__
+  38               	/* epilogue start */
+  39               	.LM5:
+  40 0028 0895      		ret
+  41               	.LFE90:
+  43               	.global	chVTDoSetI
+  45               	chVTDoSetI:
+  46               	.LFB91:
+  47               	.LM6:
+  48               	.LVL0:
+  49 002a CF93      		push r28
+  50 002c DF93      		push r29
+  51               	/* prologue: function */
+  52               	/* frame size = 0 */
+  53 002e EC01      		movw r28,r24
+  54               	.LM7:
+  55 0030 3987      		std Y+9,r19
+  56 0032 2887      		std Y+8,r18
+  57               	.LM8:
+  58 0034 5F83      		std Y+7,r21
+  59 0036 4E83      		std Y+6,r20
+  60               	.LM9:
+  61 0038 A091 0000 		lds r26,ch+13
+  62 003c B091 0000 		lds r27,(ch+13)+1
+  63               	.LVL1:
+  64               	.LM10:
+  65 0040 1496      		adiw r26,4
+  66 0042 8D91      		ld r24,X+
+  67 0044 9C91      		ld r25,X
+  68 0046 1597      		sbiw r26,4+1
+  69               	.LVL2:
+  70 0048 8617      		cp r24,r22
+  71 004a 9707      		cpc r25,r23
+  72 004c 00F4      		brsh .L4
+  73               	.L7:
+  74               	.LM11:
+  75 004e 681B      		sub r22,r24
+  76 0050 790B      		sbc r23,r25
+  77               	.LVL3:
+  78               	.LM12:
+  79 0052 0D90      		ld __tmp_reg__,X+
+  80 0054 BC91      		ld r27,X
+  81 0056 A02D      		mov r26,__tmp_reg__
+  82               	.LM13:
+  83 0058 1496      		adiw r26,4
+  84 005a 8D91      		ld r24,X+
+  85 005c 9C91      		ld r25,X
+  86 005e 1597      		sbiw r26,4+1
+  87 0060 8617      		cp r24,r22
+  88 0062 9707      		cpc r25,r23
+  89 0064 00F0      		brlo .L7
+  90               	.L4:
+  91               	.LM14:
+  92 0066 B983      		std Y+1,r27
+  93 0068 A883      		st Y,r26
+  94 006a 1296      		adiw r26,2
+  95 006c ED91      		ld r30,X+
+  96 006e FC91      		ld r31,X
+  97 0070 1397      		sbiw r26,2+1
+  98 0072 FB83      		std Y+3,r31
+  99 0074 EA83      		std Y+2,r30
+ 100               	.LM15:
+ 101 0076 1396      		adiw r26,2+1
+ 102 0078 DC93      		st X,r29
+ 103 007a CE93      		st -X,r28
+ 104 007c 1297      		sbiw r26,2
+ 105 007e D183      		std Z+1,r29
+ 106 0080 C083      		st Z,r28
+ 107               	.LM16:
+ 108 0082 7D83      		std Y+5,r23
+ 109 0084 6C83      		std Y+4,r22
+ 110               	.LM17:
+ 111 0086 1496      		adiw r26,4
+ 112 0088 8D91      		ld r24,X+
+ 113 008a 9C91      		ld r25,X
+ 114 008c 1597      		sbiw r26,4+1
+ 115 008e 861B      		sub r24,r22
+ 116 0090 970B      		sbc r25,r23
+ 117 0092 1596      		adiw r26,4+1
+ 118 0094 9C93      		st X,r25
+ 119 0096 8E93      		st -X,r24
+ 120 0098 1497      		sbiw r26,4
+ 121               	.LM18:
+ 122 009a 8FEF      		ldi r24,lo8(-1)
+ 123 009c 9FEF      		ldi r25,hi8(-1)
+ 124 009e 9093 0000 		sts (ch+17)+1,r25
+ 125 00a2 8093 0000 		sts ch+17,r24
+ 126               	/* epilogue start */
+ 127               	.LM19:
+ 128 00a6 DF91      		pop r29
+ 129 00a8 CF91      		pop r28
+ 130               	.LVL4:
+ 131 00aa 0895      		ret
+ 132               	.LFE91:
+ 134               	.global	chVTDoResetI
+ 136               	chVTDoResetI:
+ 137               	.LFB92:
+ 138               	.LM20:
+ 139               	.LVL5:
+ 140 00ac CF93      		push r28
+ 141 00ae DF93      		push r29
+ 142               	/* prologue: function */
+ 143               	/* frame size = 0 */
+ 144 00b0 DC01      		movw r26,r24
+ 145               	.LM21:
+ 146 00b2 ED91      		ld r30,X+
+ 147 00b4 FC91      		ld r31,X
+ 148 00b6 1197      		sbiw r26,1
+ 149 00b8 8481      		ldd r24,Z+4
+ 150 00ba 9581      		ldd r25,Z+5
+ 151               	.LVL6:
+ 152 00bc 1496      		adiw r26,4
+ 153 00be 2D91      		ld r18,X+
+ 154 00c0 3C91      		ld r19,X
+ 155 00c2 1597      		sbiw r26,4+1
+ 156 00c4 820F      		add r24,r18
+ 157 00c6 931F      		adc r25,r19
+ 158 00c8 9583      		std Z+5,r25
+ 159 00ca 8483      		std Z+4,r24
+ 160               	.LM22:
+ 161 00cc 1296      		adiw r26,2
+ 162 00ce 8D91      		ld r24,X+
+ 163 00d0 9C91      		ld r25,X
+ 164 00d2 1397      		sbiw r26,2+1
+ 165 00d4 EC01      		movw r28,r24
+ 166 00d6 F983      		std Y+1,r31
+ 167 00d8 E883      		st Y,r30
+ 168               	.LM23:
+ 169 00da ED91      		ld r30,X+
+ 170 00dc FC91      		ld r31,X
+ 171 00de 1197      		sbiw r26,1
+ 172 00e0 9383      		std Z+3,r25
+ 173 00e2 8283      		std Z+2,r24
+ 174               	.LM24:
+ 175 00e4 1796      		adiw r26,6+1
+ 176 00e6 1C92      		st X,__zero_reg__
+ 177 00e8 1E92      		st -X,__zero_reg__
+ 178 00ea 1697      		sbiw r26,6
+ 179               	.LM25:
+ 180 00ec 8FEF      		ldi r24,lo8(-1)
+ 181 00ee 9FEF      		ldi r25,hi8(-1)
+ 182 00f0 9093 0000 		sts (ch+17)+1,r25
+ 183 00f4 8093 0000 		sts ch+17,r24
+ 184               	/* epilogue start */
+ 185               	.LM26:
+ 186 00f8 DF91      		pop r29
+ 187 00fa CF91      		pop r28
+ 188 00fc 0895      		ret
+ 189               	.LFE92:
+ 231               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 chvt.c
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccuvmOYa.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccuvmOYa.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccuvmOYa.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccuvmOYa.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccuvmOYa.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccuvmOYa.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccuvmOYa.s:18     .text:00000000 _vt_init
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccuvmOYa.s:45     .text:0000002a chVTDoSetI
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccuvmOYa.s:136    .text:000000ac chVTDoResetI
+
+UNDEFINED SYMBOLS
+ch

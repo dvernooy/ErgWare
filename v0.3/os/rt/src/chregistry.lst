@@ -1,0 +1,132 @@
+   1               		.file	"chregistry.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	chRegFirstThread
+  18               	chRegFirstThread:
+  19               	.LFB90:
+  20               	.LM1:
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	.LBB10:
+  24               	.LBB11:
+  25               	.LM2:
+  26               	/* #APP */
+  27               	 ;  300 "../../../os/rt/include/chsys.h" 1
+  28 0000 F894      		cli
+  29               	 ;  0 "" 2
+  30               	/* #NOAPP */
+  31               	.LBE11:
+  32               	.LBE10:
+  33               	.LM3:
+  34 0002 8091 0000 		lds r24,ch+7
+  35               	.LVL0:
+  36 0006 9091 0000 		lds r25,ch+8
+  37               	.LVL1:
+  38               	.LBB12:
+  39               	.LBB13:
+  40               	.LM4:
+  41               	/* #APP */
+  42               	 ;  322 "../../../os/rt/include/chsys.h" 1
+  43 000a 7894      		sei
+  44               	 ;  0 "" 2
+  45               	.LVL2:
+  46               	/* epilogue start */
+  47               	/* #NOAPP */
+  48               	.LBE13:
+  49               	.LBE12:
+  50               	.LM5:
+  51 000c 0895      		ret
+  52               	.LFE90:
+  54               	.global	chRegNextThread
+  56               	chRegNextThread:
+  57               	.LFB91:
+  58               	.LM6:
+  59               	.LVL3:
+  60               	/* prologue: function */
+  61               	/* frame size = 0 */
+  62 000e FC01      		movw r30,r24
+  63               	.LBB14:
+  64               	.LBB15:
+  65               	.LM7:
+  66               	/* #APP */
+  67               	 ;  300 "../../../os/rt/include/chsys.h" 1
+  68 0010 F894      		cli
+  69               	 ;  0 "" 2
+  70               	/* #NOAPP */
+  71               	.LBE15:
+  72               	.LBE14:
+  73               	.LM8:
+  74 0012 2781      		ldd r18,Z+7
+  75 0014 3085      		ldd r19,Z+8
+  76               	.LVL4:
+  77               	.LM9:
+  78 0016 80E0      		ldi r24,hi8(ch)
+  79 0018 2030      		cpi r18,lo8(ch)
+  80 001a 3807      		cpc r19,r24
+  81               	.LVL5:
+  82 001c 01F0      		breq .L7
+  83               	.L4:
+  84               	.LBB16:
+  85               	.LBB17:
+  86               	.LM10:
+  87               	/* #APP */
+  88               	 ;  322 "../../../os/rt/include/chsys.h" 1
+  89 001e 7894      		sei
+  90               	 ;  0 "" 2
+  91               	/* #NOAPP */
+  92               	.LBE17:
+  93               	.LBE16:
+  94               	.LM11:
+  95 0020 C901      		movw r24,r18
+  96               	.LVL6:
+  97               	/* epilogue start */
+  98 0022 0895      		ret
+  99               	.LVL7:
+ 100               	.L7:
+ 101               	.LM12:
+ 102 0024 20E0      		ldi r18,lo8(0)
+ 103 0026 30E0      		ldi r19,hi8(0)
+ 104 0028 00C0      		rjmp .L4
+ 105               	.LFE91:
+ 107               	.global	ch_debug
+ 108               		.data
+ 111               	ch_debug:
+ 112 0000 6D61 696E 		.ascii	"main"
+ 113 0004 00        		.byte	0
+ 114 0005 16        		.byte	22
+ 115 0006 0018      		.word	6144
+ 116 0008 02        		.byte	2
+ 117 0009 02        		.byte	2
+ 118 000a 1E        		.byte	30
+ 119 000b 04        		.byte	4
+ 120 000c 05        		.byte	5
+ 121 000d 07        		.byte	7
+ 122 000e 09        		.byte	9
+ 123 000f 0B        		.byte	11
+ 124 0010 00        		.byte	0
+ 125 0011 0D        		.byte	13
+ 126 0012 0E        		.byte	14
+ 127 0013 00        		.byte	0
+ 128 0014 0F        		.byte	15
+ 129 0015 00        		.byte	0
+ 162               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 chregistry.c
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccPZoe6N.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccPZoe6N.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccPZoe6N.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccPZoe6N.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccPZoe6N.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccPZoe6N.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccPZoe6N.s:18     .text:00000000 chRegFirstThread
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccPZoe6N.s:56     .text:0000000e chRegNextThread
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccPZoe6N.s:111    .data:00000000 ch_debug
+
+UNDEFINED SYMBOLS
+ch
+__do_copy_data

@@ -1,0 +1,1326 @@
+   1               		.file	"test.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	test_printn
+  18               	test_printn:
+  19               	.LFB124:
+  20               	.LM1:
+  21               	.LVL0:
+  22 0000 AF92      		push r10
+  23 0002 BF92      		push r11
+  24 0004 CF92      		push r12
+  25 0006 DF92      		push r13
+  26 0008 EF92      		push r14
+  27 000a FF92      		push r15
+  28 000c 0F93      		push r16
+  29 000e 1F93      		push r17
+  30 0010 DF93      		push r29
+  31 0012 CF93      		push r28
+  32 0014 CDB7      		in r28,__SP_L__
+  33 0016 DEB7      		in r29,__SP_H__
+  34 0018 6097      		sbiw r28,16
+  35 001a 0FB6      		in __tmp_reg__,__SREG__
+  36 001c F894      		cli
+  37 001e DEBF      		out __SP_H__,r29
+  38 0020 0FBE      		out __SREG__,__tmp_reg__
+  39 0022 CDBF      		out __SP_L__,r28
+  40               	/* prologue: function */
+  41               	/* frame size = 16 */
+  42 0024 7B01      		movw r14,r22
+  43 0026 8C01      		movw r16,r24
+  44               	.LM2:
+  45 0028 6115      		cp r22,__zero_reg__
+  46 002a 7105      		cpc r23,__zero_reg__
+  47 002c 8105      		cpc r24,__zero_reg__
+  48 002e 9105      		cpc r25,__zero_reg__
+  49 0030 01F4      		brne .+2
+  50 0032 00C0      		rjmp .L12
+  51               	.LM3:
+  52 0034 5E01      		movw r10,r28
+  53 0036 0894      		sec
+  54 0038 A11C      		adc r10,__zero_reg__
+  55 003a B11C      		adc r11,__zero_reg__
+  56 003c 6501      		movw r12,r10
+  57               	.LVL1:
+  58               	.L4:
+  59               	.LM4:
+  60 003e C801      		movw r24,r16
+  61 0040 B701      		movw r22,r14
+  62               	.LVL2:
+  63 0042 2AE0      		ldi r18,lo8(10)
+  64 0044 30E0      		ldi r19,hi8(10)
+  65 0046 40E0      		ldi r20,hlo8(10)
+  66 0048 50E0      		ldi r21,hhi8(10)
+  67 004a 0E94 0000 		call __udivmodsi4
+  68 004e 605D      		subi r22,lo8(-(48))
+  69 0050 F601      		movw r30,r12
+  70 0052 6193      		st Z+,r22
+  71 0054 6F01      		movw r12,r30
+  72 0056 C801      		movw r24,r16
+  73 0058 B701      		movw r22,r14
+  74 005a 2AE0      		ldi r18,lo8(10)
+  75 005c 30E0      		ldi r19,hi8(10)
+  76 005e 40E0      		ldi r20,hlo8(10)
+  77 0060 50E0      		ldi r21,hhi8(10)
+  78 0062 0E94 0000 		call __udivmodsi4
+  79 0066 C901      		movw r24,r18
+  80 0068 DA01      		movw r26,r20
+  81 006a 7C01      		movw r14,r24
+  82 006c 8D01      		movw r16,r26
+  83               	.LM5:
+  84 006e E114      		cp r14,__zero_reg__
+  85 0070 F104      		cpc r15,__zero_reg__
+  86 0072 0105      		cpc r16,__zero_reg__
+  87 0074 1105      		cpc r17,__zero_reg__
+  88 0076 01F4      		brne .L4
+  89               	.LM6:
+  90 0078 AC14      		cp r10,r12
+  91 007a BD04      		cpc r11,r13
+  92 007c 00F4      		brsh .L6
+  93               	.L7:
+  94               	.LM7:
+  95 007e E091 0000 		lds r30,chp
+  96 0082 F091 0000 		lds r31,(chp)+1
+  97 0086 A081      		ld r26,Z
+  98 0088 B181      		ldd r27,Z+1
+  99 008a 1496      		adiw r26,4
+ 100 008c 2D91      		ld r18,X+
+ 101 008e 3C91      		ld r19,X
+ 102 0090 1597      		sbiw r26,4+1
+ 103 0092 CF01      		movw r24,r30
+ 104 0094 F601      		movw r30,r12
+ 105 0096 6291      		ld r22,-Z
+ 106 0098 6F01      		movw r12,r30
+ 107 009a F901      		movw r30,r18
+ 108 009c 0995      		icall
+ 109               	.LM8:
+ 110 009e AC14      		cp r10,r12
+ 111 00a0 BD04      		cpc r11,r13
+ 112 00a2 00F0      		brlo .L7
+ 113               	.LVL3:
+ 114               	.L6:
+ 115               	/* epilogue start */
+ 116               	.LM9:
+ 117 00a4 6096      		adiw r28,16
+ 118 00a6 0FB6      		in __tmp_reg__,__SREG__
+ 119 00a8 F894      		cli
+ 120 00aa DEBF      		out __SP_H__,r29
+ 121 00ac 0FBE      		out __SREG__,__tmp_reg__
+ 122 00ae CDBF      		out __SP_L__,r28
+ 123 00b0 CF91      		pop r28
+ 124 00b2 DF91      		pop r29
+ 125 00b4 1F91      		pop r17
+ 126 00b6 0F91      		pop r16
+ 127 00b8 FF90      		pop r15
+ 128 00ba EF90      		pop r14
+ 129               	.LVL4:
+ 130 00bc DF90      		pop r13
+ 131 00be CF90      		pop r12
+ 132               	.LVL5:
+ 133 00c0 BF90      		pop r11
+ 134 00c2 AF90      		pop r10
+ 135 00c4 0895      		ret
+ 136               	.LVL6:
+ 137               	.L12:
+ 138               	.LM10:
+ 139 00c6 E091 0000 		lds r30,chp
+ 140 00ca F091 0000 		lds r31,(chp)+1
+ 141 00ce A081      		ld r26,Z
+ 142 00d0 B181      		ldd r27,Z+1
+ 143 00d2 1496      		adiw r26,4
+ 144 00d4 2D91      		ld r18,X+
+ 145 00d6 3C91      		ld r19,X
+ 146 00d8 1597      		sbiw r26,4+1
+ 147 00da CF01      		movw r24,r30
+ 148 00dc 60E3      		ldi r22,lo8(48)
+ 149               	.LVL7:
+ 150 00de F901      		movw r30,r18
+ 151 00e0 0995      		icall
+ 152 00e2 00C0      		rjmp .L6
+ 153               	.LFE124:
+ 155               	.global	test_print
+ 157               	test_print:
+ 158               	.LFB125:
+ 159               	.LM11:
+ 160               	.LVL8:
+ 161 00e4 CF93      		push r28
+ 162 00e6 DF93      		push r29
+ 163               	/* prologue: function */
+ 164               	/* frame size = 0 */
+ 165 00e8 EC01      		movw r28,r24
+ 166               	.LM12:
+ 167 00ea 6881      		ld r22,Y
+ 168 00ec 6623      		tst r22
+ 169 00ee 01F0      		breq .L16
+ 170               	.LVL9:
+ 171               	.L17:
+ 172               	.LM13:
+ 173 00f0 E091 0000 		lds r30,chp
+ 174 00f4 F091 0000 		lds r31,(chp)+1
+ 175 00f8 2196      		adiw r28,1
+ 176 00fa A081      		ld r26,Z
+ 177 00fc B181      		ldd r27,Z+1
+ 178 00fe 1496      		adiw r26,4
+ 179 0100 2D91      		ld r18,X+
+ 180 0102 3C91      		ld r19,X
+ 181 0104 1597      		sbiw r26,4+1
+ 182 0106 CF01      		movw r24,r30
+ 183 0108 F901      		movw r30,r18
+ 184 010a 0995      		icall
+ 185               	.LM14:
+ 186 010c 6881      		ld r22,Y
+ 187 010e 6623      		tst r22
+ 188 0110 01F4      		brne .L17
+ 189               	.LVL10:
+ 190               	.L16:
+ 191               	/* epilogue start */
+ 192               	.LM15:
+ 193 0112 DF91      		pop r29
+ 194 0114 CF91      		pop r28
+ 195               	.LVL11:
+ 196 0116 0895      		ret
+ 197               	.LFE125:
+ 199               		.data
+ 200               	.LC0:
+ 201 0000 0D0A 00   		.string	"\r\n"
+ 202               		.text
+ 203               	.global	test_println
+ 205               	test_println:
+ 206               	.LFB126:
+ 207               	.LM16:
+ 208               	.LVL12:
+ 209               	/* prologue: function */
+ 210               	/* frame size = 0 */
+ 211               	.LM17:
+ 212 0118 0E94 0000 		call test_print
+ 213               	.LVL13:
+ 214               	.LM18:
+ 215 011c E091 0000 		lds r30,chp
+ 216 0120 F091 0000 		lds r31,(chp)+1
+ 217 0124 A081      		ld r26,Z
+ 218 0126 B181      		ldd r27,Z+1
+ 219 0128 2D91      		ld r18,X+
+ 220 012a 3C91      		ld r19,X
+ 221 012c CF01      		movw r24,r30
+ 222 012e 60E0      		ldi r22,lo8(.LC0)
+ 223 0130 70E0      		ldi r23,hi8(.LC0)
+ 224 0132 42E0      		ldi r20,lo8(2)
+ 225 0134 50E0      		ldi r21,hi8(2)
+ 226 0136 F901      		movw r30,r18
+ 227 0138 0995      		icall
+ 228               	/* epilogue start */
+ 229               	.LM19:
+ 230 013a 0895      		ret
+ 231               	.LFE126:
+ 233               	.global	test_emit_token
+ 235               	test_emit_token:
+ 236               	.LFB129:
+ 237               	.LM20:
+ 238               	.LVL14:
+ 239               	/* prologue: function */
+ 240               	/* frame size = 0 */
+ 241               	.LBB90:
+ 242               	.LBB91:
+ 243               	.LM21:
+ 244               	/* #APP */
+ 245               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 246 013c F894      		cli
+ 247               	 ;  0 "" 2
+ 248               	/* #NOAPP */
+ 249               	.LBE91:
+ 250               	.LBE90:
+ 251               	.LM22:
+ 252 013e E091 0000 		lds r30,tokp
+ 253 0142 F091 0000 		lds r31,(tokp)+1
+ 254 0146 8193      		st Z+,r24
+ 255 0148 F093 0000 		sts (tokp)+1,r31
+ 256 014c E093 0000 		sts tokp,r30
+ 257               	.LBB92:
+ 258               	.LBB93:
+ 259               	.LM23:
+ 260               	/* #APP */
+ 261               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 262 0150 7894      		sei
+ 263               	 ;  0 "" 2
+ 264               	/* epilogue start */
+ 265               	/* #NOAPP */
+ 266               	.LBE93:
+ 267               	.LBE92:
+ 268               	.LM24:
+ 269 0152 0895      		ret
+ 270               	.LFE129:
+ 272               	.global	_test_fail
+ 274               	_test_fail:
+ 275               	.LFB130:
+ 276               	.LM25:
+ 277               	.LVL15:
+ 278               	/* prologue: function */
+ 279               	/* frame size = 0 */
+ 280               	.LM26:
+ 281 0154 21E0      		ldi r18,lo8(1)
+ 282 0156 2093 0000 		sts local_fail,r18
+ 283               	.LM27:
+ 284 015a 2093 0000 		sts global_fail,r18
+ 285               	.LM28:
+ 286 015e 9093 0000 		sts (failpoint)+1,r25
+ 287 0162 8093 0000 		sts failpoint,r24
+ 288               	.LM29:
+ 289 0166 81E0      		ldi r24,lo8(1)
+ 290               	.LVL16:
+ 291               	/* epilogue start */
+ 292 0168 0895      		ret
+ 293               	.LFE130:
+ 295               	.global	_test_assert
+ 297               	_test_assert:
+ 298               	.LFB131:
+ 299               	.LM30:
+ 300               	.LVL17:
+ 301               	/* prologue: function */
+ 302               	/* frame size = 0 */
+ 303 016a 9C01      		movw r18,r24
+ 304               	.LM31:
+ 305 016c 6623      		tst r22
+ 306 016e 01F4      		brne .L29
+ 307               	.LVL18:
+ 308               	.LBB94:
+ 309               	.LBB95:
+ 310               	.LM32:
+ 311 0170 81E0      		ldi r24,lo8(1)
+ 312 0172 8093 0000 		sts local_fail,r24
+ 313               	.LM33:
+ 314 0176 8093 0000 		sts global_fail,r24
+ 315               	.LM34:
+ 316 017a 3093 0000 		sts (failpoint)+1,r19
+ 317 017e 2093 0000 		sts failpoint,r18
+ 318               	.LBE95:
+ 319               	.LBE94:
+ 320               	.LM35:
+ 321 0182 0895      		ret
+ 322               	.LVL19:
+ 323               	.L29:
+ 324               	.LM36:
+ 325 0184 80E0      		ldi r24,lo8(0)
+ 326 0186 0895      		ret
+ 327               	.LFE131:
+ 329               	.global	_test_assert_sequence
+ 331               	_test_assert_sequence:
+ 332               	.LFB132:
+ 333               	.LM37:
+ 334               	.LVL20:
+ 335               	/* prologue: function */
+ 336               	/* frame size = 0 */
+ 337 0188 AC01      		movw r20,r24
+ 338 018a DB01      		movw r26,r22
+ 339               	.LM38:
+ 340 018c 2091 0000 		lds r18,tokp
+ 341 0190 3091 0000 		lds r19,(tokp)+1
+ 342 0194 60E0      		ldi r22,lo8(tokens_buffer)
+ 343 0196 70E0      		ldi r23,hi8(tokens_buffer)
+ 344               	.LVL21:
+ 345 0198 FB01      		movw r30,r22
+ 346               	.LVL22:
+ 347 019a 00C0      		rjmp .L31
+ 348               	.LVL23:
+ 349               	.L32:
+ 350               	.LM39:
+ 351 019c 3196      		adiw r30,1
+ 352 019e 1196      		adiw r26,1
+ 353               	.LVL24:
+ 354               	.L31:
+ 355               	.LM40:
+ 356 01a0 E217      		cp r30,r18
+ 357 01a2 F307      		cpc r31,r19
+ 358 01a4 00F4      		brsh .L38
+ 359               	.LM41:
+ 360 01a6 9081      		ld r25,Z
+ 361 01a8 8C91      		ld r24,X
+ 362 01aa 9817      		cp r25,r24
+ 363 01ac 01F0      		breq .L32
+ 364               	.L37:
+ 365               	.LBB96:
+ 366               	.LBB97:
+ 367               	.LM42:
+ 368 01ae 81E0      		ldi r24,lo8(1)
+ 369 01b0 8093 0000 		sts local_fail,r24
+ 370               	.LM43:
+ 371 01b4 8093 0000 		sts global_fail,r24
+ 372               	.LM44:
+ 373 01b8 5093 0000 		sts (failpoint)+1,r21
+ 374 01bc 4093 0000 		sts failpoint,r20
+ 375 01c0 0895      		ret
+ 376               	.LVL25:
+ 377               	.L38:
+ 378               	.LBE97:
+ 379               	.LBE96:
+ 380               	.LM45:
+ 381 01c2 8C91      		ld r24,X
+ 382 01c4 8823      		tst r24
+ 383 01c6 01F4      		brne .L37
+ 384               	.LBB98:
+ 385               	.LBB99:
+ 386               	.LM46:
+ 387 01c8 7093 0000 		sts (tokp)+1,r23
+ 388 01cc 6093 0000 		sts tokp,r22
+ 389 01d0 80E0      		ldi r24,lo8(0)
+ 390               	.LBE99:
+ 391               	.LBE98:
+ 392               	.LM47:
+ 393 01d2 0895      		ret
+ 394               	.LFE132:
+ 396               	.global	_test_assert_time_window
+ 398               	_test_assert_time_window:
+ 399               	.LFB133:
+ 400               	.LM48:
+ 401               	.LVL26:
+ 402               	/* prologue: function */
+ 403               	/* frame size = 0 */
+ 404 01d4 9C01      		movw r18,r24
+ 405               	.LBB100:
+ 406               	.LBB101:
+ 407               	.LBB102:
+ 408               	.LBB103:
+ 409               	.LBB104:
+ 410               	.LBB105:
+ 411               	.LM49:
+ 412               	/* #APP */
+ 413               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 414 01d6 F894      		cli
+ 415               	 ;  0 "" 2
+ 416               	/* #NOAPP */
+ 417               	.LBE105:
+ 418               	.LBE104:
+ 419               	.LBB106:
+ 420               	.LBB107:
+ 421               	.LM50:
+ 422 01d8 8091 0000 		lds r24,ch+19
+ 423 01dc 9091 0000 		lds r25,(ch+19)+1
+ 424               	.LVL27:
+ 425               	.LBE107:
+ 426               	.LBE106:
+ 427               	.LBB108:
+ 428               	.LBB109:
+ 429               	.LM51:
+ 430               	/* #APP */
+ 431               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 432 01e0 7894      		sei
+ 433               	 ;  0 "" 2
+ 434               	/* #NOAPP */
+ 435               	.LBE109:
+ 436               	.LBE108:
+ 437               	.LBE103:
+ 438               	.LBE102:
+ 439               	.LBE101:
+ 440               	.LBE100:
+ 441               	.LBB110:
+ 442               	.LBB111:
+ 443               	.LM52:
+ 444 01e2 861B      		sub r24,r22
+ 445 01e4 970B      		sbc r25,r23
+ 446 01e6 461B      		sub r20,r22
+ 447 01e8 570B      		sbc r21,r23
+ 448               	.LVL28:
+ 449 01ea 8417      		cp r24,r20
+ 450 01ec 9507      		cpc r25,r21
+ 451 01ee 00F0      		brlo .L43
+ 452               	.LBB112:
+ 453               	.LBB113:
+ 454               	.LM53:
+ 455 01f0 81E0      		ldi r24,lo8(1)
+ 456               	.LVL29:
+ 457 01f2 8093 0000 		sts local_fail,r24
+ 458               	.LM54:
+ 459 01f6 8093 0000 		sts global_fail,r24
+ 460               	.LM55:
+ 461 01fa 3093 0000 		sts (failpoint)+1,r19
+ 462 01fe 2093 0000 		sts failpoint,r18
+ 463               	.LBE113:
+ 464               	.LBE112:
+ 465               	.LBE111:
+ 466               	.LBE110:
+ 467               	.LM56:
+ 468 0202 0895      		ret
+ 469               	.LVL30:
+ 470               	.L43:
+ 471               	.LBB115:
+ 472               	.LBB114:
+ 473               	.LM57:
+ 474 0204 80E0      		ldi r24,lo8(0)
+ 475               	.LVL31:
+ 476 0206 0895      		ret
+ 477               	.LBE114:
+ 478               	.LBE115:
+ 479               	.LFE133:
+ 482               	tmr:
+ 483               	.LFB137:
+ 484               	.LM58:
+ 485               	.LVL32:
+ 486               	/* prologue: function */
+ 487               	/* frame size = 0 */
+ 488               	.LM59:
+ 489 0208 81E0      		ldi r24,lo8(1)
+ 490               	.LVL33:
+ 491 020a 8093 0000 		sts test_timer_done,r24
+ 492               	/* epilogue start */
+ 493               	.LM60:
+ 494 020e 0895      		ret
+ 495               	.LFE137:
+ 498               	print_line:
+ 499               	.LFB140:
+ 500               	.LM61:
+ 501 0210 CF93      		push r28
+ 502 0212 DF93      		push r29
+ 503               	/* prologue: function */
+ 504               	/* frame size = 0 */
+ 505               	.LM62:
+ 506 0214 C0E0      		ldi r28,lo8(0)
+ 507 0216 D0E0      		ldi r29,hi8(0)
+ 508               	.LVL34:
+ 509               	.L47:
+ 510               	.LM63:
+ 511 0218 E091 0000 		lds r30,chp
+ 512 021c F091 0000 		lds r31,(chp)+1
+ 513 0220 A081      		ld r26,Z
+ 514 0222 B181      		ldd r27,Z+1
+ 515 0224 1496      		adiw r26,4
+ 516 0226 2D91      		ld r18,X+
+ 517 0228 3C91      		ld r19,X
+ 518 022a 1597      		sbiw r26,4+1
+ 519 022c CF01      		movw r24,r30
+ 520 022e 6DE2      		ldi r22,lo8(45)
+ 521 0230 F901      		movw r30,r18
+ 522 0232 0995      		icall
+ 523               	.LM64:
+ 524 0234 2196      		adiw r28,1
+ 525 0236 CC34      		cpi r28,76
+ 526 0238 D105      		cpc r29,__zero_reg__
+ 527 023a 01F4      		brne .L47
+ 528               	.LM65:
+ 529 023c E091 0000 		lds r30,chp
+ 530 0240 F091 0000 		lds r31,(chp)+1
+ 531 0244 A081      		ld r26,Z
+ 532 0246 B181      		ldd r27,Z+1
+ 533 0248 2D91      		ld r18,X+
+ 534 024a 3C91      		ld r19,X
+ 535 024c CF01      		movw r24,r30
+ 536 024e 60E0      		ldi r22,lo8(.LC0)
+ 537 0250 70E0      		ldi r23,hi8(.LC0)
+ 538 0252 42E0      		ldi r20,lo8(2)
+ 539 0254 50E0      		ldi r21,hi8(2)
+ 540 0256 F901      		movw r30,r18
+ 541 0258 0995      		icall
+ 542               	/* epilogue start */
+ 543               	.LM66:
+ 544 025a DF91      		pop r29
+ 545 025c CF91      		pop r28
+ 546               	.LVL35:
+ 547 025e 0895      		ret
+ 548               	.LFE140:
+ 550               	.global	test_wait_tick
+ 552               	test_wait_tick:
+ 553               	.LFB136:
+ 554               	.LM67:
+ 555               	/* prologue: function */
+ 556               	/* frame size = 0 */
+ 557               	.LM68:
+ 558 0260 81E0      		ldi r24,lo8(1)
+ 559 0262 90E0      		ldi r25,hi8(1)
+ 560 0264 0E94 0000 		call chThdSleep
+ 561               	.LBB116:
+ 562               	.LBB117:
+ 563               	.LBB118:
+ 564               	.LBB119:
+ 565               	.LM69:
+ 566               	/* #APP */
+ 567               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 568 0268 F894      		cli
+ 569               	 ;  0 "" 2
+ 570               	/* #NOAPP */
+ 571               	.LBE119:
+ 572               	.LBE118:
+ 573               	.LBB120:
+ 574               	.LBB121:
+ 575               	.LM70:
+ 576 026a 2091 0000 		lds r18,ch+19
+ 577 026e 3091 0000 		lds r19,(ch+19)+1
+ 578               	.LVL36:
+ 579               	.LBE121:
+ 580               	.LBE120:
+ 581               	.LBB122:
+ 582               	.LBB123:
+ 583               	.LM71:
+ 584               	/* #APP */
+ 585               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 586 0272 7894      		sei
+ 587               	 ;  0 "" 2
+ 588               	/* #NOAPP */
+ 589               	.LBE123:
+ 590               	.LBE122:
+ 591               	.LBE117:
+ 592               	.LBE116:
+ 593               	.LM72:
+ 594 0274 C901      		movw r24,r18
+ 595               	.LVL37:
+ 596               	/* epilogue start */
+ 597 0276 0895      		ret
+ 598               	.LFE136:
+ 600               	.global	test_start_timer
+ 602               	test_start_timer:
+ 603               	.LFB138:
+ 604               	.LM73:
+ 605               	.LVL38:
+ 606 0278 CF93      		push r28
+ 607 027a DF93      		push r29
+ 608               	/* prologue: function */
+ 609               	/* frame size = 0 */
+ 610 027c EC01      		movw r28,r24
+ 611               	.LM74:
+ 612 027e 1092 0000 		sts test_timer_done,__zero_reg__
+ 613               	.LBB124:
+ 614               	.LBB125:
+ 615               	.LBB126:
+ 616               	.LBB127:
+ 617               	.LM75:
+ 618               	/* #APP */
+ 619               	 ;  300 "../../../os/rt/include/chsys.h" 1
+ 620 0282 F894      		cli
+ 621               	 ;  0 "" 2
+ 622               	/* #NOAPP */
+ 623               	.LBE127:
+ 624               	.LBE126:
+ 625               	.LBB128:
+ 626               	.LBB129:
+ 627               	.LBB130:
+ 628               	.LBB131:
+ 629               	.LM76:
+ 630 0284 8091 0000 		lds r24,vt+6
+ 631 0288 9091 0000 		lds r25,(vt+6)+1
+ 632               	.LVL39:
+ 633 028c 892B      		or r24,r25
+ 634 028e 01F0      		breq .L53
+ 635               	.LM77:
+ 636 0290 80E0      		ldi r24,lo8(vt)
+ 637 0292 90E0      		ldi r25,hi8(vt)
+ 638 0294 0E94 0000 		call chVTDoResetI
+ 639               	.L53:
+ 640               	.LBE131:
+ 641               	.LBE130:
+ 642               	.LM78:
+ 643 0298 BE01      		movw r22,r28
+ 644 029a 80E0      		ldi r24,lo8(0)
+ 645 029c 90E0      		ldi r25,hi8(0)
+ 646               	.LVL40:
+ 647 029e 24E6      		ldi r18,lo8(100)
+ 648 02a0 30E0      		ldi r19,hi8(100)
+ 649 02a2 40E0      		ldi r20,hlo8(100)
+ 650 02a4 50E0      		ldi r21,hhi8(100)
+ 651 02a6 0E94 0000 		call __mulsi3
+ 652 02aa 6150      		subi r22,lo8(-(-1))
+ 653 02ac 7040      		sbci r23,hi8(-(-1))
+ 654 02ae 8040      		sbci r24,hlo8(-(-1))
+ 655 02b0 9040      		sbci r25,hhi8(-(-1))
+ 656 02b2 28EE      		ldi r18,lo8(1000)
+ 657 02b4 33E0      		ldi r19,hi8(1000)
+ 658 02b6 40E0      		ldi r20,hlo8(1000)
+ 659 02b8 50E0      		ldi r21,hhi8(1000)
+ 660 02ba 0E94 0000 		call __udivmodsi4
+ 661 02be 2F5F      		subi r18,lo8(-(1))
+ 662 02c0 3F4F      		sbci r19,hi8(-(1))
+ 663 02c2 80E0      		ldi r24,lo8(vt)
+ 664 02c4 90E0      		ldi r25,hi8(vt)
+ 665               	.LVL41:
+ 666 02c6 B901      		movw r22,r18
+ 667 02c8 40E0      		ldi r20,lo8(gs(tmr))
+ 668 02ca 50E0      		ldi r21,hi8(gs(tmr))
+ 669 02cc 20E0      		ldi r18,lo8(0)
+ 670 02ce 30E0      		ldi r19,hi8(0)
+ 671 02d0 0E94 0000 		call chVTDoSetI
+ 672               	.LBE129:
+ 673               	.LBE128:
+ 674               	.LBB132:
+ 675               	.LBB133:
+ 676               	.LM79:
+ 677               	/* #APP */
+ 678               	 ;  322 "../../../os/rt/include/chsys.h" 1
+ 679 02d4 7894      		sei
+ 680               	 ;  0 "" 2
+ 681               	/* epilogue start */
+ 682               	/* #NOAPP */
+ 683               	.LBE133:
+ 684               	.LBE132:
+ 685               	.LBE125:
+ 686               	.LBE124:
+ 687               	.LM80:
+ 688 02d6 DF91      		pop r29
+ 689 02d8 CF91      		pop r28
+ 690               	.LVL42:
+ 691 02da 0895      		ret
+ 692               	.LFE138:
+ 694               	.global	test_wait_threads
+ 696               	test_wait_threads:
+ 697               	.LFB135:
+ 698               	.LM81:
+ 699 02dc CF93      		push r28
+ 700 02de DF93      		push r29
+ 701               	/* prologue: function */
+ 702               	/* frame size = 0 */
+ 703               	.LM82:
+ 704 02e0 C0E0      		ldi r28,lo8(threads)
+ 705 02e2 D0E0      		ldi r29,hi8(threads)
+ 706               	.L58:
+ 707               	.LM83:
+ 708 02e4 8881      		ld r24,Y
+ 709 02e6 9981      		ldd r25,Y+1
+ 710 02e8 0097      		sbiw r24,0
+ 711 02ea 01F0      		breq .L57
+ 712               	.LM84:
+ 713 02ec 0E94 0000 		call chThdWait
+ 714               	.LM85:
+ 715 02f0 1982      		std Y+1,__zero_reg__
+ 716 02f2 1882      		st Y,__zero_reg__
+ 717               	.L57:
+ 718 02f4 2296      		adiw r28,2
+ 719               	.LM86:
+ 720 02f6 80E0      		ldi r24,hi8(threads+10)
+ 721 02f8 C030      		cpi r28,lo8(threads+10)
+ 722 02fa D807      		cpc r29,r24
+ 723 02fc 01F4      		brne .L58
+ 724               	/* epilogue start */
+ 725               	.LM87:
+ 726 02fe DF91      		pop r29
+ 727 0300 CF91      		pop r28
+ 728 0302 0895      		ret
+ 729               	.LFE135:
+ 731               		.data
+ 732               	.LC1:
+ 733 0003 00        		.string	""
+ 734               	.LC2:
+ 735 0004 2A2A 2A20 		.string	"*** ChibiOS/RT test suite"
+ 735      4368 6962 
+ 735      694F 532F 
+ 735      5254 2074 
+ 735      6573 7420 
+ 736               	.LC3:
+ 737 001e 2A2A 2A00 		.string	"***"
+ 738               	.LC4:
+ 739 0022 2A2A 2A20 		.string	"*** Kernel:       "
+ 739      4B65 726E 
+ 739      656C 3A20 
+ 739      2020 2020 
+ 739      2020 00
+ 740               	.LC5:
+ 741 0035 332E 302E 		.string	"3.0.0dev"
+ 741      3064 6576 
+ 741      00
+ 742               	.LC6:
+ 743 003e 2A2A 2A20 		.string	"*** Compiled:     "
+ 743      436F 6D70 
+ 743      696C 6564 
+ 743      3A20 2020 
+ 743      2020 00
+ 744               	.LC7:
+ 745 0051 4A61 6E20 		.string	"Jan  3 2016 - 17:53:25"
+ 745      2033 2032 
+ 745      3031 3620 
+ 745      2D20 3137 
+ 745      3A35 333A 
+ 746               	.LC8:
+ 747 0068 2A2A 2A20 		.string	"*** Compiler:     "
+ 747      436F 6D70 
+ 747      696C 6572 
+ 747      3A20 2020 
+ 747      2020 00
+ 748               	.LC9:
+ 749 007b 4743 4320 		.string	"GCC 4.3.3"
+ 749      342E 332E 
+ 749      3300 
+ 750               	.LC10:
+ 751 0085 2A2A 2A20 		.string	"*** Architecture: "
+ 751      4172 6368 
+ 751      6974 6563 
+ 751      7475 7265 
+ 751      3A20 00
+ 752               	.LC11:
+ 753 0098 4156 5200 		.string	"AVR"
+ 754               	.LC12:
+ 755 009c 2A2A 2A20 		.string	"*** Core Variant: "
+ 755      436F 7265 
+ 755      2056 6172 
+ 755      6961 6E74 
+ 755      3A20 00
+ 756               	.LC13:
+ 757 00af 4D65 6761 		.string	"MegaAVR"
+ 757      4156 5200 
+ 758               	.LC14:
+ 759 00b7 2A2A 2A20 		.string	"*** Port Info:    "
+ 759      506F 7274 
+ 759      2049 6E66 
+ 759      6F3A 2020 
+ 759      2020 00
+ 760               	.LC15:
+ 761 00ca 4E6F 6E65 		.string	"None"
+ 761      00
+ 762               	.LC16:
+ 763 00cf 2A2A 2A20 		.string	"*** Platform:     "
+ 763      506C 6174 
+ 763      666F 726D 
+ 763      3A20 2020 
+ 763      2020 00
+ 764               	.LC17:
+ 765 00e2 2A2A 2A20 		.string	"*** Test Board:   "
+ 765      5465 7374 
+ 765      2042 6F61 
+ 765      7264 3A20 
+ 765      2020 00
+ 766               	.LC18:
+ 767 00f5 5354 4B35 		.string	"STK500"
+ 767      3030 00
+ 768               	.LC19:
+ 769 00fc 2D2D 2D20 		.string	"--- Test Case "
+ 769      5465 7374 
+ 769      2043 6173 
+ 769      6520 00
+ 770               	.LC20:
+ 771 010b 2E00      		.string	"."
+ 772               	.LC21:
+ 773 010d 2028 00   		.string	" ("
+ 774               	.LC22:
+ 775 0110 2900      		.string	")"
+ 776               	.LC23:
+ 777 0112 2D2D 2D20 		.string	"--- Result: FAILURE (#"
+ 777      5265 7375 
+ 777      6C74 3A20 
+ 777      4641 494C 
+ 777      5552 4520 
+ 778               	.LC24:
+ 779 0129 205B 00   		.string	" ["
+ 780               	.LC25:
+ 781 012c 5D29 00   		.string	"])"
+ 782               	.LC26:
+ 783 012f 2D2D 2D20 		.string	"--- Result: SUCCESS"
+ 783      5265 7375 
+ 783      6C74 3A20 
+ 783      5355 4343 
+ 783      4553 5300 
+ 784               	.LC27:
+ 785 0143 4669 6E61 		.string	"Final result: "
+ 785      6C20 7265 
+ 785      7375 6C74 
+ 785      3A20 00
+ 786               	.LC28:
+ 787 0152 4641 494C 		.string	"FAILURE"
+ 787      5552 4500 
+ 788               	.LC29:
+ 789 015a 5355 4343 		.string	"SUCCESS"
+ 789      4553 5300 
+ 790               		.text
+ 791               	.global	TestThread
+ 793               	TestThread:
+ 794               	.LFB141:
+ 795               	.LM88:
+ 796               	.LVL43:
+ 797 0304 4F92      		push r4
+ 798 0306 5F92      		push r5
+ 799 0308 6F92      		push r6
+ 800 030a 7F92      		push r7
+ 801 030c 8F92      		push r8
+ 802 030e 9F92      		push r9
+ 803 0310 AF92      		push r10
+ 804 0312 BF92      		push r11
+ 805 0314 CF92      		push r12
+ 806 0316 DF92      		push r13
+ 807 0318 EF92      		push r14
+ 808 031a FF92      		push r15
+ 809 031c 0F93      		push r16
+ 810 031e 1F93      		push r17
+ 811 0320 CF93      		push r28
+ 812 0322 DF93      		push r29
+ 813               	/* prologue: function */
+ 814               	/* frame size = 0 */
+ 815               	.LM89:
+ 816 0324 9093 0000 		sts (chp)+1,r25
+ 817 0328 8093 0000 		sts chp,r24
+ 818               	.LM90:
+ 819 032c 80E0      		ldi r24,lo8(.LC1)
+ 820 032e 90E0      		ldi r25,hi8(.LC1)
+ 821               	.LVL44:
+ 822 0330 0E94 0000 		call test_println
+ 823               	.LM91:
+ 824 0334 80E0      		ldi r24,lo8(.LC2)
+ 825 0336 90E0      		ldi r25,hi8(.LC2)
+ 826 0338 0E94 0000 		call test_println
+ 827               	.LM92:
+ 828 033c 80E0      		ldi r24,lo8(.LC3)
+ 829 033e 90E0      		ldi r25,hi8(.LC3)
+ 830 0340 0E94 0000 		call test_println
+ 831               	.LM93:
+ 832 0344 80E0      		ldi r24,lo8(.LC4)
+ 833 0346 90E0      		ldi r25,hi8(.LC4)
+ 834 0348 0E94 0000 		call test_print
+ 835               	.LM94:
+ 836 034c 80E0      		ldi r24,lo8(.LC5)
+ 837 034e 90E0      		ldi r25,hi8(.LC5)
+ 838 0350 0E94 0000 		call test_println
+ 839               	.LM95:
+ 840 0354 80E0      		ldi r24,lo8(.LC6)
+ 841 0356 90E0      		ldi r25,hi8(.LC6)
+ 842 0358 0E94 0000 		call test_print
+ 843               	.LM96:
+ 844 035c 80E0      		ldi r24,lo8(.LC7)
+ 845 035e 90E0      		ldi r25,hi8(.LC7)
+ 846 0360 0E94 0000 		call test_println
+ 847               	.LM97:
+ 848 0364 80E0      		ldi r24,lo8(.LC8)
+ 849 0366 90E0      		ldi r25,hi8(.LC8)
+ 850 0368 0E94 0000 		call test_print
+ 851               	.LM98:
+ 852 036c 80E0      		ldi r24,lo8(.LC9)
+ 853 036e 90E0      		ldi r25,hi8(.LC9)
+ 854 0370 0E94 0000 		call test_println
+ 855               	.LM99:
+ 856 0374 80E0      		ldi r24,lo8(.LC10)
+ 857 0376 90E0      		ldi r25,hi8(.LC10)
+ 858 0378 0E94 0000 		call test_print
+ 859               	.LM100:
+ 860 037c 80E0      		ldi r24,lo8(.LC11)
+ 861 037e 90E0      		ldi r25,hi8(.LC11)
+ 862 0380 0E94 0000 		call test_println
+ 863               	.LM101:
+ 864 0384 80E0      		ldi r24,lo8(.LC12)
+ 865 0386 90E0      		ldi r25,hi8(.LC12)
+ 866 0388 0E94 0000 		call test_print
+ 867               	.LM102:
+ 868 038c 80E0      		ldi r24,lo8(.LC13)
+ 869 038e 90E0      		ldi r25,hi8(.LC13)
+ 870 0390 0E94 0000 		call test_println
+ 871               	.LM103:
+ 872 0394 80E0      		ldi r24,lo8(.LC14)
+ 873 0396 90E0      		ldi r25,hi8(.LC14)
+ 874 0398 0E94 0000 		call test_print
+ 875               	.LM104:
+ 876 039c 80E0      		ldi r24,lo8(.LC15)
+ 877 039e 90E0      		ldi r25,hi8(.LC15)
+ 878 03a0 0E94 0000 		call test_println
+ 879               	.LM105:
+ 880 03a4 80E0      		ldi r24,lo8(.LC16)
+ 881 03a6 90E0      		ldi r25,hi8(.LC16)
+ 882 03a8 0E94 0000 		call test_print
+ 883               	.LM106:
+ 884 03ac 80E0      		ldi r24,lo8(.LC11)
+ 885 03ae 90E0      		ldi r25,hi8(.LC11)
+ 886 03b0 0E94 0000 		call test_println
+ 887               	.LM107:
+ 888 03b4 80E0      		ldi r24,lo8(.LC17)
+ 889 03b6 90E0      		ldi r25,hi8(.LC17)
+ 890 03b8 0E94 0000 		call test_print
+ 891               	.LM108:
+ 892 03bc 80E0      		ldi r24,lo8(.LC18)
+ 893 03be 90E0      		ldi r25,hi8(.LC18)
+ 894 03c0 0E94 0000 		call test_println
+ 895               	.LM109:
+ 896 03c4 80E0      		ldi r24,lo8(.LC1)
+ 897 03c6 90E0      		ldi r25,hi8(.LC1)
+ 898 03c8 0E94 0000 		call test_println
+ 899               	.LM110:
+ 900 03cc 1092 0000 		sts global_fail,__zero_reg__
+ 901 03d0 40E0      		ldi r20,lo8(patterns+2)
+ 902 03d2 442E      		mov r4,r20
+ 903 03d4 40E0      		ldi r20,hi8(patterns+2)
+ 904 03d6 542E      		mov r5,r20
+ 905 03d8 80E0      		ldi r24,lo8(patternthd)
+ 906 03da 90E0      		ldi r25,hi8(patternthd)
+ 907 03dc 31E0      		ldi r19,lo8(1)
+ 908 03de 832E      		mov r8,r19
+ 909 03e0 912C      		mov r9,__zero_reg__
+ 910 03e2 A12C      		mov r10,__zero_reg__
+ 911 03e4 B12C      		mov r11,__zero_reg__
+ 912               	.LBB134:
+ 913               	.LBB135:
+ 914               	.LBB136:
+ 915               	.LBB137:
+ 916               	.LM111:
+ 917 03e6 20E0      		ldi r18,lo8(tokens_buffer)
+ 918 03e8 622E      		mov r6,r18
+ 919 03ea 20E0      		ldi r18,hi8(tokens_buffer)
+ 920 03ec 722E      		mov r7,r18
+ 921               	.LVL45:
+ 922               	.L62:
+ 923               	.LBE137:
+ 924               	.LBE136:
+ 925               	.LBE135:
+ 926               	.LBE134:
+ 927               	.LM112:
+ 928 03ee 6C01      		movw r12,r24
+ 929 03f0 81E0      		ldi r24,lo8(1)
+ 930 03f2 E82E      		mov r14,r24
+ 931 03f4 F12C      		mov r15,__zero_reg__
+ 932 03f6 012D      		mov r16,__zero_reg__
+ 933 03f8 112D      		mov r17,__zero_reg__
+ 934               	.LM113:
+ 935 03fa D601      		movw r26,r12
+ 936 03fc 8D91      		ld r24,X+
+ 937 03fe 9C91      		ld r25,X
+ 938 0400 892B      		or r24,r25
+ 939 0402 01F4      		brne .+2
+ 940 0404 00C0      		rjmp .L76
+ 941               	.L69:
+ 942               	.LM114:
+ 943 0406 0E94 0000 		call print_line
+ 944               	.LM115:
+ 945 040a 80E0      		ldi r24,lo8(.LC19)
+ 946 040c 90E0      		ldi r25,hi8(.LC19)
+ 947 040e 0E94 0000 		call test_print
+ 948               	.LM116:
+ 949 0412 C501      		movw r24,r10
+ 950 0414 B401      		movw r22,r8
+ 951 0416 0E94 0000 		call test_printn
+ 952               	.LM117:
+ 953 041a 80E0      		ldi r24,lo8(.LC20)
+ 954 041c 90E0      		ldi r25,hi8(.LC20)
+ 955 041e 0E94 0000 		call test_print
+ 956               	.LM118:
+ 957 0422 C801      		movw r24,r16
+ 958 0424 B701      		movw r22,r14
+ 959 0426 0E94 0000 		call test_printn
+ 960               	.LM119:
+ 961 042a 80E0      		ldi r24,lo8(.LC21)
+ 962 042c 90E0      		ldi r25,hi8(.LC21)
+ 963 042e 0E94 0000 		call test_print
+ 964               	.LM120:
+ 965 0432 D601      		movw r26,r12
+ 966 0434 ED91      		ld r30,X+
+ 967 0436 FC91      		ld r31,X
+ 968 0438 8081      		ld r24,Z
+ 969 043a 9181      		ldd r25,Z+1
+ 970 043c 0E94 0000 		call test_print
+ 971               	.LM121:
+ 972 0440 80E0      		ldi r24,lo8(.LC22)
+ 973 0442 90E0      		ldi r25,hi8(.LC22)
+ 974 0444 0E94 0000 		call test_println
+ 975               	.LM122:
+ 976 0448 84E1      		ldi r24,lo8(20)
+ 977 044a 90E0      		ldi r25,hi8(20)
+ 978 044c 0E94 0000 		call chThdSleep
+ 979               	.LM123:
+ 980 0450 F601      		movw r30,r12
+ 981 0452 C081      		ld r28,Z
+ 982 0454 D181      		ldd r29,Z+1
+ 983               	.LBB141:
+ 984               	.LBB140:
+ 985               	.LBB139:
+ 986               	.LBB138:
+ 987               	.LM124:
+ 988 0456 7092 0000 		sts (tokp)+1,r7
+ 989 045a 6092 0000 		sts tokp,r6
+ 990               	.LBE138:
+ 991               	.LBE139:
+ 992               	.LM125:
+ 993 045e 1092 0000 		sts local_fail,__zero_reg__
+ 994               	.LM126:
+ 995 0462 1092 0000 		sts (threads)+1,__zero_reg__
+ 996 0466 1092 0000 		sts threads,__zero_reg__
+ 997 046a 1092 0000 		sts (threads+2)+1,__zero_reg__
+ 998 046e 1092 0000 		sts threads+2,__zero_reg__
+ 999 0472 1092 0000 		sts (threads+4)+1,__zero_reg__
+ 1000 0476 1092 0000 		sts threads+4,__zero_reg__
+ 1001 047a 1092 0000 		sts (threads+6)+1,__zero_reg__
+ 1002 047e 1092 0000 		sts threads+6,__zero_reg__
+ 1003 0482 1092 0000 		sts (threads+8)+1,__zero_reg__
+ 1004 0486 1092 0000 		sts threads+8,__zero_reg__
+ 1005               	.LM127:
+ 1006 048a EA81      		ldd r30,Y+2
+ 1007 048c FB81      		ldd r31,Y+3
+ 1008 048e 3097      		sbiw r30,0
+ 1009 0490 01F0      		breq .L63
+ 1010               	.LM128:
+ 1011 0492 0995      		icall
+ 1012               	.L63:
+ 1013               	.LM129:
+ 1014 0494 EE81      		ldd r30,Y+6
+ 1015 0496 FF81      		ldd r31,Y+7
+ 1016 0498 0995      		icall
+ 1017               	.LM130:
+ 1018 049a EC81      		ldd r30,Y+4
+ 1019 049c FD81      		ldd r31,Y+5
+ 1020 049e 3097      		sbiw r30,0
+ 1021 04a0 01F0      		breq .L64
+ 1022               	.LM131:
+ 1023 04a2 0995      		icall
+ 1024               	.L64:
+ 1025               	.LM132:
+ 1026 04a4 0E94 0000 		call test_wait_threads
+ 1027               	.LBE140:
+ 1028               	.LBE141:
+ 1029               	.LM133:
+ 1030 04a8 8091 0000 		lds r24,local_fail
+ 1031 04ac 8823      		tst r24
+ 1032 04ae 01F4      		brne .+2
+ 1033 04b0 00C0      		rjmp .L65
+ 1034               	.LM134:
+ 1035 04b2 80E0      		ldi r24,lo8(.LC23)
+ 1036 04b4 90E0      		ldi r25,hi8(.LC23)
+ 1037 04b6 0E94 0000 		call test_print
+ 1038               	.LM135:
+ 1039 04ba 6091 0000 		lds r22,failpoint
+ 1040 04be 7091 0000 		lds r23,(failpoint)+1
+ 1041 04c2 80E0      		ldi r24,lo8(0)
+ 1042 04c4 90E0      		ldi r25,hi8(0)
+ 1043 04c6 0E94 0000 		call test_printn
+ 1044               	.LM136:
+ 1045 04ca 80E0      		ldi r24,lo8(.LC24)
+ 1046 04cc 90E0      		ldi r25,hi8(.LC24)
+ 1047 04ce 0E94 0000 		call test_print
+ 1048               	.LBB142:
+ 1049               	.LBB143:
+ 1050               	.LM137:
+ 1051 04d2 8091 0000 		lds r24,tokp
+ 1052 04d6 9091 0000 		lds r25,(tokp)+1
+ 1053 04da 8050      		subi r24,lo8(tokens_buffer)
+ 1054 04dc 9040      		sbci r25,hi8(tokens_buffer)
+ 1055 04de 01F0      		breq .L66
+ 1056 04e0 00F0      		brlo .L66
+ 1057 04e2 C0E0      		ldi r28,lo8(tokens_buffer)
+ 1058 04e4 D0E0      		ldi r29,hi8(tokens_buffer)
+ 1059               	.LVL46:
+ 1060               	.L67:
+ 1061               	.LM138:
+ 1062 04e6 A091 0000 		lds r26,chp
+ 1063 04ea B091 0000 		lds r27,(chp)+1
+ 1064 04ee 6991      		ld r22,Y+
+ 1065 04f0 ED91      		ld r30,X+
+ 1066 04f2 FC91      		ld r31,X
+ 1067 04f4 1197      		sbiw r26,1
+ 1068 04f6 0480      		ldd __tmp_reg__,Z+4
+ 1069 04f8 F581      		ldd r31,Z+5
+ 1070 04fa E02D      		mov r30,__tmp_reg__
+ 1071 04fc CD01      		movw r24,r26
+ 1072 04fe 0995      		icall
+ 1073               	.LM139:
+ 1074 0500 8091 0000 		lds r24,tokp
+ 1075 0504 9091 0000 		lds r25,(tokp)+1
+ 1076 0508 C817      		cp r28,r24
+ 1077 050a D907      		cpc r29,r25
+ 1078 050c 00F0      		brlo .L67
+ 1079               	.LVL47:
+ 1080               	.L66:
+ 1081               	.LBE143:
+ 1082               	.LBE142:
+ 1083               	.LM140:
+ 1084 050e 80E0      		ldi r24,lo8(.LC25)
+ 1085 0510 90E0      		ldi r25,hi8(.LC25)
+ 1086 0512 0E94 0000 		call test_println
+ 1087               	.LVL48:
+ 1088               	.L68:
+ 1089               	.LM141:
+ 1090 0516 82E0      		ldi r24,lo8(2)
+ 1091 0518 90E0      		ldi r25,hi8(2)
+ 1092 051a C80E      		add r12,r24
+ 1093 051c D91E      		adc r13,r25
+ 1094 051e 0894      		sec
+ 1095 0520 E11C      		adc r14,__zero_reg__
+ 1096 0522 F11C      		adc r15,__zero_reg__
+ 1097 0524 011D      		adc r16,__zero_reg__
+ 1098 0526 111D      		adc r17,__zero_reg__
+ 1099               	.LM142:
+ 1100 0528 D601      		movw r26,r12
+ 1101 052a 8D91      		ld r24,X+
+ 1102 052c 9C91      		ld r25,X
+ 1103 052e 892B      		or r24,r25
+ 1104 0530 01F0      		breq .+2
+ 1105 0532 00C0      		rjmp .L69
+ 1106               	.L76:
+ 1107               	.LM143:
+ 1108 0534 F201      		movw r30,r4
+ 1109 0536 8191      		ld r24,Z+
+ 1110 0538 9191      		ld r25,Z+
+ 1111 053a 2F01      		movw r4,r30
+ 1112 053c 0894      		sec
+ 1113 053e 811C      		adc r8,__zero_reg__
+ 1114 0540 911C      		adc r9,__zero_reg__
+ 1115 0542 A11C      		adc r10,__zero_reg__
+ 1116 0544 B11C      		adc r11,__zero_reg__
+ 1117 0546 0097      		sbiw r24,0
+ 1118 0548 01F0      		breq .+2
+ 1119 054a 00C0      		rjmp .L62
+ 1120               	.LM144:
+ 1121 054c 0E94 0000 		call print_line
+ 1122               	.LM145:
+ 1123 0550 80E0      		ldi r24,lo8(.LC1)
+ 1124 0552 90E0      		ldi r25,hi8(.LC1)
+ 1125 0554 0E94 0000 		call test_println
+ 1126               	.LM146:
+ 1127 0558 80E0      		ldi r24,lo8(.LC27)
+ 1128 055a 90E0      		ldi r25,hi8(.LC27)
+ 1129 055c 0E94 0000 		call test_print
+ 1130               	.LM147:
+ 1131 0560 8091 0000 		lds r24,global_fail
+ 1132 0564 8823      		tst r24
+ 1133 0566 01F4      		brne .L77
+ 1134               	.LM148:
+ 1135 0568 80E0      		ldi r24,lo8(.LC29)
+ 1136 056a 90E0      		ldi r25,hi8(.LC29)
+ 1137 056c 0E94 0000 		call test_println
+ 1138               	.L73:
+ 1139               	.LM149:
+ 1140 0570 8091 0000 		lds r24,global_fail
+ 1141 0574 90E0      		ldi r25,lo8(0)
+ 1142               	/* epilogue start */
+ 1143 0576 DF91      		pop r29
+ 1144 0578 CF91      		pop r28
+ 1145 057a 1F91      		pop r17
+ 1146 057c 0F91      		pop r16
+ 1147 057e FF90      		pop r15
+ 1148 0580 EF90      		pop r14
+ 1149 0582 DF90      		pop r13
+ 1150 0584 CF90      		pop r12
+ 1151 0586 BF90      		pop r11
+ 1152 0588 AF90      		pop r10
+ 1153 058a 9F90      		pop r9
+ 1154 058c 8F90      		pop r8
+ 1155 058e 7F90      		pop r7
+ 1156 0590 6F90      		pop r6
+ 1157               	.LVL49:
+ 1158 0592 5F90      		pop r5
+ 1159 0594 4F90      		pop r4
+ 1160 0596 0895      		ret
+ 1161               	.LVL50:
+ 1162               	.L65:
+ 1163               	.LM150:
+ 1164 0598 80E0      		ldi r24,lo8(.LC26)
+ 1165 059a 90E0      		ldi r25,hi8(.LC26)
+ 1166 059c 0E94 0000 		call test_println
+ 1167 05a0 00C0      		rjmp .L68
+ 1168               	.LVL51:
+ 1169               	.L77:
+ 1170               	.LM151:
+ 1171 05a2 80E0      		ldi r24,lo8(.LC28)
+ 1172 05a4 90E0      		ldi r25,hi8(.LC28)
+ 1173 05a6 0E94 0000 		call test_println
+ 1174 05aa 00C0      		rjmp .L73
+ 1175               	.LFE141:
+ 1177               	.global	test_terminate_threads
+ 1179               	test_terminate_threads:
+ 1180               	.LFB134:
+ 1181               	.LM152:
+ 1182 05ac CF93      		push r28
+ 1183 05ae DF93      		push r29
+ 1184               	/* prologue: function */
+ 1185               	/* frame size = 0 */
+ 1186               	.LM153:
+ 1187 05b0 C0E0      		ldi r28,lo8(threads)
+ 1188 05b2 D0E0      		ldi r29,hi8(threads)
+ 1189               	.L80:
+ 1190               	.LM154:
+ 1191 05b4 8881      		ld r24,Y
+ 1192 05b6 9981      		ldd r25,Y+1
+ 1193 05b8 0097      		sbiw r24,0
+ 1194 05ba 01F0      		breq .L79
+ 1195               	.LM155:
+ 1196 05bc 0E94 0000 		call chThdTerminate
+ 1197               	.L79:
+ 1198 05c0 2296      		adiw r28,2
+ 1199               	.LM156:
+ 1200 05c2 80E0      		ldi r24,hi8(threads+10)
+ 1201 05c4 C030      		cpi r28,lo8(threads+10)
+ 1202 05c6 D807      		cpc r29,r24
+ 1203 05c8 01F4      		brne .L80
+ 1204               	/* epilogue start */
+ 1205               	.LM157:
+ 1206 05ca DF91      		pop r29
+ 1207 05cc CF91      		pop r28
+ 1208 05ce 0895      		ret
+ 1209               	.LFE134:
+ 1211               	.global	wa
+ 1212               		.data
+ 1215               	wa:
+ 1216 0162 0000      		.word	test
+ 1217 0164 0000      		.word	test+257
+ 1218 0166 0000      		.word	test+514
+ 1219 0168 0000      		.word	test+771
+ 1220 016a 0000      		.word	test+1028
+ 1223               	patterns:
+ 1224 016c 0000      		.word	patternthd
+ 1225 016e 0000      		.word	patternsem
+ 1226 0170 0000      		.word	patternmtx
+ 1227 0172 0000      		.word	patternmsg
+ 1228 0174 0000      		.word	patternmbox
+ 1229 0176 0000      		.word	patternevt
+ 1230 0178 0000      		.word	patternheap
+ 1231 017a 0000      		.word	patternpools
+ 1232 017c 0000      		.word	patterndyn
+ 1233 017e 0000      		.word	patternqueues
+ 1234 0180 0000      		.word	patternbmk
+ 1235 0182 0000      		.word	0
+ 1236               		.lcomm local_fail,1
+ 1237               		.lcomm global_fail,1
+ 1238               		.lcomm failpoint,2
+ 1239               		.lcomm tokens_buffer,16
+ 1240               		.lcomm tokp,2
+ 1241               		.lcomm chp,2
+ 1242               		.lcomm vt,10
+ 1243               		.comm threads,10,1
+ 1244               		.comm test,1285,1
+ 1245               		.comm test_timer_done,1,1
+ 1382               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 test.c
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccpPBTqy.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccpPBTqy.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccpPBTqy.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccpPBTqy.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccpPBTqy.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccpPBTqy.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccpPBTqy.s:18     .text:00000000 test_printn
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccpPBTqy.s:1240   .bss:00000016 chp
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccpPBTqy.s:157    .text:000000e4 test_print
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccpPBTqy.s:205    .text:00000118 test_println
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccpPBTqy.s:235    .text:0000013c test_emit_token
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccpPBTqy.s:1239   .bss:00000014 tokp
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccpPBTqy.s:274    .text:00000154 _test_fail
+                             .bss:00000000 local_fail
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccpPBTqy.s:1236   .bss:00000001 global_fail
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccpPBTqy.s:1237   .bss:00000002 failpoint
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccpPBTqy.s:297    .text:0000016a _test_assert
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccpPBTqy.s:331    .text:00000188 _test_assert_sequence
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccpPBTqy.s:1238   .bss:00000004 tokens_buffer
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccpPBTqy.s:398    .text:000001d4 _test_assert_time_window
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccpPBTqy.s:482    .text:00000208 tmr
+                            *COM*:00000001 test_timer_done
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccpPBTqy.s:498    .text:00000210 print_line
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccpPBTqy.s:552    .text:00000260 test_wait_tick
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccpPBTqy.s:602    .text:00000278 test_start_timer
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccpPBTqy.s:1241   .bss:00000018 vt
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccpPBTqy.s:696    .text:000002dc test_wait_threads
+                            *COM*:0000000a threads
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccpPBTqy.s:793    .text:00000304 TestThread
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccpPBTqy.s:1223   .data:0000016c patterns
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccpPBTqy.s:1179   .text:000005ac test_terminate_threads
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccpPBTqy.s:1215   .data:00000162 wa
+                            *COM*:00000505 test
+
+UNDEFINED SYMBOLS
+__udivmodsi4
+ch
+chThdSleep
+chVTDoResetI
+__mulsi3
+chVTDoSetI
+chThdWait
+patternthd
+chThdTerminate
+patternsem
+patternmtx
+patternmsg
+patternmbox
+patternevt
+patternheap
+patternpools
+patterndyn
+patternqueues
+patternbmk
+__do_copy_data
+__do_clear_bss
