@@ -1109,37 +1109,37 @@
  1372               	.Letext0:
 DEFINED SYMBOLS
                             *ABS*:00000000 nil.c
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:2      *ABS*:0000003f __SREG__
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:3      *ABS*:0000003e __SP_H__
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:4      *ABS*:0000003d __SP_L__
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:5      *ABS*:00000034 __CCP__
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:6      *ABS*:00000000 __tmp_reg__
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:7      *ABS*:00000001 __zero_reg__
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:18     .text:00000000 chSysHalt
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:40     .text:00000004 chSysTimerHandlerI
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:18     .text:00000000 chSysHalt
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:40     .text:00000004 chSysTimerHandlerI
                             *COM*:00000076 nil
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:164    .text:000000c0 chSysConditionalLock
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:176    .text:000000c2 chSysConditionalUnlock
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:198    .text:000000c6 chSysGetStatusAndLockX
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:211    .text:000000ca chSysRestoreStatusX
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:224    .text:000000cc chSchReadyI
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:261    .text:000000f6 chThdResumeI
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:310    .text:0000012c chSemSignalI
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:391    .text:00000186 chSemResetI
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:473    .text:000001d8 chEvtSignalI
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:524    .text:00000214 chSchGoSleepTimeoutS
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:590    .text:0000026e chEvtWaitAnyTimeoutS
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:677    .text:000002cc chEvtWaitAnyTimeout
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:713    .text:000002d6 chSemWaitTimeoutS
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:771    .text:0000031a chSemWaitTimeout
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:807    .text:00000324 chThdSleepUntil
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:855    .text:0000034c chThdSleep
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:894    .text:0000035c chThdSuspendTimeoutS
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:924    .text:00000380 chSchRescheduleS
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:950    .text:000003a4 chEvtSignal
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:988    .text:000003b2 chSemReset
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:1026   .text:000003c0 chSemSignal
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccP4qG9w.s:1064   .text:000003ce chSysInit
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:164    .text:000000c0 chSysConditionalLock
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:176    .text:000000c2 chSysConditionalUnlock
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:198    .text:000000c6 chSysGetStatusAndLockX
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:211    .text:000000ca chSysRestoreStatusX
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:224    .text:000000cc chSchReadyI
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:261    .text:000000f6 chThdResumeI
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:310    .text:0000012c chSemSignalI
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:391    .text:00000186 chSemResetI
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:473    .text:000001d8 chEvtSignalI
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:524    .text:00000214 chSchGoSleepTimeoutS
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:590    .text:0000026e chEvtWaitAnyTimeoutS
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:677    .text:000002cc chEvtWaitAnyTimeout
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:713    .text:000002d6 chSemWaitTimeoutS
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:771    .text:0000031a chSemWaitTimeout
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:807    .text:00000324 chThdSleepUntil
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:855    .text:0000034c chThdSleep
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:894    .text:0000035c chThdSuspendTimeoutS
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:924    .text:00000380 chSchRescheduleS
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:950    .text:000003a4 chEvtSignal
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:988    .text:000003b2 chSemReset
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:1026   .text:000003c0 chSemSignal
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaTTWw4.s:1064   .text:000003ce chSysInit
 
 UNDEFINED SYMBOLS
 _port_switch

@@ -22,26 +22,15 @@
   30               	.LM4:
   31 000a 0895      		ret
   32               	.LFE48:
-  34               	.global	pal_default_config
-  35               		.data
-  38               	pal_default_config:
-  39 0000 FF        		.byte	-1
-  40 0001 74        		.byte	116
-  41 0002 00        		.byte	0
-  42 0003 FF        		.byte	-1
-  43 0004 FF        		.byte	-1
-  44 0005 02        		.byte	2
-  69               	.Letext0:
+  58               	.Letext0:
 DEFINED SYMBOLS
                             *ABS*:00000000 board.c
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc2xjuh1.s:2      *ABS*:0000003f __SREG__
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc2xjuh1.s:3      *ABS*:0000003e __SP_H__
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc2xjuh1.s:4      *ABS*:0000003d __SP_L__
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc2xjuh1.s:5      *ABS*:00000034 __CCP__
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc2xjuh1.s:6      *ABS*:00000000 __tmp_reg__
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc2xjuh1.s:7      *ABS*:00000001 __zero_reg__
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc2xjuh1.s:18     .text:00000000 boardInit
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc2xjuh1.s:38     .data:00000000 pal_default_config
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx9whlz.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx9whlz.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx9whlz.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx9whlz.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx9whlz.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx9whlz.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx9whlz.s:18     .text:00000000 boardInit
 
-UNDEFINED SYMBOLS
-__do_copy_data
+NO UNDEFINED SYMBOLS

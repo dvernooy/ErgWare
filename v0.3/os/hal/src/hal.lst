@@ -15,34 +15,25 @@
   23               	.LM2:
   24 0000 0E94 0000 		call hal_lld_init
   25               	.LM3:
-  26 0004 80E0      		ldi r24,lo8(pal_default_config)
-  27 0006 90E0      		ldi r25,hi8(pal_default_config)
-  28 0008 0E94 0000 		call _pal_lld_init
-  29               	.LM4:
-  30 000c 0E94 0000 		call sdInit
-  31               	.LM5:
-  32 0010 0E94 0000 		call boardInit
-  33               	.LM6:
-  34 0014 0E94 0000 		call stInit
-  35               	/* epilogue start */
-  36               	.LM7:
-  37 0018 0895      		ret
-  38               	.LFE48:
-  64               	.Letext0:
+  26 0004 0E94 0000 		call boardInit
+  27               	.LM4:
+  28 0008 0E94 0000 		call stInit
+  29               	/* epilogue start */
+  30               	.LM5:
+  31 000c 0895      		ret
+  32               	.LFE48:
+  58               	.Letext0:
 DEFINED SYMBOLS
                             *ABS*:00000000 hal.c
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccmNeXrq.s:2      *ABS*:0000003f __SREG__
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccmNeXrq.s:3      *ABS*:0000003e __SP_H__
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccmNeXrq.s:4      *ABS*:0000003d __SP_L__
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccmNeXrq.s:5      *ABS*:00000034 __CCP__
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccmNeXrq.s:6      *ABS*:00000000 __tmp_reg__
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccmNeXrq.s:7      *ABS*:00000001 __zero_reg__
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccmNeXrq.s:18     .text:00000000 halInit
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccRaMa3Y.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccRaMa3Y.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccRaMa3Y.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccRaMa3Y.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccRaMa3Y.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccRaMa3Y.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccRaMa3Y.s:18     .text:00000000 halInit
 
 UNDEFINED SYMBOLS
 hal_lld_init
-pal_default_config
-_pal_lld_init
-sdInit
 boardInit
 stInit

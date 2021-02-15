@@ -98,17 +98,17 @@
  171               	.Letext0:
 DEFINED SYMBOLS
                             *ABS*:00000000 st.c
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccrDhoz.s:2      *ABS*:0000003f __SREG__
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccrDhoz.s:3      *ABS*:0000003e __SP_H__
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccrDhoz.s:4      *ABS*:0000003d __SP_L__
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccrDhoz.s:5      *ABS*:00000034 __CCP__
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccrDhoz.s:6      *ABS*:00000000 __tmp_reg__
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccrDhoz.s:7      *ABS*:00000001 __zero_reg__
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccrDhoz.s:18     .text:00000000 stStartAlarm
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccrDhoz.s:43     .text:00000012 stStopAlarm
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccrDhoz.s:61     .text:00000018 stSetAlarm
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccrDhoz.s:81     .text:00000022 stGetAlarm
-C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cccrDhoz.s:103    .text:00000032 stInit
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccPYV7ND.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccPYV7ND.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccPYV7ND.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccPYV7ND.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccPYV7ND.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccPYV7ND.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccPYV7ND.s:18     .text:00000000 stStartAlarm
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccPYV7ND.s:43     .text:00000012 stStopAlarm
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccPYV7ND.s:61     .text:00000018 stSetAlarm
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccPYV7ND.s:81     .text:00000022 stGetAlarm
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccPYV7ND.s:103    .text:00000032 stInit
 
 UNDEFINED SYMBOLS
 st_lld_init

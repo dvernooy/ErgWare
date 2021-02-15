@@ -339,6 +339,14 @@ THD_FUNCTION(Thread9, arg) {
   (void)arg;
   
   /************************************************
+	Set switch inputs
+	*************************************************/
+	DDRD &= ~((1 << PD7) |(1 << PD6) |(1 << PD5)); //set PD7/6/5 as input
+	PORTD |= ((1 << PD7) |(1 << PD6) |(1 << PD5)); //turn on pull-ups
+
+
+
+  /************************************************
 	Timer/counter 2, 8 bit ... 10 ms timer for button push
 	*************************************************/
 	TCNT2=0;  /* set counter to zero*/
@@ -1209,6 +1217,14 @@ Thread 7 -  chopper data calculator
 THD_FUNCTION(Thread7, arg) {
 
   (void)arg; 
+	
+	/************************************************
+	Set switch inputs
+	*************************************************/
+	DDRD &= ~((1 << PD3) |(1 << PD2)); //set PD3/2 as input
+	PORTD |= ((1 << PD3) |(1 << PD2)); //turn on pull-ups
+
+	
 	TCCR1A = 0b00000000;
 	TCCR1B = 0b00000011;//clk/64 which is 8us per tick
 	
@@ -1422,11 +1438,7 @@ THD_FUNCTION(Thread8, arg) {
 // note, the order printed out is in order listed in the Thread table, not by the
 // thread name or number
 
-  (void)arg;
-  // Activates the serial driver using the driver default configuration.
-  
-  sdStart(&SD1, NULL);
-  
+  (void)arg; 
   //duplicative, but I needed it in order to us PSTR for strings
   usart_init(MYUBRR);
     

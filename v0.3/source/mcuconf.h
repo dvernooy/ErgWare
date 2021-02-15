@@ -64,7 +64,7 @@
 /*
  * SERIAL driver system settings.
  */
-#define AVR_SERIAL_USE_USART0              TRUE
+#define AVR_SERIAL_USE_USART0              FALSE
 #define AVR_SERIAL_USE_USART1              FALSE
 
 /*
