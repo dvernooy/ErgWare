@@ -58,22 +58,11 @@ TARGET = nil
 OBJDIR = .
 
 # Imported source files
-CHIBIOS = ../
-include $(CHIBIOS)/os/hal/hal.mk
-include $(CHIBIOS)/os/hal/boards/sTK500/board.mk
-include $(CHIBIOS)/os/hal/ports/AVR/platform.mk
-include $(CHIBIOS)/os/hal/osal/nil/osal.mk
-include $(CHIBIOS)/os/nil/nil.mk
-include $(CHIBIOS)/os/nil/ports/AVR/compilers/GCC/mk/port.mk
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC = $(PORTSRC) \
-      $(KERNSRC) \
-      $(TESTSRC) \
-      $(HALSRC) \
-      $(OSALSRC) \
-      $(PLATFORMSRC) \
-      $(BOARDSRC) \
+SRC = ./os/nil.c \
+      ./os/nilcore.c \
+      ./os/st_lld.c \
 	  time.c\
       main.c\
 	  lcd.c\
@@ -109,9 +98,7 @@ DEBUG = dwarf-2
 #     Each directory must be seperated by a space.
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
-EXTRAINCDIRS = $(PORTINC) $(KERNINC) $(TESTINC) \
-               $(HALINC) $(OSALINC) $(PLATFORMINC) \
-               $(BOARDINC) $(CHIBIOS)/os/various
+EXTRAINCDIRS = ./os/
 
 # Compiler flag to set the C Standard level.
 #     c89   = "ANSI" C
