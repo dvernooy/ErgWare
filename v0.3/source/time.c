@@ -37,7 +37,7 @@ void TimeInit(void)
 /*
  * Support thread.
  */
-THD_WORKING_AREA(waTimer, 15);
+THD_WORKING_AREA(waTimer, 20);
 THD_FUNCTION(timer, arg) {
   (void) arg;
   /* Initializing global resources.*/

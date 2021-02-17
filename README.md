@@ -14,9 +14,10 @@ ErgWare is an open source hardware/software platform for DIY ergometers. All of 
 - updated fonts
 
 #### v0.3 ####
+- updated button-press detection algorithm to be more robust
 - drastically simplified RTOS code
 - updated thread table
-- added source to update font table in eeprom
+- included source code to add the font table in eeprom
 
 #### TO USE THIS: ####
 1. Build your erg ... openergo.webs.com

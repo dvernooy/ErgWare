@@ -32,7 +32,7 @@ typedef struct {
 	uint16_t milliseconds_time;   //milliseconds counter
 } TIME; 
 
-extern THD_WORKING_AREA(waTimer, 15);
+extern THD_WORKING_AREA(waTimer, 20);
 extern double minute_counter;
 THD_FUNCTION(timer, arg);
 
