@@ -80,7 +80,7 @@
  /* free running tickless uses 16 bit timer/counter 1 */
  
 //#define NIL_CFG_ST_FREQUENCY                 31250 /* working well for free-running tickless mode */
-#define NIL_CFG_ST_FREQUENCY                1000 /* working well for Periodic Tick mode */
+#define NIL_CFG_ST_FREQUENCY                4000 /* working well for Periodic Tick mode */
 
 
 /**

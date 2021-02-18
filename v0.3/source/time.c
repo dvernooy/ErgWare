@@ -51,15 +51,14 @@ THD_FUNCTION(timer, arg) {
   chSysUnlock(); 
 
   MilliSeconds+=ST2MS(System_delta);
-	if (MilliSeconds>=1000)
+	if (MilliSeconds>=999)
 	{
 		Seconds++;
 		cnt_timer++;
 		MilliSeconds=0;
+		minute_counter = (double) Seconds/60.0;
 	}
-	minute_counter = (double) Seconds/60.0;
-	chThdSleepMilliseconds(50);
-    
+	chThdSleepMilliseconds(20);
   }
 }
 

@@ -119,7 +119,7 @@ CH_IRQ_HANDLER(AVR_TIMER_VECT) {
   CH_IRQ_EPILOGUE();
 }
 
-#endif /* OSAL_ST_MODE == OSAL_ST_MODE_PERIODIC */
+#endif /* NIL_ST_MODE == NIL_ST_MODE_PERIODIC */
 
 #if (NIL_ST_MODE == NIL_ST_MODE_FREERUNNING) || defined(__DOXYGEN__)
 
@@ -139,7 +139,7 @@ CH_IRQ_HANDLER(TIMER1_COMPA_vect) {
   CH_IRQ_EPILOGUE();
 }
 
-#endif /* OSAL_ST_MODE == OSAL_ST_MODE_FREERUNNING */
+#endif /* NIL_ST_MODE == NIL_ST_MODE_FREERUNNING */
 
 /*===========================================================================*/
 /* Driver exported functions.                                                */

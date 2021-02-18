@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #define DEBOUNCE_TIME 275        /* time to wait while "de-bouncing" button */
 #define DELTA 0.0001
-#define SIXTY 60.0
+#define DOUBLE_SIXTY 60.0
 #define ZERO 0.0
 
 /********************************************************************************
@@ -176,9 +176,9 @@ static void parse_time(double time_in_min, uint8_t *hours, uint8_t *mins, uint8_
 	double temp_min;
 	double temp_secs;
 	*hours = (uint8_t) (time_in_min/60);
-	temp_min = time_in_min - (double) SIXTY * (*hours);
+	temp_min = time_in_min - (double) DOUBLE_SIXTY * (*hours);
 		*mins = (uint8_t) temp_min;
-	temp_secs = SIXTY*temp_min -  SIXTY *(double) (*mins);
+	temp_secs = DOUBLE_SIXTY*temp_min -  DOUBLE_SIXTY *(double) (*mins);
 		*secs = (uint8_t) temp_secs;
 }
 
@@ -728,14 +728,14 @@ THD_FUNCTION(Thread3, arg) {
 				fprintf_P(&lcd_out,PSTR("SPM --  "));
 			}
 			else {
-				fprintf_P(&lcd_out,PSTR("SPM %2.0f  "), SIXTY/stroke_vector_avg);
+				fprintf_P(&lcd_out,PSTR("SPM %2.0f  "), DOUBLE_SIXTY/stroke_vector_avg);
 			}	
 			lcd_goto_xy(9,2);
 			if ((stroke < 2) || ((elapsed_hours ==0) && (elapsed_mins ==0) && (elapsed_secs < 30))) {
 				fprintf_P(&lcd_out,PSTR("avg --"));
 			}
 			else {
-				average_SPM = (double) stroke/((double)elapsed_hours*SIXTY+(double)elapsed_mins+(double)elapsed_secs/SIXTY);
+				average_SPM = (double) stroke/((double)elapsed_hours*DOUBLE_SIXTY+(double)elapsed_mins+(double)elapsed_secs/DOUBLE_SIXTY);
 				fprintf_P(&lcd_out,PSTR("avg %2.0f"), average_SPM);
 			}	
 	
@@ -928,7 +928,7 @@ THD_FUNCTION(Thread4, arg) {
 								else { //update stuff
 									//stroke rate
 									lcd_goto_xy(11,1);
-									fprintf_P(&lcd_out,PSTR("%3.0f"), SIXTY/stroke_vector_avg);
+									fprintf_P(&lcd_out,PSTR("%3.0f"), DOUBLE_SIXTY/stroke_vector_avg);
 									//internal split
 									lcd_goto_xy(3,3);
 									bigfont = 1;
@@ -942,7 +942,7 @@ THD_FUNCTION(Thread4, arg) {
 									if (ias_count %50 ==0) {
 										lcd_goto_xy(10,6);
 										internal_average_split = internal_average_split/50;
-										parse_time((internal_average_split/SIXTY), &internal_split_hours, &internal_split_mins, &internal_split_secs);
+										parse_time((internal_average_split/DOUBLE_SIXTY), &internal_split_hours, &internal_split_mins, &internal_split_secs);
 										fprintf_P(&lcd_out,PSTR("%2d:%02d"), internal_split_mins, internal_split_secs);
 										internal_average_split = 0;
 										ias_count = 0;
@@ -960,7 +960,7 @@ THD_FUNCTION(Thread4, arg) {
 						fprintf_P(&lcd_out,PSTR("---"));
 					}
 					else {
-						fprintf_P(&lcd_out,PSTR("%3.0f"), SIXTY/stroke_vector_avg);
+						fprintf_P(&lcd_out,PSTR("%3.0f"), DOUBLE_SIXTY/stroke_vector_avg);
 					}	
 					bigfont = 0;
 					lcd_go_up_one();
@@ -1333,7 +1333,7 @@ THD_FUNCTION(Thread7, arg) {
 		speed_vector[0] = stroke_distance/(stroke_elapsed +DELTA);
 		speed_vector_avg = weighted_avg(speed_vector);
 		split_time = 500.0/(speed_vector_avg+DELTA);
-		parse_time((split_time/SIXTY), &split_hours, &split_mins, &split_secs);
+		parse_time((split_time/DOUBLE_SIXTY), &split_hours, &split_mins, &split_secs);
 
 //		reshuffle(power_ratio_vector);
 		power_ratio_vector[4]= power_ratio_vector[3];
@@ -1452,13 +1452,12 @@ THD_TABLE_BEGIN
   THD_TABLE_ENTRY(waThread1, NULL, Thread1, NULL) //Button Press Handler
   THD_TABLE_ENTRY(waThread7, NULL, Thread7, NULL) //Chopper Calculations
   THD_TABLE_ENTRY(waThread2, NULL, Thread2, NULL) //Menu Navigation Handler
-  THD_TABLE_ENTRY(waThread6, NULL, Thread6, NULL) //Stack Output via LCD
-  THD_TABLE_ENTRY(waThread8, NULL, Thread8, NULL) //Stack Output via USART
   THD_TABLE_ENTRY(waThread4, NULL, Thread4, NULL) //Time, Dist & Calories
-  THD_TABLE_ENTRY(waThread5, NULL, Thread5, NULL) //LCD navigation
   THD_TABLE_ENTRY(waThread3, NULL, Thread3, NULL) //LCD ergo
-  THD_TABLE_ENTRY(waTimer, NULL, timer, NULL) //declared in time.c, run at lowest priority
-
+  THD_TABLE_ENTRY(waTimer, NULL, timer, NULL)     //declared in time.c
+  THD_TABLE_ENTRY(waThread6, NULL, Thread6, NULL) //Stack Output via LCD
+  THD_TABLE_ENTRY(waThread5, NULL, Thread5, NULL) //LCD information
+  THD_TABLE_ENTRY(waThread8, NULL, Thread8, NULL) //Stack Output via USART
 THD_TABLE_END
 
 
