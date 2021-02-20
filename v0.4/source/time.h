@@ -17,37 +17,32 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#ifndef __LCD_H_
-#define __LCD_H_
+#ifndef __TIME_H
+#define __TIME_H
 
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <avr/pgmspace.h>   
+#include "nil.h"
+#include "nilconf.h"
 
-/* Lcd screen size */
-#define LCD_X_DIMENSION 84
-#define LCD_Y_DIMENSION 48
-#define LCD_TOTAL ((LCD_X_DIMENSION * LCD_Y_DIMENSION) / 8)
+//time
+typedef struct {
+	uint32_t seconds_time;		//seconds since power on
+	uint16_t milliseconds_time;   //milliseconds counter
+} TIME; 
 
+extern THD_WORKING_AREA(waTimer, 20);
+extern double minute_counter;
+THD_FUNCTION(timer, arg);
 
-/* LCD pins */
-#define LCD_CLK_PIN 	(1<<PC4)
-#define LCD_DATA_PIN 	(1<<PC3)
-#define LCD_DC_PIN 		(1<<PC2)
-#define LCD_CE_PIN 		(1<<PC1)
-#define LCD_RST_PIN 	(1<<PC0)
-#define LCD_PORT		PORTC
-#define LCD_DDR			DDRC
+// ******* Prototypes *********
+void TimeInit(void); //initlizes time
+void GetTime(TIME *ptr); //gets time
+uint32_t Get_elapsed_ms(TIME *pStart); //elapsed ms
+uint32_t Get_elapsed_s(TIME *pStart); //elapsed s
+uint32_t getSeconds(void); //# seconds powered
+void  Reset_timer(void); //resets the timer
 
-
-void lcd_init(void);
-void lcd_contrast(uint8_t contrast);
-void lcd_clear(void);
-void lcd_goto_xy(uint8_t x, uint8_t y);
-void lcd_go_up_one(void);
-void lcd_chr(char chr);
-void print_splash(void);
-int lcd_chr_printf(char chr, FILE *stream);
-extern uint8_t invert;
-extern uint8_t bigfont;
-#endif
-
-
+#endif //__TIME_H
 

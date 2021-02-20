@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#define PROD
-//#undef PROD
+//#define PROD
+#undef PROD
 
 
 #include "nil.h"
@@ -68,7 +68,7 @@ static double K_damp = ZERO; //related by J_moment*omega_dot = K_damp * omega^2 
 static double cal_factor = ZERO; //distance per rev ... calculated later
 static double magic_factor = 2.8; //a heuristic constant people use to relate revs to distance-rowed
 static double pi = 3.1415926;
-static double seconds_per_tick = 0.000008; //8us per tick with 64 divider in timer1 & 8MHz clock ... thread7
+static double seconds_per_tick = 0.000016; //16us per tick with 256 divider in timer1 & 8MHz clock ... thread7
 
 /********************************************************************************
 Global Variables - NIL
@@ -76,12 +76,13 @@ Global Variables - NIL
 static FILE lcd_out = FDEV_SETUP_STREAM(lcd_chr_printf, NULL, _FDEV_SETUP_WRITE);
 static FILE usart_out = FDEV_SETUP_STREAM(usart_putchar_printf, NULL, _FDEV_SETUP_WRITE);
 
-volatile uint8_t lcd_context = 1; //which thread has LCD_context
+volatile uint8_t lcd_context = 0; //which thread has LCD_context
 volatile uint8_t lcd_context_count[6] = {1,1,1,1,1,1}; //start screen within thread
 volatile uint8_t lcd_context_count_MAX[6] = {1,1,1,3,3,2}; //max screens within thread
 static thread_reference_t trp_button_detect = NULL; //thread reference object ... thread_reference_t = thread_t*
 static thread_reference_t trp_chopper = NULL; //thread reference object ... thread_reference_t = thread_t*
 static thread_reference_t trp_menu = NULL; //thread reference object ... thread_reference_t = thread_t*
+static thread_reference_t trp_start = NULL; //thread reference object ... thread_reference_t = thread_t*
 static thread_t *tp[4] = {NULL, NULL, NULL, NULL}; //array of pointers to threads
 double minute_counter;
 
@@ -383,8 +384,8 @@ THD_FUNCTION(Thread1, arg) {
 	TCNT2=0;  /* set counter to zero*/
 	// Mode 4 table 18-8 page 157. CTC mode and top in OCR1A
 	TCCR2A=(1<<WGM21);//0b00000010, Normal port operation, CTC mode
-	TCCR2B= (1<<CS22)|(1<<CS21)|(1<<CS20); // c/ clock/1024 = 0.128 ms Tick ... * 78 counts = 10ms	
-	OCR2A=0x4F;//80 counts, then reset (8 bit means 255 max), since 0 is included, count to 79
+	TCCR2B= (1<<CS22)|(1<<CS21)|(1<<CS20); // c/ clock/1024 = 0.064 ms Tick ... * 156 counts = 10ms	
+	OCR2A=0x9D;//157 counts, then reset (8 bit means 255 max), since 0 is included, count to 157
 	TIMSK2 = (1 << OCIE2A);//0b00000010; Output compare match A interrupt enable mask bit	  
 
 
@@ -404,6 +405,19 @@ THD_FUNCTION(Thread1, arg) {
     msg = chThdSuspendTimeoutS(&trp_button_detect, TIME_INFINITE);
     chSysUnlock(); 
 	switch (lcd_context) {
+		case 0:	
+			/* we were in the splash screenb & a button was pushed & handled by interrupt*/
+			/* the button context was set in interrupt, need to signal thread 2 */
+			//next 3 should be atomic	
+			chSysLock();
+			switchtype = 0; //set artificially though any button could have been pushed
+			lcd_context = 1;
+			/*Send a resume signal to menu to continue - right now it is suspended */				
+			chThdResumeI(&trp_start, (msg_t)switchtype);  		
+			
+			chSysUnlock();
+		break;
+		
 		case 1:	
 			/* we were in the main menu & a button was pushed & handled by interrupt*/
 			/* the button context was set in interrupt, need to signal thread 2 */
@@ -573,9 +587,24 @@ THD_FUNCTION(Thread2, arg) {
 	#endif //PROD
 	lcd_clear();
 	
+	lcd_goto_xy(1,1);
+	fprintf_P(&lcd_out,PSTR(" Sarah's Ergo "));
+	
+	lcd_goto_xy(3,5);
+	print_splash();
+	
+
 	/*give back lcd semaphore */
 	chSemSignal(&lcdUSE);
 	chThdSleepMilliseconds(100); 
+	
+	chSysLock();
+	/* Waiting for button push & IRQ to happen */
+	/* Current thread put to sleep & sets up the reference variable trp for the trigger to reference */
+	/* Will resume with a chThdResumeI referencing trp from interrupt*/
+	msg = chThdSuspendTimeoutS(&trp_start, TIME_INFINITE);
+	chSysUnlock(); 
+
  
     while(true) { 
 	
@@ -1122,7 +1151,7 @@ THD_FUNCTION(Thread5, arg) {
 						fprintf_P(&lcd_out,PSTR("%1.0f W   "), K_damp*pow(omega_vector_avg_curr,3.0));
 					}
 					lcd_goto_xy(1,5);		
-					fprintf_P(&lcd_out,PSTR("Firmware v0.3"));
+					fprintf_P(&lcd_out,PSTR("Firmware v0.4"));
 					break;
 			}//switch
 		chThdSleepMilliseconds(250);			
@@ -1188,7 +1217,7 @@ THD_FUNCTION(Thread7, arg) {
 
 	
 	TCCR1A = 0b00000000;
-	TCCR1B = 0b00000011;//clk/64 which is 8us per tick
+	TCCR1B = 0b00000100;//clk/256 which is 16us per tick
 	
 	EICRA = 0b00000011; //rising edge INT0 (PD2)
 	EIMSK = 0b00000001;
