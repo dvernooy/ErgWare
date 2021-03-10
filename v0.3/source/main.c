@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-//#define PROD
-#undef PROD
+#define PROD
+//#undef PROD
 
 
 #include "nil.h"
@@ -68,7 +68,7 @@ static double K_damp = ZERO; //related by J_moment*omega_dot = K_damp * omega^2 
 static double cal_factor = ZERO; //distance per rev ... calculated later
 static double magic_factor = 2.8; //a heuristic constant people use to relate revs to distance-rowed
 static double pi = 3.1415926;
-static double seconds_per_tick = 0.000016; //16us per tick with 256 divider in timer1 & 8MHz clock ... thread7
+static double seconds_per_tick = 0.000008; //8us per tick with 64 divider in timer1 & 8MHz clock ... thread7
 
 /********************************************************************************
 Global Variables - NIL
@@ -384,8 +384,8 @@ THD_FUNCTION(Thread1, arg) {
 	TCNT2=0;  /* set counter to zero*/
 	// Mode 4 table 18-8 page 157. CTC mode and top in OCR1A
 	TCCR2A=(1<<WGM21);//0b00000010, Normal port operation, CTC mode
-	TCCR2B= (1<<CS22)|(1<<CS21)|(1<<CS20); // c/ clock/1024 = 0.064 ms Tick ... * 156 counts = 10ms	
-	OCR2A=0x9D;//157 counts, then reset (8 bit means 255 max), since 0 is included, count to 157
+	TCCR2B= (1<<CS22)|(1<<CS21)|(1<<CS20); // c/ clock/1024 = 0.128 ms Tick ... * 78 counts = 10ms	
+	OCR2A=0x4F;//80 counts, then reset (8 bit means 255 max), since 0 is included, count to 79
 	TIMSK2 = (1 << OCIE2A);//0b00000010; Output compare match A interrupt enable mask bit	  
 
 
@@ -583,7 +583,7 @@ THD_FUNCTION(Thread2, arg) {
 	#ifdef PROD 
 	lcd_contrast(0x28);//0x28 for production application
 	#else //PROD
-	lcd_contrast(0x40);//0x3E for STK500 board
+	lcd_contrast(0x3E);//0x3E for STK500 board
 	#endif //PROD
 	lcd_clear();
 	
@@ -1151,7 +1151,7 @@ THD_FUNCTION(Thread5, arg) {
 						fprintf_P(&lcd_out,PSTR("%1.0f W   "), K_damp*pow(omega_vector_avg_curr,3.0));
 					}
 					lcd_goto_xy(1,5);		
-					fprintf_P(&lcd_out,PSTR("Firmware v0.4"));
+					fprintf_P(&lcd_out,PSTR("Firmware v0.3"));
 					break;
 			}//switch
 		chThdSleepMilliseconds(250);			
@@ -1217,7 +1217,7 @@ THD_FUNCTION(Thread7, arg) {
 
 	
 	TCCR1A = 0b00000000;
-	TCCR1B = 0b00000100;//clk/256 which is 16us per tick
+	TCCR1B = 0b00000011;//clk/64 which is 8us per tick
 	
 	EICRA = 0b00000011; //rising edge INT0 (PD2)
 	EIMSK = 0b00000001;
