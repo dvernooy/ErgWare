@@ -22,12 +22,25 @@ ErgWare is an open source hardware/software platform for DIY ergometers. All of 
 - then flash program binary (nil.hex)
 
 #### v0.4 ####
-- code to work w/ Arduino UNO rev3
+- code to work w/ Arduino UNO rev3 *without a bootloader installed*
+- "*.hex" files ... cannot be programmed/flashed from usual Arduino environment
 - A pdf with detailed setup & build instructions are in the v0.4 folder
 - same as v0.3 except assumes 16MHz external clock (& Atmega328)
 - use 3.3V from arduino on LCD_Vcc
-- first flash the binary (main.hex) to add the font table in eeprom
-- then flash program binary (nil.hex)
+- first flash the eeprom save binary (main.hex) to add the font table in eeprom
+- then flash the main program binary (nil.hex)
+
+#### v0.5 ####
+- code to work with a "regular" Arduino UNO rev3
+- "*.ino" files ... can be flashed from usual "Arduino" environment
+- A pdf with detailed setup & build instructions are in the v0.5 folder
+- NOTE: you still MUST access the board over ISP to set the EESAVE fuse (see instructions),
+  so you will need an external programmer (like stk500, usbasp, ponyprog, another UNO board, etc...) 
+- same as v0.3 except assumes 16MHz external clock (& Atmega328)
+- use 3.3V from arduino on LCD_Vcc
+- first set the EESAVE fuse
+- next program the EEPROM (eeprom_burn.ino) to add the font table in eeprom
+- then program the main program program binary (main.ino)
 
 #### TO USE THIS: ####
 1. Build your erg ... openergo.webs.com
