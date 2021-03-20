@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 //#define SERIAL_USED
-//#define ARDUINO
+#define ARDUINO
 
 #define PROD
 //#undef PROD
@@ -47,11 +47,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define DELTA 0.0001
 #define DOUBLE_SIXTY 60.0
 #define ZERO 0.0
-#define FORCE_COUNT_MAX 42
+#define FORCE_COUNT_MAX 46
 #define FORCE_DIVIDER 30
-#define CHOPPER_DIVISIONS 8
-#define CHOPPER_DIVIDER 4
-#define CHOPPER_EFFECTIVE_DIVISIONS 2 //=CHOPPER_DIVISIONS/CHOPPER_DIVIDER
 
 /********************************************************************************
 Defines - erg
@@ -80,7 +77,7 @@ static double cal_factor = ZERO; //distance per rev ... calculated later
 static double magic_factor = 2.8; //a heuristic constant people use to relate revs to distance-rowed
 static double pi = 3.1415926;
 #ifdef ARDUINO
-static double seconds_per_tick = 0.000016; //8us per tick with 64 divider in timer1 & 8MHz clock ... thread7
+static double seconds_per_tick = 0.000004; //16us per tick with 256 divider in timer1 & 16MHz clock ... thread7
 #else
 static double seconds_per_tick = 0.000008; //8us per tick with 64 divider in timer1 & 8MHz clock ... thread7
 #endif
@@ -150,18 +147,12 @@ static uint8_t split_mins = 0;
 static uint8_t split_secs = 0;
 static double split_time = 0.0;
 
-
+static uint8_t chop_ticks = 0;
 
 static double average_SPM = ZERO;
 static double volatile distance_rowed = ZERO;
 
-static uint8_t chop_ticks = 0;
-static uint16_t volatile chop_counter[CHOPPER_EFFECTIVE_DIVISIONS];
-static uint8_t sum_position = 0;
-static uint8_t volatile tick_counter = 0;
-static uint16_t sum_ticks[CHOPPER_EFFECTIVE_DIVISIONS];
-	
-	
+static uint16_t volatile chop_counter[2];	
 static double stroke_vector[MAX_N];
 static double stroke_vector_avg;
 static double power_vector[MAX_N];
@@ -325,17 +316,8 @@ CH_IRQ_HANDLER(INT0_vect)
 CH_IRQ_PROLOGUE();
 chSysLockFromISR();
 
-   //make a circular buffer	
-  chop_ticks = (chop_ticks+1) % CHOPPER_DIVISIONS;
-  if ((chop_ticks % (CHOPPER_DIVIDER)) == 0) {
-	tick_counter = (tick_counter + 1) % CHOPPER_EFFECTIVE_DIVISIONS;
-	chop_counter[tick_counter] = TCNT1;
-	TCNT1 = 0;
-	distance_rowed += cal_factor;
-	chThdResumeI(&trp_chopper, (msg_t)0x55); 
- }
- 
- /*
+ chop_ticks++;
+
   if ((chop_ticks % 8 ) == 0) {
 	chop_ticks = 0;
 	chop_counter[1] = chop_counter[0];
@@ -344,7 +326,7 @@ chSysLockFromISR();
 	distance_rowed += cal_factor;
 	chThdResumeI(&trp_chopper, (msg_t)0x55);  
   }
- */ 
+  
 chSysUnlockFromISR();
 CH_IRQ_EPILOGUE();
 
@@ -829,14 +811,14 @@ THD_FUNCTION(Thread3, arg) {
 			************************************************/				
 			lcd_goto_xy(1,2);
 			if (stroke < 5) {
-				fprintf_P(&lcd_out,PSTR("SPM -"));
+				fprintf_P(&lcd_out,PSTR("SPM --  "));
 			}
 			else {
 				fprintf_P(&lcd_out,PSTR("SPM %2.0f  "), DOUBLE_SIXTY/stroke_vector_avg);
 			}	
 			lcd_goto_xy(9,2);
 			if ((stroke < 2) || ((elapsed_hours ==0) && (elapsed_mins ==0) && (elapsed_secs < 30))) {
-				fprintf_P(&lcd_out,PSTR("avg -"));
+				fprintf_P(&lcd_out,PSTR("avg --"));
 			}
 			else {
 				average_SPM = (double) stroke/((double)elapsed_hours*DOUBLE_SIXTY+(double)elapsed_mins+(double)elapsed_secs/DOUBLE_SIXTY);
@@ -859,7 +841,7 @@ THD_FUNCTION(Thread3, arg) {
 			//lcd_goto_xy(1,4);		
 			lcd_goto_xy(4,4);		
 			if (stroke < 5) {
-				fprintf_P(&lcd_out,PSTR("- W"));
+				fprintf_P(&lcd_out,PSTR("--- W"));
 			}
 			else {
 				fprintf_P(&lcd_out,PSTR("%1.0f W   "), power_vector_avg);
@@ -871,7 +853,7 @@ THD_FUNCTION(Thread3, arg) {
 			lcd_goto_xy(10,6);
 			
 			if (stroke < 10) {
-			fprintf_P(&lcd_out,PSTR("-:-"));
+			fprintf_P(&lcd_out,PSTR("--:--"));
 			}
 			else {
 				fprintf_P(&lcd_out,PSTR("%2d:%02d"), split_mins, split_secs);
@@ -929,19 +911,19 @@ THD_FUNCTION(Thread4, arg) {
 				case 1:
 					if (internal_timer_started == 0) {
 						lcd_goto_xy(1,1);
-						fprintf_P(&lcd_out,PSTR("-:-"));
+						fprintf_P(&lcd_out,PSTR("--:--"));
 						lcd_goto_xy(11,1);
-						fprintf_P(&lcd_out,PSTR("-"));
+						fprintf_P(&lcd_out,PSTR("---"));
 						lcd_goto_xy(3,3);
 						bigfont = 1;
-						fprintf_P(&lcd_out,PSTR("-:-"));
+						fprintf_P(&lcd_out,PSTR("--:--"));
 						lcd_goto_xy(1,5);
-						fprintf_P(&lcd_out,PSTR("-"));
+						fprintf_P(&lcd_out,PSTR("----"));
 						bigfont = 0;
 						lcd_go_up_one();
 						fprintf_P(&lcd_out,PSTR(" m "));
 						lcd_goto_xy(10,6);
-						fprintf_P(&lcd_out,PSTR("-:-"));
+						fprintf_P(&lcd_out,PSTR("--:--"));
 						internal_distance_rowed = 0;
 					}
 					/*now inside loop, wait for signal from thread1 button handler start internal timer*/
@@ -1061,7 +1043,7 @@ THD_FUNCTION(Thread4, arg) {
 					lcd_goto_xy(3,2);
 					bigfont = 1;	
 					if (stroke < 5) {
-						fprintf_P(&lcd_out,PSTR("-"));
+						fprintf_P(&lcd_out,PSTR("---"));
 					}
 					else {
 						fprintf_P(&lcd_out,PSTR("%3.0f"), DOUBLE_SIXTY/stroke_vector_avg);
@@ -1073,7 +1055,7 @@ THD_FUNCTION(Thread4, arg) {
 					lcd_goto_xy(3,4);
 					bigfont = 1;
 					if (stroke < 5) {
-						fprintf_P(&lcd_out,PSTR("-"));
+						fprintf_P(&lcd_out,PSTR("---"));
 					}
 					else {
 						fprintf_P(&lcd_out,PSTR("%3.0f"), power_vector_avg);
@@ -1155,7 +1137,7 @@ THD_FUNCTION(Thread5, arg) {
 					//uncomment this code if you want to display distance per stroke & time per stroke
 					//and comment out the average power display below
 					if (stroke < 5) {
-						fprintf_P(&lcd_out,PSTR("- m"));
+						fprintf_P(&lcd_out,PSTR("---- m"));
 					}
 					else {
 						fprintf_P(&lcd_out,PSTR("%1.2f m    "), stroke_distance);
@@ -1164,7 +1146,7 @@ THD_FUNCTION(Thread5, arg) {
 					fprintf_P(&lcd_out,PSTR("s/Str"));
 					lcd_goto_xy(1,6);
 					if (stroke < 5) {
-						fprintf_P(&lcd_out,PSTR("- s"));
+						fprintf_P(&lcd_out,PSTR("---- s"));
 					}
 					else {
 						fprintf_P(&lcd_out,PSTR("%1.2f s    "), stroke_vector_avg);
@@ -1191,7 +1173,7 @@ THD_FUNCTION(Thread5, arg) {
 					fprintf_P(&lcd_out,PSTR("K_D est"));
 					lcd_goto_xy(1,4);
 					if (stroke < 5) {
-						fprintf_P(&lcd_out,PSTR("-"));
+						fprintf_P(&lcd_out,PSTR("------"));
 					}
 					else {
 						fprintf_P(&lcd_out,PSTR("%1.4f"), -1*K_damp_estimator_vector[0]);
@@ -1208,7 +1190,7 @@ THD_FUNCTION(Thread5, arg) {
 					//it was generally reasonably close to the more accurate calculation .. just a nice verification
 					lcd_goto_xy(1,2);		
 					if (stroke < 5) {
-						fprintf_P(&lcd_out,PSTR("- W"));
+						fprintf_P(&lcd_out,PSTR("--- W"));
 					}
 					else {
 						fprintf_P(&lcd_out,PSTR("%1.0f W   "), power_vector_avg);
@@ -1220,13 +1202,13 @@ THD_FUNCTION(Thread5, arg) {
 					//it was generally reasonably close to the more accurate calculation .. just a nice verification
 					lcd_goto_xy(1,4);		
 					if (stroke < 5) {
-						fprintf_P(&lcd_out,PSTR("- W"));
+						fprintf_P(&lcd_out,PSTR("--- W"));
 					}
 					else {
 						fprintf_P(&lcd_out,PSTR("%1.0f W   "), K_damp*pow(omega_vector_avg_curr,3.0));
 					}
 					lcd_goto_xy(1,5);		
-					fprintf_P(&lcd_out,PSTR("v0.6"));
+					fprintf_P(&lcd_out,PSTR("Firmware v0.6"));
 					break;
 			}//switch
 		chThdSleepMilliseconds(250);			
@@ -1291,11 +1273,11 @@ THD_FUNCTION(Thread7, arg) {
 
 	
 	TCCR1A = 0b00000000;
-	#ifdef ARDUINO	
-	TCCR1B = 0b00000100;//clk/256 which is 16us per tick
-	#else
+//	#ifdef ARDUINO	
+//	TCCR1B = 0b00000100;//clk/256 which is 16us per tick
+//	#else
 	TCCR1B = 0b00000011;//clk/64 which is 8us per tick
-	#endif
+//	#endif
 	EICRA = 0b00000011; //rising edge INT0 (PD2)
 	EIMSK = 0b00000001;
 	TCNT1 = 0;
@@ -1305,7 +1287,7 @@ THD_FUNCTION(Thread7, arg) {
 	calculate other constants & setup
 ************************************************/
 	K_damp = J_moment*d_omega_div_omega2; //= 0.0005 Nms^2 
-	cal_factor = (2.0/CHOPPER_EFFECTIVE_DIVISIONS)*pi*pow((K_damp/magic_factor), 1.0/3.0); //distance per rev = 0.3532
+	cal_factor = 2.0*pi*pow((K_damp/magic_factor), 1.0/3.0); //distance per rev = 0.3532
 	
 	chThdSleepMilliseconds(3000); 
 
@@ -1344,8 +1326,7 @@ THD_FUNCTION(Thread7, arg) {
 	GetTime(&t_power);
 
 	stroke = 0;
-	sum_position = 0;
-
+	
   /* doing all of the calculations when the chopper triggers */
 
   while (true) {
@@ -1355,24 +1336,17 @@ THD_FUNCTION(Thread7, arg) {
 	/* Current thread put to sleep & sets up the reference variable trp_chopper for the trigger to reference */
 	/* Will resume with a chThdResumeI referencing trp from interrupt*/
     msg = chThdSuspendTimeoutS(&trp_chopper, TIME_INFINITE);
-    chSysUnlock(); 
-	
+    chSysUnlock();
+
 	/***********************************************
 	calculate omegas
 	************************************************/
-	sum_position = (sum_position + 1) % CHOPPER_EFFECTIVE_DIVISIONS;
-	sum_ticks[sum_position] = 0;
-	//sum up last CHOPPER_DIVIDER chop_ticks
-	for (j =0; j < CHOPPER_EFFECTIVE_DIVISIONS; j++) {
-		sum_ticks[sum_position] += chop_counter[(tick_counter+j) % CHOPPER_EFFECTIVE_DIVISIONS];
-	}
-	current_dt = (double) chop_counter[tick_counter]*seconds_per_tick;
-	
+	current_dt = (double) chop_counter[0]*seconds_per_tick;
 	omega_vector[1] = omega_vector[0];
-	omega_vector[0] = (2.0*pi)/((1/2.0)*seconds_per_tick*((double) sum_ticks[sum_position]+(double) sum_ticks[(sum_position + CHOPPER_EFFECTIVE_DIVISIONS-1) % CHOPPER_EFFECTIVE_DIVISIONS]));
+	omega_vector[0] = (2.0*pi)/((1/2.0)*seconds_per_tick*((double) chop_counter[0]+(double) chop_counter[1]));
 	omega_dot_vector[1] = omega_dot_vector[0];
 	omega_dot_vector[0] = (omega_vector[0] - omega_vector[1])/(current_dt+DELTA);
-    omega_dot_dot = (omega_dot_vector[0] - omega_dot_vector[1])/(current_dt+DELTA);
+    omega_dot_dot = (omega_dot_vector[0] - omega_dot_vector[1])/(current_dt+DELTA); 
 	
 	/***********************************************
 	calculate screeners to find power portion of stroke - see spreadsheet if you want to understand this
@@ -1596,22 +1570,39 @@ while (true) {
 		}
 		force_count++;
 	}
+		
 	/***********************************************
-		find max_force
+	find max_force
 	************************************************/	
-	max_force = 0;
-	for (j =0;j<FORCE_COUNT_MAX; j++) {
-		if (force_vector[j] > max_force) {
-			max_force = force_vector[j];
+
+	if ((force_plotting == 1) & (force_count == FORCE_COUNT_MAX))  {//we have new data
+		max_force = 0;
+		for (j =0;j<FORCE_COUNT_MAX; j++) {
+			if (force_vector[j] > max_force) {
+				max_force = force_vector[j];
+			}	
+		}
+		max_force16 = ((uint16_t)max_force)*FORCE_DIVIDER/10;
+		if (max_force16 <= 3.0) {
+			force_count = 0;
 		}	
 	}
-	max_force16 = (uint16_t)max_force*FORCE_DIVIDER/10;
 	
-	if ((force_plotting == 1) & (force_count == FORCE_COUNT_MAX) & (max_force16 > 5))  {//we have new data
+	
+	if ((force_plotting == 1) & (force_count == FORCE_COUNT_MAX) & (max_force16 > 3.0))  {//we have new data
+		
+		/***********************************************
+		smooth force_vector
+		************************************************/	
+		max_force = 0;
+		for (j=0;j<FORCE_COUNT_MAX-5; j++) {
+			force_vector[j] = (force_vector[j] + force_vector[j+5])/16 + (force_vector[j+1] + force_vector[j+4])/4+ 3*force_vector[j+3]/8;
+		}
+		
 		//plot it
 		lcd_clear();
 		for (j =0;j<FORCE_COUNT_MAX; j++) {
-		lcd_column(j,force_vector[j]);
+		lcd_column(j,force_vector [j]);
 		}
 		
 		/***********************************************
@@ -1619,8 +1610,9 @@ while (true) {
 		************************************************/	
 		lcd_goto_xy(7,1);
 		invert = 1;
-		fprintf_P(&lcd_out,PSTR(" %d kg  "), max_force16);
+		fprintf_P(&lcd_out,PSTR(" %d kg "), max_force16);
 		invert = 0;
+		max_force16=0;
 		/***********************************************
 			update stroke count  
 		************************************************/	
@@ -1631,7 +1623,7 @@ while (true) {
 		************************************************/	
 		lcd_goto_xy(7,3);
 		if (stroke < 5) {
-			fprintf_P(&lcd_out,PSTR("- SPM"));
+			fprintf_P(&lcd_out,PSTR("-- SPM"));
 		}
 		else {
 			fprintf_P(&lcd_out,PSTR("%2.0f SPM "), DOUBLE_SIXTY/stroke_vector_avg);
@@ -1642,7 +1634,7 @@ while (true) {
 		************************************************/				
 		lcd_goto_xy(7,4);
 		if (stroke < 5) {
-			fprintf_P(&lcd_out,PSTR("- W"));
+			fprintf_P(&lcd_out,PSTR("--- W"));
 		}
 		else {
 			fprintf_P(&lcd_out,PSTR("%1.0f W  "), power_vector_avg);
@@ -1654,17 +1646,16 @@ while (true) {
 		lcd_goto_xy(9,5);
 			
 		if (stroke < 10) {
-			fprintf_P(&lcd_out,PSTR("-:-"));
+			fprintf_P(&lcd_out,PSTR("--:--"));
 		}
 		else {
 				fprintf_P(&lcd_out,PSTR("%2d:%02d"), split_mins, split_secs);
 		}
 		
-
 		force_count = 0;
 	}
 	if ((start_force == 1) & (force_count < FORCE_COUNT_MAX)) {
-		chThdSleepMilliseconds(15);
+		chThdSleepMilliseconds(20);
 	}
 	else {
 	chThdSleepMilliseconds(50);
