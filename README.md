@@ -44,8 +44,9 @@ ErgWare is an open source hardware/software platform for DIY ergometers. All of 
 
 #### v0.6 - Experimental ####
 - experimental code displaying the "force curve" at each stroke
-- built on Arduino-Uno code v0.5 ... 16MHz crystal
-- eliminated serial logging
+- built on Arduino-Uno code v0.5
+- assumes 16MHz crystal/clock
+- see pdf for screenshot
 
 #### TO USE THIS: ####
 1. Build your erg ... openergo.webs.com
