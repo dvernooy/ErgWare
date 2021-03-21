@@ -43,8 +43,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define DELTA 0.0001
 #define DOUBLE_SIXTY 60.0
 #define ZERO 0.0
-#define FORCE_COUNT_MAX 42
-#define FORCE_DIVIDER 25
+#define FORCE_COUNT_MAX 48
+#define FORCE_DIVIDER 28
 
 /********************************************************************************
 Defines - erg
@@ -145,7 +145,7 @@ static uint8_t chop_ticks = 0;
 
 static double volatile distance_rowed = ZERO;
 
-static uint16_t volatile chop_counter[2];	
+static uint16_t volatile chop_counter;	
 
 static double stroke_vector_avg;
 static double power_vector_avg;
@@ -299,10 +299,9 @@ chSysLockFromISR();
 
  chop_ticks++;
 
-  if ((chop_ticks % 8 ) == 0) {
+  if ((chop_ticks % 4 ) == 0) {
 	chop_ticks = 0;
-	chop_counter[1] = chop_counter[0];
-	chop_counter[0] = TCNT1;
+	chop_counter = TCNT1;
 	TCNT1 = 0;
 	distance_rowed += cal_factor;
 	chThdResumeI(&trp_chopper, (msg_t)0x55);  
@@ -1024,6 +1023,7 @@ THD_FUNCTION(Thread4, arg) {
 				
 				case 2:	
 				/* this case is the distance counter */
+					lcd_clear();
 					lcd_goto_xy(3,2);
 					bigfont = 1;	
 					if (stroke < 5) {
@@ -1062,6 +1062,7 @@ THD_FUNCTION(Thread4, arg) {
 				
 				case 3:
 				/* this case is the calorie counter */
+					lcd_clear();
 					bigfont = 1;
 					lcd_goto_xy(1,2);
 					fprintf_P(&lcd_out,PSTR("%3.0f"),calorie_tot);
@@ -1192,7 +1193,7 @@ THD_FUNCTION(Thread5, arg) {
 						fprintf_P(&lcd_out,PSTR("%1.0f W   "), K_damp*pow(omega_vector_avg_curr,3.0));
 					}
 					lcd_goto_xy(1,5);		
-					fprintf_P(&lcd_out,PSTR("Firmware v0.61"));
+					fprintf_P(&lcd_out,PSTR("Firmware v0.62"));
 					break;
 			}//switch
 		chThdSleepMilliseconds(250);			
@@ -1253,6 +1254,10 @@ THD_FUNCTION(Thread7, arg) {
   double power_ratio_vector[MAX_N];
   double K_damp_estimator_vector[MAX_N];
   double speed_vector[MAX_N];
+  uint8_t counter_temp = 0;
+  uint16_t counter_vec[4];
+  uint16_t avg_time = 0;
+
 
 	
 	/************************************************
@@ -1277,12 +1282,11 @@ THD_FUNCTION(Thread7, arg) {
 	calculate other constants & setup
 ************************************************/
 	K_damp = J_moment*d_omega_div_omega2; //= 0.0005 Nms^2 
-	cal_factor = 2.0*pi*pow((K_damp/magic_factor), 1.0/3.0); //distance per rev = 0.3532
+	cal_factor = (2.0/2.0)*pi*pow((K_damp/magic_factor), 1.0/3.0); //distance per rev = 0.3532
 	
 	chThdSleepMilliseconds(3000); 
 
-	chop_counter[0]= 0;
-	chop_counter[1]= 0;
+	chop_counter= 0;
 
 	omega_vector[0]= ZERO;
 	omega_vector[1]= ZERO;
@@ -1301,6 +1305,10 @@ THD_FUNCTION(Thread7, arg) {
 		power_ratio_vector[j]= ZERO;
 		K_damp_estimator_vector[j]= ZERO;
 		stroke_vector[j]= ZERO;
+	}
+	
+	for (j = 0; j<4; j++) {
+		counter_vec[j] = 0;
 	}
 	
 	omega_dot_screen= 0;
@@ -1331,11 +1339,18 @@ THD_FUNCTION(Thread7, arg) {
 	/***********************************************
 	calculate omegas
 	************************************************/
-	current_dt = (double) chop_counter[0]*seconds_per_tick;
 	omega_vector[1] = omega_vector[0];
-	omega_vector[0] = (2.0*pi)/((1/2.0)*seconds_per_tick*((double) chop_counter[0]+(double) chop_counter[1]));
+	counter_temp = (counter_temp +1) % 4;
+	counter_vec[counter_temp] = chop_counter;
+	avg_time = (counter_vec[0]+counter_vec[1])/2 + (counter_vec[2]+counter_vec[3])/2;
+	omega_vector[0] = (2.0*pi)/(seconds_per_tick* (double) avg_time);
+	omega_vector[0] = 0.5*(omega_vector[0] + omega_vector[1]);
+	current_dt = 0.5*((double)counter_vec[counter_temp] +(double)counter_vec[(counter_temp + 3)%4])*seconds_per_tick;
+
 	omega_dot_vector[1] = omega_dot_vector[0];
 	omega_dot_vector[0] = (omega_vector[0] - omega_vector[1])/(current_dt+DELTA);
+	omega_dot_vector[0] = 0.5*(omega_dot_vector[0] + omega_dot_vector[1]);
+	
     omega_dot_dot = (omega_dot_vector[0] - omega_dot_vector[1])/(current_dt+DELTA); 
 	
 	/***********************************************
@@ -1424,7 +1439,10 @@ THD_FUNCTION(Thread7, arg) {
 		power_vector[1]= power_vector[0];
 		power_vector[0]= (J_power + K_power)/(stroke_elapsed + DELTA);
 		power_vector_avg = weighted_avg(power_vector);
-		
+		if (power_vector_avg > 999.0) {
+			power_vector_avg = 999.0;
+		}
+
 		if (power_vector_avg > 10.0) {
 		calorie_tot = calorie_tot+(4*power_vector_avg+350)*(stroke_elapsed)/(4.1868 * 1000);
 		}
@@ -1559,6 +1577,10 @@ while (true) {
 		force_count++;
 	}
 		
+	if (force_count == FORCE_COUNT_MAX) { 
+		start_force = 0;
+	}	
+	
 	/***********************************************
 	find max_force
 	************************************************/	
@@ -1571,25 +1593,26 @@ while (true) {
 			}	
 		}
 		max_force16 = ((uint16_t)max_force)*FORCE_DIVIDER/10;
-		if (max_force16 <= 3.0) {
+		if (max_force16 <= 10.0) {
 			force_count = 0;
 		}	
 	}
 	
 	
-	if ((force_plotting == 1) & (force_count == FORCE_COUNT_MAX) & (max_force16 > 3.0))  {//we have new data
+	if ((force_plotting == 1) & (force_count == FORCE_COUNT_MAX))  {//we have new data
 		
 		/***********************************************
 		smooth force_vector
 		************************************************/	
 		max_force = 0;
-		for (j=0;j<FORCE_COUNT_MAX-4; j++) {
-			force_vector[j] = (force_vector[j] + force_vector[j+4])/16 + (force_vector[j+1] + force_vector[j+3])/4+ 3*force_vector[j+2]/8;
+		for (j=0;j<FORCE_COUNT_MAX-5; j++) {
+			force_vector[j] = (force_vector[j] + force_vector[j+5])/32 + 3*force_vector[j+1]/32 + 3*force_vector[j+4]/32 +(force_vector[j+1]+force_vector[j+4])/16
+								+ 5*force_vector[j+2]/16 + 5*force_vector[j+3]/16;
 		}
 		
 		//plot it
 		lcd_clear();
-		for (j =0;j<FORCE_COUNT_MAX; j++) {
+		for (j =0;j<FORCE_COUNT_MAX-5; j++) {
 		lcd_column(j,force_vector [j]);
 		}
 		
@@ -1638,12 +1661,11 @@ while (true) {
 		}
 		else {
 				fprintf_P(&lcd_out,PSTR("%2d:%02d"), split_mins, split_secs);
-		}
-		
+		}		
 		force_count = 0;
 	}
 	if ((start_force == 1) & (force_count < FORCE_COUNT_MAX)) {
-		chThdSleepMilliseconds(18);
+		chThdSleepMilliseconds(15);
 	}
 	else {
 	chThdSleepMilliseconds(50);
@@ -1669,9 +1691,9 @@ THD_WORKING_AREA(waThread3, 90);//90
 THD_WORKING_AREA(waThread4, 130);//150
 THD_WORKING_AREA(waThread5, 86);//96
 THD_WORKING_AREA(waThread6, 105);//110
-THD_WORKING_AREA(waThread7, 150);//80
+THD_WORKING_AREA(waThread7, 140);//80
 THD_WORKING_AREA(waThread8, 60); //80
-THD_WORKING_AREA(waThread9, 135); //90
+THD_WORKING_AREA(waThread9, 145); //90
 //THD_WORKING_AREA(waTimer, 20); //just for completeness, commented out here because defined in time.c
 
 
