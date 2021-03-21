@@ -40,12 +40,7 @@
  * @note    This number is not inclusive of the idle thread which is
  *          Implicitly handled.
  */
-#ifdef SERIAL_USED
 #define NIL_CFG_NUM_THREADS                 10
-#else
-#define NIL_CFG_NUM_THREADS                 9
-#endif
-
 
 /** @} */
 

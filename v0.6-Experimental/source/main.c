@@ -19,9 +19,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-//#define SERIAL_USED
 #define ARDUINO
-
 #define PROD
 //#undef PROD
 
@@ -34,9 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <avr/io.h>
 #include "avr_heap.h"
 
-#ifdef SERIAL_USED
 #include "usart.h"
-#endif
 	
 #include "time.h"
 #include <math.h>
@@ -47,8 +43,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define DELTA 0.0001
 #define DOUBLE_SIXTY 60.0
 #define ZERO 0.0
-#define FORCE_COUNT_MAX 46
-#define FORCE_DIVIDER 30
+#define FORCE_COUNT_MAX 42
+#define FORCE_DIVIDER 25
 
 /********************************************************************************
 Defines - erg
@@ -58,7 +54,7 @@ Defines - erg
 #define	RIGHT		bit_is_clear(PIND, PD7)
 
 /*number of constants for averaging*/
-#define MAX_N	5
+#define MAX_N	4
 
 /********************************************************************************
     Constants - erg
@@ -87,9 +83,7 @@ Global Variables - NIL
 ********************************************************************************/
 static FILE lcd_out = FDEV_SETUP_STREAM(lcd_chr_printf, NULL, _FDEV_SETUP_WRITE);
 
-#ifdef SERIAL_USED
 static FILE usart_out = FDEV_SETUP_STREAM(usart_putchar_printf, NULL, _FDEV_SETUP_WRITE);
-#endif
 
 volatile uint8_t lcd_context = 0; //which thread has LCD_context
 volatile uint8_t lcd_context_count[6] = {1,1,1,1,1,1}; //start screen within thread
@@ -149,23 +143,18 @@ static double split_time = 0.0;
 
 static uint8_t chop_ticks = 0;
 
-static double average_SPM = ZERO;
 static double volatile distance_rowed = ZERO;
 
 static uint16_t volatile chop_counter[2];	
-static double stroke_vector[MAX_N];
+
 static double stroke_vector_avg;
-static double power_vector[MAX_N];
 static double power_vector_avg;
 static double calorie_tot = ZERO;
 static double K_power = ZERO;
 static double J_power = ZERO;
-static double power_ratio_vector[MAX_N];
-static double K_damp_estimator_vector[MAX_N];
 static double K_damp_estimator_vector_avg;
 
 static double K_damp_estimator = ZERO;
-static double speed_vector[MAX_N];
 static double speed_vector_avg = ZERO;
 static double power_ratio_vector_avg = ZERO;
 
@@ -186,18 +175,10 @@ static uint8_t omega_dot_screen = 0;
 static uint8_t omega_dot_dot_screen = 0;
 static uint8_t power_stroke_screen[2];
 
-static uint8_t force_vector[FORCE_COUNT_MAX];
-static double temp_force_value = ZERO;
-static uint8_t max_force;
-static uint16_t max_force16;
-
 static uint16_t stroke = 0;
 static uint8_t j = 0;
 
 static TIME t_stroke, t_power;
-
-
-
 
 
 /*********************************************************************************
@@ -768,6 +749,9 @@ Thread 3 - LCD write out all the erg data
 ********************************************************************************/ 
 THD_FUNCTION(Thread3, arg) {
 	(void)arg;
+	
+	double average_SPM = ZERO;
+
 	tp[0] = chThdGetSelfX(); //returns a pointer to current thread
 	
 	while (true) {
@@ -1062,7 +1046,7 @@ THD_FUNCTION(Thread4, arg) {
 					}	
 					bigfont = 0;
 					lcd_go_up_one();
-					fprintf_P(&lcd_out,PSTR(" W   "));
+					fprintf_P(&lcd_out,PSTR("  W   "));
 					
 					lcd_goto_xy(1,6);
 					bigfont = 1;
@@ -1176,7 +1160,7 @@ THD_FUNCTION(Thread5, arg) {
 						fprintf_P(&lcd_out,PSTR("------"));
 					}
 					else {
-						fprintf_P(&lcd_out,PSTR("%1.4f"), -1*K_damp_estimator_vector[0]);
+						fprintf_P(&lcd_out,PSTR("%1.4f"), -1*K_damp_estimator_vector_avg);
 					}
 					lcd_goto_xy(1,5);
 					fprintf_P(&lcd_out,PSTR("J"));
@@ -1208,7 +1192,7 @@ THD_FUNCTION(Thread5, arg) {
 						fprintf_P(&lcd_out,PSTR("%1.0f W   "), K_damp*pow(omega_vector_avg_curr,3.0));
 					}
 					lcd_goto_xy(1,5);		
-					fprintf_P(&lcd_out,PSTR("Firmware v0.6"));
+					fprintf_P(&lcd_out,PSTR("Firmware v0.61"));
 					break;
 			}//switch
 		chThdSleepMilliseconds(250);			
@@ -1264,6 +1248,12 @@ Thread 7 -  chopper data calculator
 THD_FUNCTION(Thread7, arg) {
 
   (void)arg; 
+  double stroke_vector[MAX_N];
+  double power_vector[MAX_N];
+  double power_ratio_vector[MAX_N];
+  double K_damp_estimator_vector[MAX_N];
+  double speed_vector[MAX_N];
+
 	
 	/************************************************
 	Set switch inputs
@@ -1387,7 +1377,6 @@ THD_FUNCTION(Thread7, arg) {
 		GetTime(&t_power);
 		J_power = 0.0;
 		K_power = 0.0;
-		K_damp_estimator_vector[4]= K_damp_estimator_vector[3];
 		K_damp_estimator_vector[3]= K_damp_estimator_vector[2];
 		K_damp_estimator_vector[2]= K_damp_estimator_vector[1];
 		K_damp_estimator_vector[1]= K_damp_estimator_vector[0];
@@ -1414,7 +1403,6 @@ THD_FUNCTION(Thread7, arg) {
 		stroke_distance_old = distance_rowed;
 		
 //		reshuffle(speed_vector);
-		speed_vector[4]= speed_vector[3];
 		speed_vector[3]= speed_vector[2];
 		speed_vector[2]= speed_vector[1];
 		speed_vector[1]= speed_vector[0];
@@ -1424,7 +1412,6 @@ THD_FUNCTION(Thread7, arg) {
 		parse_time((split_time/DOUBLE_SIXTY), &split_hours, &split_mins, &split_secs);
 
 //		reshuffle(power_ratio_vector);
-		power_ratio_vector[4]= power_ratio_vector[3];
 		power_ratio_vector[3]= power_ratio_vector[2];
 		power_ratio_vector[2]= power_ratio_vector[1];
 		power_ratio_vector[1]= power_ratio_vector[0];
@@ -1432,7 +1419,6 @@ THD_FUNCTION(Thread7, arg) {
 		power_ratio_vector_avg = weighted_avg(power_ratio_vector);
 
 //		reshuffle(power_vector);
-		power_vector[4]= power_vector[3];
 		power_vector[3]= power_vector[2];
 		power_vector[2]= power_vector[1];
 		power_vector[1]= power_vector[0];
@@ -1444,7 +1430,6 @@ THD_FUNCTION(Thread7, arg) {
 		}
 		
 //		reshuffle(stroke_vector);		
-		stroke_vector[4]= stroke_vector[3];
 		stroke_vector[3]= stroke_vector[2];
 		stroke_vector[2]= stroke_vector[1];
 		stroke_vector[1]= stroke_vector[0];
@@ -1475,7 +1460,6 @@ THD_FUNCTION(Thread7, arg) {
 
 
 
-#ifdef SERIAL_USED
 /*********************************************************************************
 Thread 8 -  autonomous task, triggered at start, runs UART
 ********************************************************************************/ 
@@ -1516,7 +1500,6 @@ THD_FUNCTION(Thread8, arg) {
       
     }  
 }//THREAD8
-#endif
 
 
 /*********************************************************************************
@@ -1527,6 +1510,11 @@ THD_FUNCTION(Thread9, arg) {
 // thread name or number
 
 (void)arg; 
+double temp_force_value = ZERO;
+uint8_t max_force;
+uint16_t max_force16;
+uint8_t force_vector[FORCE_COUNT_MAX];
+
 
 tp[4] = chThdGetSelfX();//returns a pointer to current thread
 
@@ -1595,8 +1583,8 @@ while (true) {
 		smooth force_vector
 		************************************************/	
 		max_force = 0;
-		for (j=0;j<FORCE_COUNT_MAX-5; j++) {
-			force_vector[j] = (force_vector[j] + force_vector[j+5])/16 + (force_vector[j+1] + force_vector[j+4])/4+ 3*force_vector[j+3]/8;
+		for (j=0;j<FORCE_COUNT_MAX-4; j++) {
+			force_vector[j] = (force_vector[j] + force_vector[j+4])/16 + (force_vector[j+1] + force_vector[j+3])/4+ 3*force_vector[j+2]/8;
 		}
 		
 		//plot it
@@ -1616,12 +1604,12 @@ while (true) {
 		/***********************************************
 			update stroke count  
 		************************************************/	
-		lcd_goto_xy(7,2);
+		lcd_goto_xy(8,2);
 		fprintf_P(&lcd_out,PSTR("S# %d "), stroke);
 		/***********************************************
 			update SPM  
 		************************************************/	
-		lcd_goto_xy(7,3);
+		lcd_goto_xy(8,3);
 		if (stroke < 5) {
 			fprintf_P(&lcd_out,PSTR("-- SPM"));
 		}
@@ -1632,12 +1620,12 @@ while (true) {
 		/***********************************************
 			update average power
 		************************************************/				
-		lcd_goto_xy(7,4);
+		lcd_goto_xy(9,4);
 		if (stroke < 5) {
 			fprintf_P(&lcd_out,PSTR("--- W"));
 		}
 		else {
-			fprintf_P(&lcd_out,PSTR("%1.0f W  "), power_vector_avg);
+			fprintf_P(&lcd_out,PSTR("%1.0f W "), power_vector_avg);
 		}
 		
 		/***********************************************
@@ -1655,7 +1643,7 @@ while (true) {
 		force_count = 0;
 	}
 	if ((start_force == 1) & (force_count < FORCE_COUNT_MAX)) {
-		chThdSleepMilliseconds(20);
+		chThdSleepMilliseconds(18);
 	}
 	else {
 	chThdSleepMilliseconds(50);
@@ -1675,17 +1663,15 @@ Notes:
 4. Names of threads don't matter, order does!!!
 ********************************************************************************/ 
 
-THD_WORKING_AREA(waThread1, 16);
-THD_WORKING_AREA(waThread2, 90);
-THD_WORKING_AREA(waThread3, 90);
-THD_WORKING_AREA(waThread4, 150);
-THD_WORKING_AREA(waThread5, 96);
-THD_WORKING_AREA(waThread6, 110);
-THD_WORKING_AREA(waThread7, 80);
-#ifdef SERIAL_USED
-THD_WORKING_AREA(waThread8, 80); 
-#endif
-THD_WORKING_AREA(waThread9, 90); 
+THD_WORKING_AREA(waThread1, 11);//16
+THD_WORKING_AREA(waThread2, 75);//90
+THD_WORKING_AREA(waThread3, 90);//90
+THD_WORKING_AREA(waThread4, 130);//150
+THD_WORKING_AREA(waThread5, 86);//96
+THD_WORKING_AREA(waThread6, 105);//110
+THD_WORKING_AREA(waThread7, 150);//80
+THD_WORKING_AREA(waThread8, 60); //80
+THD_WORKING_AREA(waThread9, 135); //90
 //THD_WORKING_AREA(waTimer, 20); //just for completeness, commented out here because defined in time.c
 
 
@@ -1698,9 +1684,7 @@ THD_TABLE_BEGIN
   THD_TABLE_ENTRY(waTimer, NULL, timer, NULL)     //declared in time.c
   THD_TABLE_ENTRY(waThread6, NULL, Thread6, NULL) //Stack Output via LCD
   THD_TABLE_ENTRY(waThread5, NULL, Thread5, NULL) //LCD information
-#ifdef SERIAL_USED
-  THD_TABLE_ENTRY(waThread8, NULL, Thread8, NULL) //Stack Output via USART
-#endif  
+  THD_TABLE_ENTRY(waThread8, NULL, Thread8, NULL) //Stack Output via USART 
   THD_TABLE_ENTRY(waThread9, NULL, Thread9, NULL) //Force measurement
 THD_TABLE_END
 

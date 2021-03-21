@@ -29,11 +29,7 @@
 #include <avr/io.h>
 #include "avr_heap.h"
 #include "nil.h"
-
-#ifdef SERIAL_USED
 #include "usart.h"
-#endif
-
 #include "lcd.h"
 
 #ifdef SERIAL_USED
