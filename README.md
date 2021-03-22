@@ -32,7 +32,7 @@ ErgWare is an open source hardware/software platform for DIY ergometers. All of 
 
 #### v0.5 ####
 - code to work with a "regular" Arduino UNO rev3
-- "*.ino" files ... can be flashed from usual "Arduino" environment
+- *.ino files ... a "sketch" can be uploaded from usual "Arduino" environment
 - A pdf with detailed setup & build instructions are in the v0.5 folder
 - NOTE: you still MUST access the board over ISP to set the EESAVE fuse (see instructions),
   so you will need an external programmer (like stk500, usbasp, ponyprog, another UNO board, etc...) 
@@ -44,9 +44,10 @@ ErgWare is an open source hardware/software platform for DIY ergometers. All of 
 
 #### v0.6 - Experimental ####
 - experimental code displaying the "force curve" at each stroke
-- built on Arduino-Uno code v0.5
+- also implements a more robust stroke count algorithm
+- built on Arduino-Uno code v0.4, can make a "sketch" version like v0.5 if needed
 - assumes 16MHz crystal/clock
-- see pdf for screenshot
+- see pdf for screenshot of the force curve
 
 #### TO USE THIS: ####
 1. Build your erg ... openergo.webs.com
