@@ -24,12 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 static uint32_t volatile Seconds=0;
 static uint16_t volatile MilliSeconds=0;
-static uint32_t volatile cnt_timer=0;
 static systime_t volatile System_time, System_delta;
 
 void TimeInit(void)
 {
-	cnt_timer = 0;
 	System_time = chVTGetSystemTimeX();	 
 }
 
@@ -37,7 +35,7 @@ void TimeInit(void)
 /*
  * Support thread.
  */
-THD_WORKING_AREA(waTimer, 20);
+THD_WORKING_AREA(waTimer, 15);
 THD_FUNCTION(timer, arg) {
   (void) arg;
   /* Initializing global resources.*/
@@ -54,7 +52,6 @@ THD_FUNCTION(timer, arg) {
 	if (MilliSeconds>=999)
 	{
 		Seconds++;
-		cnt_timer++;
 		MilliSeconds=0;
 		minute_counter = (double) Seconds/60.0;
 	}
@@ -109,19 +106,6 @@ uint32_t getSeconds(void)
 	//TIMSK0=TIMSK0 | (1<<OCIE0A); //Timer0 compare A interrupt ON
 	chSysUnlock();
 	return temp;
-}
-
-void Reset_timer(void)
-{
-
-	//TIMSK0=TIMSK0 & ~(1<<OCIE0A); //Timer0 compare A interrupt OFF
-	chSysLock(); 
-	//set the time variables
-	Seconds = 0;
-	//turn ISR back on
-	//TIMSK0=TIMSK0 | (1<<OCIE0A); //Timer0 compare A interrupt ON
-	chSysUnlock(); 
-
 }
 
 

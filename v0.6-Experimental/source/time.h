@@ -32,7 +32,7 @@ typedef struct {
 	uint16_t milliseconds_time;   //milliseconds counter
 } TIME; 
 
-extern THD_WORKING_AREA(waTimer, 20);
+extern THD_WORKING_AREA(waTimer, 15);
 extern double minute_counter;
 THD_FUNCTION(timer, arg);
 
@@ -42,7 +42,6 @@ void GetTime(TIME *ptr); //gets time
 uint32_t Get_elapsed_ms(TIME *pStart); //elapsed ms
 uint32_t Get_elapsed_s(TIME *pStart); //elapsed s
 uint32_t getSeconds(void); //# seconds powered
-void  Reset_timer(void); //resets the timer
 
 #endif //__TIME_H
 

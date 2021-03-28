@@ -54,7 +54,7 @@ Defines - erg
 #define	RIGHT		bit_is_clear(PIND, PD7)
 
 /*number of constants for averaging*/
-#define MAX_N	4
+#define MAX_N	5
 
 /********************************************************************************
     Constants - erg
@@ -155,7 +155,6 @@ static double J_power = ZERO;
 static double K_damp_estimator_vector_avg;
 
 static double K_damp_estimator = ZERO;
-static double speed_vector_avg = ZERO;
 static double power_ratio_vector_avg = ZERO;
 
 static double stroke_elapsed = ZERO;
@@ -198,14 +197,14 @@ static void parse_time(double time_in_min, uint8_t *hours, uint8_t *mins, uint8_
 /*********************************************************************************
 weighted_avg_function
 ********************************************************************************/ 
-static double  weighted_avg(double *vector) {
+static double  weighted_avg(double *vector, uint8_t *position) {
 double temp_weight, temp_sum;
 uint8_t j;
 temp_sum = ZERO;
 temp_weight = ZERO;
 	for (j =0;j<MAX_N; j++) {
 		temp_weight += pow(2,MAX_N-j-1);
-		temp_sum += pow(2,MAX_N-j-1) * vector[j];
+		temp_sum += pow(2,MAX_N-j-1) * vector[(*position + MAX_N -j)% MAX_N];
 	}
 	temp_sum = temp_sum/temp_weight;
 return temp_sum;
@@ -374,7 +373,6 @@ Thread1 - handles all the button context, gets woken up from button press timer 
 THD_FUNCTION(Thread1, arg) {
 
   (void)arg;
-  msg_t msg;
     
   /************************************************
 	Set switch inputs
@@ -410,7 +408,7 @@ THD_FUNCTION(Thread1, arg) {
 	/* Current thread put to sleep & sets up the reference variable trp for the trigger to reference */
 	/* Will resume with a chThdResumeI referencing trp from interrupt*/
 	
-    msg = chThdSuspendTimeoutS(&trp_button_detect, TIME_INFINITE);
+    chThdSuspendTimeoutS(&trp_button_detect, TIME_INFINITE);
     chSysUnlock(); 
 	switch (lcd_context) {
 		case 0:	
@@ -605,7 +603,6 @@ THD_FUNCTION(Thread2, arg) {
 
 
   (void)arg;
-   msg_t msg;
 
     initMenu(); // initialize menu by adding menu data to menu globals
 	
@@ -613,7 +610,7 @@ THD_FUNCTION(Thread2, arg) {
 	chSemWait(&lcdUSE);
 	lcd_init();
 	#ifdef PROD 
-	lcd_contrast(0x34);//0x28 for production application
+	lcd_contrast(0x44);//0x28 for production application
 	#else //PROD
 	lcd_contrast(0x3E);//0x3E for STK500 board
 	#endif //PROD
@@ -634,7 +631,7 @@ THD_FUNCTION(Thread2, arg) {
 	/* Waiting for button push & IRQ to happen */
 	/* Current thread put to sleep & sets up the reference variable trp for the trigger to reference */
 	/* Will resume with a chThdResumeI referencing trp from interrupt*/
-	msg = chThdSuspendTimeoutS(&trp_start, TIME_INFINITE);
+	chThdSuspendTimeoutS(&trp_start, TIME_INFINITE);
 	chSysUnlock(); 
 
  
@@ -657,7 +654,7 @@ THD_FUNCTION(Thread2, arg) {
 		/* Current thread put to sleep & sets up the reference variable trp for the trigger to reference */
 		/* Will resume with a chThdResumeI referencing trp from interrupt*/
 	
-		msg = chThdSuspendTimeoutS(&trp_menu, TIME_INFINITE);
+		chThdSuspendTimeoutS(&trp_menu, TIME_INFINITE);
 		chSysUnlock(); 
 
 		
@@ -1193,7 +1190,7 @@ THD_FUNCTION(Thread5, arg) {
 						fprintf_P(&lcd_out,PSTR("%1.0f W   "), K_damp*pow(omega_vector_avg_curr,3.0));
 					}
 					lcd_goto_xy(1,5);		
-					fprintf_P(&lcd_out,PSTR("Firmware v0.62"));
+					fprintf_P(&lcd_out,PSTR("Firmware v0.64"));
 					break;
 			}//switch
 		chThdSleepMilliseconds(250);			
@@ -1257,6 +1254,9 @@ THD_FUNCTION(Thread7, arg) {
   uint8_t counter_temp = 0;
   uint16_t counter_vec[4];
   uint16_t avg_time = 0;
+  uint8_t position1 = 0;
+  uint8_t position2 = 0;
+  
 
 
 	
@@ -1276,7 +1276,6 @@ THD_FUNCTION(Thread7, arg) {
 	EICRA = 0b00000011; //rising edge INT0 (PD2)
 	EIMSK = 0b00000001;
 	TCNT1 = 0;
-	msg_t msg;
 	
 /***********************************************
 	calculate other constants & setup
@@ -1333,7 +1332,7 @@ THD_FUNCTION(Thread7, arg) {
 	/* Waiting for chopper & IRQ to happen */
 	/* Current thread put to sleep & sets up the reference variable trp_chopper for the trigger to reference */
 	/* Will resume with a chThdResumeI referencing trp from interrupt*/
-    msg = chThdSuspendTimeoutS(&trp_chopper, TIME_INFINITE);
+    chThdSuspendTimeoutS(&trp_chopper, TIME_INFINITE);
     chSysUnlock();
 
 	/***********************************************
@@ -1392,11 +1391,9 @@ THD_FUNCTION(Thread7, arg) {
 		GetTime(&t_power);
 		J_power = 0.0;
 		K_power = 0.0;
-		K_damp_estimator_vector[3]= K_damp_estimator_vector[2];
-		K_damp_estimator_vector[2]= K_damp_estimator_vector[1];
-		K_damp_estimator_vector[1]= K_damp_estimator_vector[0];
-		K_damp_estimator_vector[0] = K_damp_estimator/(stroke_elapsed-power_elapsed+.000001);
-		K_damp_estimator_vector_avg = weighted_avg(K_damp_estimator_vector);
+		K_damp_estimator_vector[position1] = K_damp_estimator/(stroke_elapsed-power_elapsed+.000001);
+		K_damp_estimator_vector_avg = weighted_avg(K_damp_estimator_vector, &position1);
+		position1 = (position1 + 1) % MAX_N;
 		omega_vector_avg = omega_vector_avg + omega_vector[0]*current_dt;
 	}
 	
@@ -1418,27 +1415,18 @@ THD_FUNCTION(Thread7, arg) {
 		stroke_distance_old = distance_rowed;
 		
 //		reshuffle(speed_vector);
-		speed_vector[3]= speed_vector[2];
-		speed_vector[2]= speed_vector[1];
-		speed_vector[1]= speed_vector[0];
-		speed_vector[0] = stroke_distance/(stroke_elapsed +DELTA);
-		speed_vector_avg = weighted_avg(speed_vector);
-		split_time = 500.0/(speed_vector_avg+DELTA);
+		speed_vector[position2] = stroke_distance/(stroke_elapsed +DELTA);
+		split_time = weighted_avg(speed_vector, &position2);
+		split_time = 500.0/(split_time+DELTA);
 		parse_time((split_time/DOUBLE_SIXTY), &split_hours, &split_mins, &split_secs);
 
 //		reshuffle(power_ratio_vector);
-		power_ratio_vector[3]= power_ratio_vector[2];
-		power_ratio_vector[2]= power_ratio_vector[1];
-		power_ratio_vector[1]= power_ratio_vector[0];
-		power_ratio_vector[0] = power_elapsed/(stroke_elapsed + DELTA);
-		power_ratio_vector_avg = weighted_avg(power_ratio_vector);
+		power_ratio_vector[position2] = power_elapsed/(stroke_elapsed + DELTA);
+		power_ratio_vector_avg = weighted_avg(power_ratio_vector, &position2);
 
 //		reshuffle(power_vector);
-		power_vector[3]= power_vector[2];
-		power_vector[2]= power_vector[1];
-		power_vector[1]= power_vector[0];
-		power_vector[0]= (J_power + K_power)/(stroke_elapsed + DELTA);
-		power_vector_avg = weighted_avg(power_vector);
+		power_vector[position2]= (J_power + K_power)/(stroke_elapsed + DELTA);
+		power_vector_avg = weighted_avg(power_vector, &position2);
 		if (power_vector_avg > 999.0) {
 			power_vector_avg = 999.0;
 		}
@@ -1448,11 +1436,9 @@ THD_FUNCTION(Thread7, arg) {
 		}
 		
 //		reshuffle(stroke_vector);		
-		stroke_vector[3]= stroke_vector[2];
-		stroke_vector[2]= stroke_vector[1];
-		stroke_vector[1]= stroke_vector[0];
-		stroke_vector[0]= stroke_elapsed;
-		stroke_vector_avg = weighted_avg(stroke_vector);
+		stroke_vector[position2]= stroke_elapsed;
+		stroke_vector_avg = weighted_avg(stroke_vector,&position2);
+		position2 = (position2 + 1) % MAX_N;
 	}
 
 	/*********************************************************
@@ -1685,16 +1671,16 @@ Notes:
 4. Names of threads don't matter, order does!!!
 ********************************************************************************/ 
 
-THD_WORKING_AREA(waThread1, 11);//16
-THD_WORKING_AREA(waThread2, 75);//90
+THD_WORKING_AREA(waThread1, 6);//16
+THD_WORKING_AREA(waThread2, 82);//90
 THD_WORKING_AREA(waThread3, 90);//90
 THD_WORKING_AREA(waThread4, 130);//150
 THD_WORKING_AREA(waThread5, 86);//96
 THD_WORKING_AREA(waThread6, 105);//110
-THD_WORKING_AREA(waThread7, 140);//80
+THD_WORKING_AREA(waThread7, 154);//80
 THD_WORKING_AREA(waThread8, 60); //80
 THD_WORKING_AREA(waThread9, 145); //90
-//THD_WORKING_AREA(waTimer, 20); //just for completeness, commented out here because defined in time.c
+//THD_WORKING_AREA(waTimer, 15); //just for completeness, commented out here because defined in time.c
 
 
 THD_TABLE_BEGIN  
