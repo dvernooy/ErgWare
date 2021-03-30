@@ -61,7 +61,7 @@ Defines - erg
 ********************************************************************************/
 static double J_moment = 0.16; //kg*m^2 - set this to the moment of inertia of your flywheel. 
 						//look at documentation for ways to measure it. Its easy to do.
-static double d_omega_div_omega2 = 0.0031;//erg_constant - to get this for your erg:
+static double d_omega_div_omega2 = 0.0028;//erg_constant - to get this for your erg:
 // Uncomment the code below that writes out the constant K_damp_esimator_vector[0]. Then run the erg, 
 //run that version of the software, get the number and add it to this line, then re-compile.
 //It should be close to value above.  I decided just to hard code it instead of dynamically updating 
@@ -126,7 +126,7 @@ static uint8_t menuactn[maxMenus][maxItems]; // menu actions - turn on LED or wh
 static uint8_t menuitemcount[maxMenus]; // holds number of menu items in each menu
 
 static uint8_t squelched = 0;
-static uint16_t squelch_count = 0;
+static uint8_t squelch_count = 0;
 static uint8_t trapped = 0;
 
 /********************************************************************************
@@ -185,13 +185,12 @@ time parser
 ********************************************************************************/ 
 
 static void parse_time(double time_in_min, uint8_t *hours, uint8_t *mins, uint8_t *secs) {
-	double temp_min;
-	double temp_secs;
+	double temp_value;
 	*hours = (uint8_t) (time_in_min/60);
-	temp_min = time_in_min - (double) DOUBLE_SIXTY * (*hours);
-		*mins = (uint8_t) temp_min;
-	temp_secs = DOUBLE_SIXTY*temp_min -  DOUBLE_SIXTY *(double) (*mins);
-		*secs = (uint8_t) temp_secs;
+	temp_value = time_in_min - (double) DOUBLE_SIXTY * (*hours);
+		*mins = (uint8_t) temp_value;
+	temp_value = DOUBLE_SIXTY*temp_value -  DOUBLE_SIXTY *(double) (*mins);
+		*secs = (uint8_t) temp_value;
 }
 
 /*********************************************************************************
@@ -746,8 +745,6 @@ Thread 3 - LCD write out all the erg data
 THD_FUNCTION(Thread3, arg) {
 	(void)arg;
 	
-	double average_SPM = ZERO;
-
 	tp[0] = chThdGetSelfX(); //returns a pointer to current thread
 	
 	while (true) {
@@ -801,8 +798,7 @@ THD_FUNCTION(Thread3, arg) {
 				fprintf_P(&lcd_out,PSTR("avg --"));
 			}
 			else {
-				average_SPM = (double) stroke/((double)elapsed_hours*DOUBLE_SIXTY+(double)elapsed_mins+(double)elapsed_secs/DOUBLE_SIXTY);
-				fprintf_P(&lcd_out,PSTR("avg %2.0f"), average_SPM);
+				fprintf_P(&lcd_out,PSTR("avg %2.0f"), (double) stroke/((double)elapsed_hours*DOUBLE_SIXTY+(double)elapsed_mins+(double)elapsed_secs/DOUBLE_SIXTY));
 			}	
 	
 			/***********************************************
@@ -1428,7 +1424,7 @@ THD_FUNCTION(Thread7, arg) {
 		power_vector[position2]= (J_power + K_power)/(stroke_elapsed + DELTA);
 		power_vector_avg = weighted_avg(power_vector, &position2);
 		if (power_vector_avg > 999.0) {
-			power_vector_avg = 999.0;
+			power_vector_avg = 0.0;
 		}
 
 		if (power_vector_avg > 10.0) {
