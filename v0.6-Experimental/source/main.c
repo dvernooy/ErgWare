@@ -43,6 +43,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define DELTA 0.0001
 #define DOUBLE_SIXTY 60.0
 #define ZERO 0.0
+#define W_DOT_DOT_MIN -60.0
+#define W_DOT_DOT_MAX 60.0
+#define W_DOT_MIN 0.0
 #define FORCE_COUNT_MAX 48
 #define FORCE_DIVIDER 28
 
@@ -900,6 +903,11 @@ THD_FUNCTION(Thread4, arg) {
 						fprintf_P(&lcd_out,PSTR(" m "));
 						lcd_goto_xy(10,6);
 						fprintf_P(&lcd_out,PSTR("--:--"));
+						
+						/*
+						lcd_goto_xy(6,6);
+						fprintf_P(&lcd_out,PSTR("cals     "));
+						*/
 						internal_distance_rowed = 0;
 					}
 					/*now inside loop, wait for signal from thread1 button handler start internal timer*/
@@ -996,12 +1004,17 @@ THD_FUNCTION(Thread4, arg) {
 									bigfont = 1;
 									fprintf_P(&lcd_out,PSTR("%2d:%02d"), split_mins, split_secs);
 									bigfont = 0;
-
+									
+									/*LUCA special
+									lcd_goto_xy(10,6);
+									fprintf_P(&lcd_out,PSTR("%3.0f"),calorie_tot);
+									*/
+									
 									//average split
 									ias_count++;
 									internal_average_split += 500.0*internal_timer_elapsed/(internal_distance_rowed+DELTA);
-
-									if (ias_count %50 ==0) {
+									
+									if (ias_count %50 ==0) {	
 										lcd_goto_xy(10,6);
 										internal_average_split = internal_average_split/50;
 										parse_time((internal_average_split/DOUBLE_SIXTY), &internal_split_hours, &internal_split_mins, &internal_split_secs);
@@ -1186,7 +1199,7 @@ THD_FUNCTION(Thread5, arg) {
 						fprintf_P(&lcd_out,PSTR("%1.0f W   "), K_damp*pow(omega_vector_avg_curr,3.0));
 					}
 					lcd_goto_xy(1,5);		
-					fprintf_P(&lcd_out,PSTR("Firmware v0.64"));
+					fprintf_P(&lcd_out,PSTR("Firmware v0.66"));
 					break;
 			}//switch
 		chThdSleepMilliseconds(250);			
@@ -1352,13 +1365,13 @@ THD_FUNCTION(Thread7, arg) {
 	calculate screeners to find power portion of stroke - see spreadsheet if you want to understand this
 	************************************************/
 	
-	if ((omega_dot_dot > -40.0) && (omega_dot_dot < 40.0)) {
+	if ((omega_dot_dot > W_DOT_DOT_MIN) && (omega_dot_dot < W_DOT_DOT_MAX)) {
 		omega_dot_dot_screen = 0;
 	}
 	else {
 		omega_dot_dot_screen = 1;
 	}
-	if (omega_dot_vector[0] > 15) {
+	if (omega_dot_vector[0] > W_DOT_MIN) {
 		omega_dot_screen = 1;
 	}
 	else {
@@ -1390,7 +1403,6 @@ THD_FUNCTION(Thread7, arg) {
 		K_damp_estimator_vector[position1] = K_damp_estimator/(stroke_elapsed-power_elapsed+.000001);
 		K_damp_estimator_vector_avg = weighted_avg(K_damp_estimator_vector, &position1);
 		position1 = (position1 + 1) % MAX_N;
-		omega_vector_avg = omega_vector_avg + omega_vector[0]*current_dt;
 	}
 	
 	/*********************************************************
@@ -1440,7 +1452,7 @@ THD_FUNCTION(Thread7, arg) {
 	/*********************************************************
 	if inside power stroke
 	**********************************************************/
-	if ((power_stroke_screen[0] ==1) && (power_stroke_screen[1] ==1)) {
+	if (power_stroke_screen[0] ==1) {
 		J_power = J_power + J_moment * omega_vector[0]*omega_dot_vector[0]*current_dt;
 		K_power = K_power + K_damp*(omega_vector[0]*omega_vector[0]*omega_vector[0])*current_dt;
 		omega_vector_avg = omega_vector_avg + omega_vector[0]*current_dt;
@@ -1450,7 +1462,7 @@ THD_FUNCTION(Thread7, arg) {
 	/*********************************************************
 	if in decay stroke
 	**********************************************************/
-	if ((power_stroke_screen[0] ==0) && (power_stroke_screen[1] ==0)) {
+	if (power_stroke_screen[0] ==0) {
 		K_damp_estimator = K_damp_estimator+(omega_dot_vector[0]/((omega_vector[0]+DELTA)*(omega_vector[0]+DELTA)))*current_dt;
 		omega_vector_avg = omega_vector_avg + omega_vector[0]*current_dt;
 	}
