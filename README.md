@@ -7,6 +7,10 @@ ErgWare is an open source hardware/software platform for DIY ergometers. All of 
 - pdf w/ circuit diagram and chopper details
 - pdf w/ details of the screenshots
 - excel spreadsheet with analytical model & data from actual erg
+- included ./v0.11_stroke_debug/ which when compiled will dump stroke data to EEPROM. 
+  You can then read out the EEPROM data & put it into spreadsheet erg_model3.xlsx which
+  will allow you to calculate the d_omega_div_omega2 constant for your erg & to set the 
+  correct "screening" values.  
 
 #### v0.2 ####
 - rewritten using Chibios/Nil RTOS
@@ -42,10 +46,10 @@ ErgWare is an open source hardware/software platform for DIY ergometers. All of 
 - next program the EEPROM (eeprom_burn.ino) to add the font table in eeprom
 - then program the main program program binary (main.ino)
 
-#### v0.6 - Experimental ####
-- experimental code displaying the "force curve" at each stroke
-- also implements a more robust stroke count algorithm
-- built on Arduino-Uno code v0.4, can make a "sketch" version like v0.5 if needed
+#### v0.6 ####
+- Added an app (Fx) to display the "force curve" at each stroke
+- Implements a more robust stroke count algorithm
+- Includes a "sketch" version for Arduino UNO boards that can be programmed from Arduino environment
 - assumes 16MHz crystal/clock
 - see pdf for screenshot of the force curve
 
@@ -56,7 +60,10 @@ ErgWare is an open source hardware/software platform for DIY ergometers. All of 
 4. Build the circuit ... see pdf
 5. Measure or estimate flywheel moment of inertia & add to source code ... will make your numbers more accurate, see main.c
 6. Compile code & flash ... see makefile
-7. [Optional] compile a version of code to measure d_omega_div_omega2, get the number for your erg, put in source code as a constant & recompile. This will make your numbers more accurate ... see main.c & the excel sheet if you really want to understand
+7. [Optional] compile a ./v0.1/v0.11_stroke_debug/main.c to measure the d_omega_div_omega2 value for your erg to put in the source 
+   code as well as the screening values which identify the compoenent parts of the stroke (catch, drive, release, recovery) . 
+   This will make your numbers more accurate. The excel sheet ./v0.1/v0.11_stroke_debug/erg_model3.xlsx has data from 2 very 
+   different ergs that ErgWare is currently running on along with instructions on how to use it.
 8. Have fun!
 
   Dave Vernooy  

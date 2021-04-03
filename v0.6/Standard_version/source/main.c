@@ -43,8 +43,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define DELTA 0.0001
 #define DOUBLE_SIXTY 60.0
 #define ZERO 0.0
-#define W_DOT_DOT_MIN -60.0
-#define W_DOT_DOT_MAX 60.0
+#define W_DOT_DOT_MIN -20.0
+#define W_DOT_DOT_MAX 20.0
 #define W_DOT_MIN 0.0
 #define FORCE_COUNT_MAX 48
 #define FORCE_DIVIDER 28
@@ -901,6 +901,7 @@ THD_FUNCTION(Thread4, arg) {
 						bigfont = 0;
 						lcd_go_up_one();
 						fprintf_P(&lcd_out,PSTR(" m "));
+						
 						lcd_goto_xy(10,6);
 						fprintf_P(&lcd_out,PSTR("--:--"));
 						
@@ -908,6 +909,7 @@ THD_FUNCTION(Thread4, arg) {
 						lcd_goto_xy(6,6);
 						fprintf_P(&lcd_out,PSTR("cals     "));
 						*/
+						
 						internal_distance_rowed = 0;
 					}
 					/*now inside loop, wait for signal from thread1 button handler start internal timer*/
@@ -1167,7 +1169,9 @@ THD_FUNCTION(Thread5, arg) {
 						fprintf_P(&lcd_out,PSTR("------"));
 					}
 					else {
-						fprintf_P(&lcd_out,PSTR("%1.4f"), -1*K_damp_estimator_vector_avg);
+							if((K_damp_estimator_vector_avg > -0.05) & (K_damp_estimator_vector_avg < 0)) {
+								fprintf_P(&lcd_out,PSTR("%1.4f"), -1*K_damp_estimator_vector_avg);
+							}	
 					}
 					lcd_goto_xy(1,5);
 					fprintf_P(&lcd_out,PSTR("J"));
