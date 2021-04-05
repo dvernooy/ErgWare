@@ -1426,28 +1426,25 @@ THD_FUNCTION(Thread7, arg) {
 		stroke_distance = distance_rowed-stroke_distance_old;
 		stroke_distance_old = distance_rowed;
 		
-//		reshuffle(speed_vector);
 		speed_vector[position2] = stroke_distance/(stroke_elapsed +DELTA);
 		split_time = weighted_avg(speed_vector, &position2);
 		split_time = 500.0/(split_time+DELTA);
 		parse_time((split_time/DOUBLE_SIXTY), &split_hours, &split_mins, &split_secs);
 
-//		reshuffle(power_ratio_vector);
 		power_ratio_vector[position2] = power_elapsed/(stroke_elapsed + DELTA);
 		power_ratio_vector_avg = weighted_avg(power_ratio_vector, &position2);
 
-//		reshuffle(power_vector);
 		power_vector[position2]= (J_power + K_power)/(stroke_elapsed + DELTA);
-		power_vector_avg = weighted_avg(power_vector, &position2);
-		if (power_vector_avg > 999.0) {
-			power_vector_avg = 0.0;
+		if (power_vector[position2] > 999.0) {
+			power_vector[position2] = 0.0;
 		}
-
-		if (power_vector_avg > 10.0) {
+		
+		power_vector_avg = weighted_avg(power_vector, &position2);
+		
+		if ((power_vector_avg > 10.0) & (power_vector_avg < 900) & (stroke_elapsed < 6000.0)) {
 		calorie_tot = calorie_tot+(4*power_vector_avg+350)*(stroke_elapsed)/(4.1868 * 1000);
 		}
 		
-//		reshuffle(stroke_vector);		
 		stroke_vector[position2]= stroke_elapsed;
 		stroke_vector_avg = weighted_avg(stroke_vector,&position2);
 		position2 = (position2 + 1) % MAX_N;
